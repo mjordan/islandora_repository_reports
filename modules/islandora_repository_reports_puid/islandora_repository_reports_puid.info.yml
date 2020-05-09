@@ -1,0 +1,8 @@
+name: 'Islandora Repository Reports PUID data source plugin'
+description: "Provides a plugin for the Islandora Repository Reporst module that generates a report of file format by PRONOM PUID."
+type: module
+package: Islandora
+core: 8.x
+dependencies:
+  - islandora_repository_reports
+  - islandora_fits

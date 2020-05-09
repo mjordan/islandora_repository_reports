@@ -1,0 +1,5 @@
+services:
+  islandora_repository_reports.commands:
+    class: \Drupal\islandora_repository_reports\Commands\IslandoraRepositoryReportsCommands
+    tags:
+      - { name: drush.command }

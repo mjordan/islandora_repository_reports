@@ -1,0 +1,10 @@
+islandora_repository_reports.admin_settings:
+  title: 'Islandora Repository Reports settings'
+  description: 'Configure the Islandora Repository Reports settings.'
+  parent: system.admin_config_islandora
+  route_name: islandora_repository_reports.admin_settings
+islandora_repository_reports.report:
+  title: 'Islandora Repository Reports'
+  parent: system.admin_reports
+  description: 'Reports on various aspects of an Islandora repository.'
+  route_name: islandora_repository_reports.report

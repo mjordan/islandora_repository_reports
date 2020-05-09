@@ -1,0 +1,170 @@
+<?php
+
+use Drupal\Core\Url;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * @file
+ * Contains the islandora_repository_reports.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function islandora_repository_reports_theme($existing, $type, $theme, $path) {
+  return [
+    'islandora_repository_reports_chart' => [
+      'variables' => ['form' => null, 'show_csv_link' => null],
+    ],
+  ];
+}
+
+/**
+ * Default preprocessor function for the islandora_repository_reports_theme hook.
+ */
+function template_preprocess_islandora_repository_reports_chart(&$variables) {
+  $variables['attributes'] = [
+    'id' => ['islandora_repository_reports_chart'],
+  ];
+
+  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    $report_type = $tempstore->get('islandora_repository_reports_report_type');
+  }
+  // Set safe default value.
+  if (empty($report_type)) {
+    $report_type = 'mimetype';
+  }
+
+  if ($variables['show_csv_link']) {
+    $files_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+    $filename = 'islandora_repository_reports_' . $report_type . '.csv';
+    $report_url = file_create_url(file_default_scheme() . '://' . $filename);
+    $variables['csv_url'] = $report_url;
+  }
+}
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function islandora_repository_reports_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    $form_state = $tempstore->get('islandora_repository_reports_report_form_values');
+    $media_use_terms = $form_state->getValue('islandora_repository_reports_media_use_terms');
+  }
+  if (empty($num_data_elements)) {
+    $config = \Drupal::config('islandora_repository_reports.settings');
+    $media_use_terms = $config->get('islandora_repository_reports_media_use_terms');
+  }
+
+  $form['islandora_repository_reports_media_use_terms'] = [
+    '#type' => 'textfield',
+    '#size' => 20,
+    '#maxlength' => 256,
+    '#weight' => 0,
+    '#title' => t('Media Use Term IDs'),
+    '#default_value' => $media_use_terms,
+    '#description' => t('A comma-separated list of the IDs of the terms from the Islandora Media Use vocabulary to include in the MIME Type report.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'mimetype'],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function islandora_repository_reports_page_attachments(array &$attachments) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  if ($current_path == '/admin/reports/islandora_repository_reports') {
+    $pie_chart_data = islandora_repository_reports_get_data();
+    $attachments['#attached']['library'][] = 'islandora_repository_reports/islandora_repository_reports_chart';
+    $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_data'] = $pie_chart_data;
+  }
+}
+
+/**
+ * @return object
+ *   A Chart.js dataset object.
+ */
+function islandora_repository_reports_get_data() {
+  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    $report_type = $tempstore->get('islandora_repository_reports_report_type');
+  }
+  // Set safe default value.
+  if (empty($report_type)) {
+    $report_type = 'mimetype';
+  }
+
+  $config = \Drupal::config('islandora_repository_reports.settings');
+  $cache_data = $config->get('islandora_repository_reports_cache_report_data');
+
+  $data_element_counts = &drupal_static(__FUNCTION__);
+  $cid = 'islandora_repository_reports_data_' . $report_type;
+  if ($cache_data && $cache = \Drupal::cache()->get($cid)) {
+    $data_element_counts = $cache->data;
+  }
+  else {
+    $data_source_service_id = 'islandora_repository_reports.datasource.' . $report_type;
+    $data_source = \Drupal::service($data_source_service_id);
+    $data_element_counts = $data_source->getData();
+    if ($cache_data) {
+      \Drupal::cache()->set($cid, $data_element_counts);
+    }
+  }
+
+  // Populate the Chart.js dataset object.
+  $num_data_elements = count($data_element_counts);
+  $colors = islandora_repository_reports_get_chart_colors($num_data_elements);
+  $dataset = new StdClass();
+  $dataset->data = array_values($data_element_counts);
+  $dataset->backgroundColor = islandora_repository_reports_get_chart_colors($num_data_elements);
+  $pie_chart_data = array(
+    'labels' => array_keys($data_element_counts),
+    'datasets' =>  array($dataset),
+  );
+
+  // Write out a CSV for download.
+  if ($tempstore->get('islandora_repository_reports_generate_csv')) {
+    $files_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+    $data_source_name = $data_source->getName();
+    $csv_data = [[$data_source_name, 'Count']];
+    foreach ($data_element_counts as $format => $count) {
+      $csv_data[] = [$format, $count];
+    }
+    $filename = 'islandora_repository_reports_' . $report_type . '.csv';
+    $fp = fopen($files_path . '/' . $filename, 'w');
+    foreach ($csv_data as $fields) {
+      fputcsv($fp, $fields);
+    }
+    fclose($fp);
+  }
+
+  // We're finished with this session variable, so clear it for
+  // the next rendering of the report page.
+  $tempstore->delete('islandora_repository_reports_generate_csv');
+  return $pie_chart_data;
+}
+
+/**
+ * Generate a set of random colors to use in the pie chart.
+ *
+ * @param int $length
+ *   The length of the array to generate.
+ *
+ * @return array
+ *    An array of RGB values in the format required by Chart.js, e.g.,
+ *    array('rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)').
+ */
+function islandora_repository_reports_get_chart_colors($length) {
+  $colors = [];
+  for ($i = 1; $i <= $length; $i++) {
+    $rgb_color = []; 
+    foreach (['r', 'g', 'b'] as $color) {
+      $rgb_color[$color] = rand(0, 255);
+    }
+    $colors[] = 'rgba(' . implode(',', $rgb_color) . ')';
+  }
+  return $colors;
+}

@@ -1,0 +1,15 @@
+islandora_repository_reports.admin_settings:
+  path: '/admin/config/islandora/islandora_repository_reports'
+  defaults:
+    _form: '\Drupal\islandora_repository_reports\Plugin\Form\IslandoraRepositoryReportsSettingsForm'
+    _title: 'Islandora Repository Reports'
+  requirements:
+    _permission: 'administer site configuration'
+islandora_repository_reports.report:
+  path: '/admin/reports/islandora_repository_reports'
+  defaults:
+    _controller: '\Drupal\islandora_repository_reports\Controller\IslandoraRepositoryReportsController::main'
+    _title: 'Islandora Repository Reports'
+
+  requirements:
+    _permission: 'administer site configuration'

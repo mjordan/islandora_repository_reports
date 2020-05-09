@@ -1,0 +1,4 @@
+services:
+  # Temporarily removed pending https://github.com/mjordan/media_formats_reports/issues/6
+  # islandora_repository_reports.datasource.puid:
+    # class: Drupal\islandora_repository_reports_puid\Plugin\DataSource\Puid

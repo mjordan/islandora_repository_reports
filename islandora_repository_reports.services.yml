@@ -1,0 +1,9 @@
+services:
+  islandora_repository_reports.utilities:
+    class: Drupal\islandora_repository_reports\Utils
+
+  # Datasource services.
+  islandora_repository_reports.datasource.mimetype:
+    class: Drupal\islandora_repository_reports\Plugin\DataSource\MimeType
+  islandora_repository_reports.datasource.model:
+    class: Drupal\islandora_repository_reports\Plugin\DataSource\Model

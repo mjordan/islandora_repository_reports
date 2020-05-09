@@ -1,0 +1,7 @@
+name: 'Islandora Repository Reports'
+description: "Provides various precanned reports related to Islandora repositories."
+type: module
+package: Islandora
+core: 8.x
+dependencies:
+  - search_api
