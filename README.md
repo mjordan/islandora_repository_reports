@@ -8,7 +8,7 @@ A Drupal 8 module that provides a lightweight framework for reporting on various
 
 Users with "Administer Site Configuration" can visit the reports page from Drupal's Reports list. The link to "Islandora Repository" will show the default MIME type report:
 
-![MIME type report](docs/images/media_report.png)
+![MIME type report](docs/images/islandora_repo_reports.png)
 
 Checking the "Generate a CSV file of this data" box and clicking the "Go" button will provide a link to download the CSV file.
 
