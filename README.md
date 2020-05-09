@@ -16,6 +16,8 @@ Checking the "Generate a CSV file of this data" box and clicking the "Go" button
 
 There is only one global configuration option, whether or not to cache report data. If you select this option, you should periodically pregenerate report data as described below.
 
+Users will need to have the "View Repository Reports" permission to view the report page.
+	
 ## Pregenerating report data
 
 This module comes with a set of Drush commands that generates the data used in the reports and caches it:
@@ -45,6 +47,7 @@ The `modules` subdirectory contains two sample data source plugin. The minimum r
    * Within the .services.yml file, the service ID must be in the form `islandora_repository_reports.datasource.xxx`, where `xxx` is specific to the plugin. This pattern ensures that the plugin will show up in the list of media formats reports in the select list in the reports form.
 1. a plugin class file that implements the `MediaFormatsReportsDataSourceInterface` interface.
    * The plugin's `getData()` method needs to return an associative array containing formatname => count members.
+1. Optionally, a .module file containing any standard Drupal hook implementations. For example, data source plugins can add form elements to the report selector form. See the comments in the random data source plugin's .module file for more information.
 
 ## Current maintainer
 

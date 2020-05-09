@@ -1,8 +1,8 @@
 # PRONOM PUID Data Source
 
-Data source plugin for the Islandora Repository Reports module that counts media by PRONOM PUID.
+Data source plugin for the Islandora Repository Reports module that counts media by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM).
 
-> Note: https://github.com/roblib/islandora_fits/commit/004f269ebfe50462eff9a592a9e76c5fe9f115bf removed indexing of FITS fields, breaking this data source plugin. Once we revert that ability, this data source plugin will work. In the meantime, please use the MIME Type report.
+> Note: This data source plugin is currently broken. See https://github.com/mjordan/islandora_repository_reports/issues/2 for more information. In the meantime, please use the MIME Type report.
 
 ## Requirements
 

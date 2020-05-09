@@ -10,6 +10,5 @@ islandora_repository_reports.report:
   defaults:
     _controller: '\Drupal\islandora_repository_reports\Controller\IslandoraRepositoryReportsController::main'
     _title: 'Islandora Repository Reports'
-
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'view islandora repository reports'
