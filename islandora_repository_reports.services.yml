@@ -7,3 +7,5 @@ services:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\MimeType
   islandora_repository_reports.datasource.model:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\Model
+  islandora_repository_reports.datasource.genre:
+    class: Drupal\islandora_repository_reports\Plugin\DataSource\Genre
