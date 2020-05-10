@@ -80,6 +80,8 @@ function islandora_repository_reports_page_attachments(array &$attachments) {
   if ($current_path == '/admin/reports/islandora_repository_reports') {
     $pie_chart_data = islandora_repository_reports_get_data();
     $attachments['#attached']['library'][] = 'islandora_repository_reports/islandora_repository_reports_chart';
+    $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_title'] = $pie_chart_data['title'];
+    unset($pie_chart_data['title']);
     $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_data'] = $pie_chart_data;
   }
 }
@@ -122,9 +124,11 @@ function islandora_repository_reports_get_data() {
   $dataset = new StdClass();
   $dataset->data = array_values($data_element_counts);
   $dataset->backgroundColor = $utilities->getChartColors($num_data_elements);
+
   $pie_chart_data = array(
     'labels' => array_keys($data_element_counts),
     'datasets' =>  array($dataset),
+    'title' =>  t("Counts in this chart total @total instances of @name.", ['@total' => array_sum($dataset->data), '@name' => $data_source->getName()]),
   );
 
   // Write out a CSV for download.

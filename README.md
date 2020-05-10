@@ -5,8 +5,8 @@
 A Drupal 8 module that provides a lightweight framework for reporting on various aspects of and Islandora repository using charts. Default reports are:
 
 * Media by MIME type
-* Islandora Model
-* Genre
+* Nodes by Islandora model
+* Nodes by genre
 
 Submodules are included that add a report of media by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and two sample reports, "Flavors" and one that generated random report data.
 
