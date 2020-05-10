@@ -39,4 +39,26 @@ class Utils {
     return $options;
   }
 
+  /**
+   * Generate a set of random colors to use in the chart.
+   *
+   * @param int $length
+   *   The length of the array to generate.
+   *
+   * @return array
+   *    An array of RGB values in the format required by Chart.js, e.g.,
+   *    array('rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)').
+   */
+  public function getChartColors($length) {
+    $colors = [];
+    for ($i = 1; $i <= $length; $i++) {
+      $rgb_color = [];
+      foreach (['r', 'g', 'b'] as $color) {
+        $rgb_color[$color] = rand(0, 255);
+      }
+      $colors[] = 'rgba(' . implode(',', $rgb_color) . ')';
+    }
+    return $colors;
+  }
+
 }

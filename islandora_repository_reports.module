@@ -89,6 +89,8 @@ function islandora_repository_reports_page_attachments(array &$attachments) {
  *   A Chart.js dataset object.
  */
 function islandora_repository_reports_get_data() {
+  $utilities = \Drupal::service('islandora_repository_reports.utilities');
+
   if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
     $report_type = $tempstore->get('islandora_repository_reports_report_type');
   }
@@ -116,10 +118,10 @@ function islandora_repository_reports_get_data() {
 
   // Populate the Chart.js dataset object.
   $num_data_elements = count($data_element_counts);
-  $colors = islandora_repository_reports_get_chart_colors($num_data_elements);
+  $colors = $utilities->getChartColors($num_data_elements);
   $dataset = new StdClass();
   $dataset->data = array_values($data_element_counts);
-  $dataset->backgroundColor = islandora_repository_reports_get_chart_colors($num_data_elements);
+  $dataset->backgroundColor = $utilities->getChartColors($num_data_elements);
   $pie_chart_data = array(
     'labels' => array_keys($data_element_counts),
     'datasets' =>  array($dataset),
@@ -145,26 +147,4 @@ function islandora_repository_reports_get_data() {
   // the next rendering of the report page.
   $tempstore->delete('islandora_repository_reports_generate_csv');
   return $pie_chart_data;
-}
-
-/**
- * Generate a set of random colors to use in the pie chart.
- *
- * @param int $length
- *   The length of the array to generate.
- *
- * @return array
- *    An array of RGB values in the format required by Chart.js, e.g.,
- *    array('rgba(255, 99, 132)', 'rgba(54, 162, 235)', 'rgba(255, 206, 86)').
- */
-function islandora_repository_reports_get_chart_colors($length) {
-  $colors = [];
-  for ($i = 1; $i <= $length; $i++) {
-    $rgb_color = []; 
-    foreach (['r', 'g', 'b'] as $color) {
-      $rgb_color[$color] = rand(0, 255);
-    }
-    $colors[] = 'rgba(' . implode(',', $rgb_color) . ')';
-  }
-  return $colors;
 }
