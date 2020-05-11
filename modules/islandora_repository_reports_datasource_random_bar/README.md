@@ -1,6 +1,6 @@
 # Random Data Source Plugin for Islandora Repository Reports
 
-Data source plugin for the Islandora Repository Reports module that generates random pie chart data.
+Data source plugin for the Islandora Repository Reports module that generates random bar chart data.
 
 ## Requirements
 
@@ -8,7 +8,7 @@ Data source plugin for the Islandora Repository Reports module that generates ra
 
 ## Installation
 
-Enable the module either under the "Admin > Extend" menu or by running `drush en -y islandora_repository_reports_datasource_random`.
+Enable the module either under the "Admin > Extend" menu or by running `drush en -y islandora_repository_reports_datasource_random_bar`.
 
 ## Current maintainer
 

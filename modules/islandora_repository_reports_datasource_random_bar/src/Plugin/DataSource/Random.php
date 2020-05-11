@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandora_repository_reports_datasource_random\Plugin\DataSource;
+namespace Drupal\islandora_repository_reports_datasource_random_bar\Plugin\DataSource;
 
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
 
@@ -16,7 +16,7 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
    *   The name of the data source.
    */
   public function getName() {
-    return t('Random data for pie charts (for testing, etc.)');
+    return t('Random data for bar charts (for testing, etc.)');
   }
 
   /**
@@ -26,7 +26,7 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
    *   Either 'pie' or 'bar'.
    */
   public function getChartType() {
-    return 'pie';
+    return 'bar';
   }
 
   /**
@@ -37,8 +37,9 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
    */
   public function getData() {
     if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-      $form_state = $tempstore->get('islandora_repository_reports_report_form_values');
-      $num_data_elements = $form_state->getValue('islandora_repository_reports_datasource_random_num_data');
+      if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
+        $num_data_elements = $form_state->getValue('islandora_repository_reports_datasource_random_bar_num_data');
+      }
     }
     else {
       $num_data_elements = 5;

@@ -7,9 +7,10 @@ A Drupal 8 module that provides a lightweight framework for reporting on various
 * Number of nodes by content type
 * Number of nodes by Islandora model
 * Number of nodes by genre
+* Number of nodes created by month
 * Number of media by MIME type
 
-Submodules are included that add a report of media by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and two sample reports, "Flavors" and one that generated random report data.
+Submodules are included that add a report of media by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data.
 
 ## Overview
 

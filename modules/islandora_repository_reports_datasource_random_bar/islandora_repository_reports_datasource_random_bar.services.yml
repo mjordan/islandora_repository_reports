@@ -1,0 +1,3 @@
+services:
+  islandora_repository_reports.datasource.random_bar:
+    class: Drupal\islandora_repository_reports_datasource_random_bar\Plugin\DataSource\Random
