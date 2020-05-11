@@ -4,16 +4,16 @@
 
 A Drupal 8 module that provides a lightweight framework for reporting on various aspects of and Islandora repository using charts. Default reports are:
 
-* Nodes by Islandora model
-* Nodes by genre
-* Nodes by content type
-* Media by MIME type
+* Number of nodes by content type
+* Number of nodes by Islandora model
+* Number of nodes by genre
+* Number of media by MIME type
 
 Submodules are included that add a report of media by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and two sample reports, "Flavors" and one that generated random report data.
 
 ## Overview
 
-Users with "Administer Site Configuration" can visit the reports page from Drupal's Reports list. The link to "Islandora Repository" will show the default MIME type report:
+Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list. The link to "Islandora Repository" will show the default MIME type report:
 
 ![MIME type report](docs/images/islandora_repo_reports.png)
 
@@ -23,7 +23,7 @@ Checking the "Generate a CSV file of this data" box and clicking the "Go" button
 
 There is only one global configuration option, whether or not to cache report data. If you select this option, you should periodically pregenerate report data as described below.
 
-Users will need to have the "View Repository Reports" permission to view the report page.
+Users will need to have "View Repository Reports" permission to view the report page.
 	
 ## Pregenerating report data
 

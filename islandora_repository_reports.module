@@ -48,8 +48,9 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
  */
 function islandora_repository_reports_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-    $form_state = $tempstore->get('islandora_repository_reports_report_form_values');
-    $media_use_terms = $form_state->getValue('islandora_repository_reports_media_use_terms');
+    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
+      $media_use_terms = $form_state->getValue('islandora_repository_reports_media_use_terms');
+    }
   }
   if (empty($num_data_elements)) {
     $config = \Drupal::config('islandora_repository_reports.settings');
@@ -125,11 +126,23 @@ function islandora_repository_reports_get_data() {
   $dataset->data = array_values($data_element_counts);
   $dataset->backgroundColor = $utilities->getChartColors($num_data_elements);
 
-  $pie_chart_data = array(
-    'labels' => array_keys($data_element_counts),
-    'datasets' =>  array($dataset),
-    'title' =>  t("Counts in this chart total @total instances of @name.", ['@total' => array_sum($dataset->data), '@name' => $data_source->getName()]),
-  );
+  if (count($data_element_counts) > 0) {
+    $chart_title = t("Total @total instances of @name.", ['@total' => array_sum($dataset->data), '@name' => $data_source->getName()]);
+  }
+  else {
+    $chart_title = t("There are no @name to report on.", ['@name' => $data_source->getName()]);
+  }
+
+  if ($data_source->getChartType() == 'pie') {
+    $chart_data = array(
+      'labels' => array_keys($data_element_counts),
+      'datasets' =>  array($dataset),
+      'title' =>  $chart_title,
+    );
+  }
+  if ($data_source->getChartType() == 'bar') {
+    // @todo: Issue #9
+  }
 
   // Write out a CSV for download.
   if ($tempstore->get('islandora_repository_reports_generate_csv')) {
@@ -150,5 +163,5 @@ function islandora_repository_reports_get_data() {
   // We're finished with this session variable, so clear it for
   // the next rendering of the report page.
   $tempstore->delete('islandora_repository_reports_generate_csv');
-  return $pie_chart_data;
+  return $chart_data;
 }

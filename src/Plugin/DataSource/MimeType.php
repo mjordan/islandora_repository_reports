@@ -38,8 +38,9 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
   public function getData() {
 
     if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-      $form_state = $tempstore->get('islandora_repository_reports_report_form_values');
-      $media_use_term_ids = $form_state->getValue('islandora_repository_reports_media_use_terms');
+      if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
+        $media_use_term_ids = $form_state->getValue('islandora_repository_reports_media_use_terms');
+      }
     }
     else {
       $config = \Drupal::config('islandora_repository_reports.settings');
