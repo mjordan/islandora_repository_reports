@@ -2,22 +2,22 @@
 
 ## Introduction
 
-A Drupal 8 module that provides a collection of graphical reports on various aspects of and Islandora repository. Reports included in this module are:
+A Drupal 8 module that provides a collection of graphical reports on various aspects of an Islandora repository. Reports included in this module are:
 
 * Number of nodes, grouped by Drupal content type
-* Number of nodes, grouped by terms from the Islandora Models taxonomy
-* Number of nodes, grouped by terms from the Islandora Genre taxonomy 
 * Number of nodes, grouped by month created
 * Number of media, grouped by MIME type
 * Disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private)
+* Usage of terms from the Islandora Models taxonomy
+* Usage of terms from the Islandora Genre taxonomy 
 
-Submodules are included that add a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data.
+Submodules are included that add a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data. You will need to enable these submodules to use their reports.
 
 This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration on basic information about their content. It is not a replacment for Views.
 
 ## Overview
 
-Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list, or, if they don't have permission to view the Reporst list, they can link to it directly at `admin/reports/islandora_repository_reports`. Selecting one of the available reports, and then clicking on the "Go" button, will produce a chart, like this one for MIME type:
+Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list (`admin/reports`), or, if they don't have permission to view the Reporst list, they can link to it directly at `admin/reports/islandora_repository_reports`. Selecting one of the available reports, and then clicking on the "Go" button, will produce a chart, like this one for MIME type:
 
 ![MIME type report](docs/images/islandora_repo_reports.png)
 
@@ -42,7 +42,7 @@ Users will need to have "View Repository Reports" permission to view the reports
 
 Generally speaking, as the size of your repository grows, the longer it will take to generate the data that is visualized in the charts. If you choose to cache your reports data, you can pregenerate the data to make the charts render in a reasonable amount of time. This module comes with a set of Drush commands that generates the data used in the reports and caches it:
 
-1. To list the enabled services that generate report data: `drush islandora_repository_reports:list_report_types`
+1. To list the enabled report types: `drush islandora_repository_reports:list_report_types`
 1. To pregenerate the data for the 'model' report: `drush islandora_repository_reports:build_cache model`
 1. To delete the data for the 'mimetype' report: `islandora_repository_reports:delete_cache mimetype`
 
