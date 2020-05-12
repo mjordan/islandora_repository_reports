@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A Drupal 8 module that provides a collection of graphical reports on various aspects of and Islandora repository. Reports included in this modul are:
+A Drupal 8 module that provides a collection of graphical reports on various aspects of and Islandora repository. Reports included in this module are:
 
 * Number of nodes, grouped by Drupal content type
 * Number of nodes, grouped by terms from the Islandora Models taxonomy
