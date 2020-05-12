@@ -20,6 +20,16 @@ Users with "View Repository Reports" permission can visit the reports page from 
 
 Checking the "Generate a CSV file of this data" box before clicking on the "Go" button will provide a link to download the CSV file.
 
+## Requirements
+
+* [Islandora 8](https://github.com/Islandora/islandora)
+* [Islandora FITS](https://github.com/roblib/islandora_fits) is required if you want to generate the PUID report.
+
+## Installation
+
+1. Clone this repo into your Islandora's `drupal/web/modules/contrib` directory.
+1. Enable the module either under the "Admin > Extend" menu or by running `drush en -y islandora_repository_reports`.
+
 ## Configuration
 
 There is only one global configuration option, whether or not to cache report data. If you select this option, you should periodically pregenerate report data as described below.
@@ -33,16 +43,6 @@ This module comes with a set of Drush commands that generates the data used in t
 1. To list the enabled services that generate report data: `drush islandora_repository_reports:list_report_types`
 1. To pregenerate the data for the 'model' report: `drush islandora_repository_reports:build_cache model`
 1. To delete the data for the 'mimetype' report: `islandora_repository_reports:delete_cache mimetype`
-
-## Requirements
-
-* [Islandora 8](https://github.com/Islandora/islandora)
-* [Islandora FITS](https://github.com/roblib/islandora_fits) is required if you want to generate the PUID report.
-
-## Installation
-
-1. Clone this repo into your Islandora's `drupal/web/modules/contrib` directory.
-1. Enable the module either under the "Admin > Extend" menu or by running `drush en -y islandora_repository_reports`.
 
 ## Writing custom data source plugins
 

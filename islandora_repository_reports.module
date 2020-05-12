@@ -141,7 +141,7 @@ function islandora_repository_reports_get_data($report_type) {
       $chart_title = t($data_source->getChartTitle(), ['@total' => array_sum($dataset->data)]);
     }
     else {
-      $chart_title = t("No @name to report on.", ['@name' => $data_source->getName()]);
+      $chart_title = t("No @name data available to report on.", ['@name' => $data_source->getName()]);
     }
     $dataset->backgroundColor = $utilities->getChartColors($num_data_elements);
     $chart_data = array(
@@ -155,7 +155,7 @@ function islandora_repository_reports_get_data($report_type) {
       $chart_title = t($data_source->getChartTitle(), ['@total' => array_sum($dataset->data)]);
     }
     else {
-      $chart_title = t("No @name to report on.", ['@name' => $data_source->getName()]);
+      $chart_title = t("No @name data available to report on.", ['@name' => $data_source->getName()]);
     }
     $dataset->label = $data_source->getName();
     $dataset->backgroundColor = '#99b3ff';
