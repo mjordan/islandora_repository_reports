@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A Drupal 8 module that provides a of graphical reports on various aspects of and Islandora repository. Reports included in this modul are:
+A Drupal 8 module that provides a collection of graphical reports on various aspects of and Islandora repository. Reports included in this modul are:
 
 * Number of nodes, grouped by Drupal content type
 * Number of nodes, grouped by terms from the Islandora Models taxonomy
@@ -25,7 +25,6 @@ Checking the "Generate a CSV file of this data" box before clicking on the "Go" 
 ## Requirements
 
 * [Islandora 8](https://github.com/Islandora/islandora)
-* [Islandora FITS](https://github.com/roblib/islandora_fits) is required if you want to generate the PUID report.
 
 ## Installation
 
@@ -34,13 +33,13 @@ Checking the "Generate a CSV file of this data" box before clicking on the "Go" 
 
 ## Configuration
 
-There is only one global configuration option, whether or not to cache report data. If you select this option, you should periodically pregenerate report data as described below.
+There is only one configuration option, whether or not to cache report data. If you select this option, you can periodically pregenerate report data as described below.
 
-Users will need to have "View Repository Reports" permission to view the report page.
+Users will need to have "View Repository Reports" permission to view the reports page.
 	
 ## Pregenerating report data
 
-This module comes with a set of Drush commands that generates the data used in the reports and caches it:
+Generally speaking, as the size of your repository grows, the longer it will take to generate the data that is visualized in the charts. If you choose to cache your reports data, you can pregenerate the data to make the charts render in a reasonable amount of time. This module comes with a set of Drush commands that generates the data used in the reports and caches it:
 
 1. To list the enabled services that generate report data: `drush islandora_repository_reports:list_report_types`
 1. To pregenerate the data for the 'model' report: `drush islandora_repository_reports:build_cache model`

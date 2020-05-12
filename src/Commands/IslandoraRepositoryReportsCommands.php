@@ -40,10 +40,10 @@ class IslandoraRepositoryReportsCommands extends DrushCommands {
 
      $data_source_service_id = 'islandora_repository_reports.datasource.' . $report_type;
      $data_source = \Drupal::service($data_source_service_id);
-     $format_counts = $data_source->getData();
+     $counts = $data_source->getData();
      $cid = 'islandora_repository_reports_data_' . $report_type;
-     \Drupal::cache()->set($cid, $format_counts);
-     $this->logger()->notice(dt('Cache built for media formats report data @report_type.', ['@report_type' => $report_type]));
+     \Drupal::cache()->set($cid, $counts);
+     $this->logger()->notice(dt('Cache built for Islandora Repository Report @report_type.', ['@report_type' => $report_type]));
   }
 
   /**
@@ -64,6 +64,6 @@ class IslandoraRepositoryReportsCommands extends DrushCommands {
 
      $cid = 'islandora_repository_reports_data_' . $report_type;
      \Drupal::cache()->delete($cid);
-     $this->logger()->notice(dt('Cache deleted for media formats report data @report_type.', ['@report_type' => $report_type]));
+     $this->logger()->notice(dt('Cache deleted for Islandora Repository Report @report_type.', ['@report_type' => $report_type]));
   }
 }
