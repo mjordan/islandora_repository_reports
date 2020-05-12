@@ -5,9 +5,9 @@ namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
 
 /**
- * Data source plugin that gets nodes created by month.
+ * Data source plugin that gets disk usage by Drupal filesystem.
  */
-class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
+class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
    * Returns the data source's name.
@@ -16,7 +16,7 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
    *   The name of the data source.
    */
   public function getName() {
-    return t('Nodes created by month');
+    return t('Disk usage');
   }
 
   /**
@@ -26,7 +26,7 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
    *   Either 'pie' or 'bar'.
    */
   public function getChartType() {
-    return 'bar';
+    return 'pie';
   }
 
   /**
@@ -35,7 +35,7 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
    * @return string
    */
   public function getChartTitle() {
-    return '@total nodes broken down by month created.';
+    return '@total GB total disk usage, grouped by Drupal filesystem.';
   }
 
   /**
@@ -46,19 +46,24 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
    */
   public function getData() {
     $database = \Drupal::database();
-    $result = $database->query("SELECT created FROM {node_field_data}");
+    $result = $database->query("SELECT uri, filesize FROM {file_managed}");
 
-    $created_counts = [];
+    $filesystem_usage = [];
     foreach ($result as $row) {
-      $label = date("Y-m", $row->created);
-      if (array_key_exists($label, $created_counts)) {
-        $created_counts[$label]++;
+      $filesystem = strtok($row->uri, ':');
+      if (array_key_exists($filesystem, $filesystem_usage)) {
+        $filesystem_usage[$filesystem] = $filesystem_usage[$filesystem] + $row->filesize;
       }
       else {
-        $created_counts[$label] = 1;
+        $filesystem_usage[$filesystem] = $row->filesize;
       }
     }
 
-    return $created_counts;
+    // Drupal gives us bytes, so we convert to GB.
+    foreach ($filesystem_usage as $filesystem => $usage) {
+      $filesystem_usage[$filesystem] = round($usage / 1024 / 1024 / 1024, 3);
+    }
+
+    return $filesystem_usage;
   }
 }

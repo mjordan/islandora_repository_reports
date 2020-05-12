@@ -30,6 +30,15 @@ class Model implements IslandoraRepositoryReportsDataSourceInterface {
   }
 
   /**
+   * Returns the data source's chart title.
+   *
+   * @return string
+   */
+  public function getChartTitle() {
+    return '@total total nodes broken down by Islandora model.';
+  }
+
+  /**
    * Gets the data.
    *
    * @return array

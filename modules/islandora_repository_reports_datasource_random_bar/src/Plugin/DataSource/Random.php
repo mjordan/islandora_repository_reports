@@ -30,6 +30,15 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
   }
 
   /**
+   * Returns the data source's chart title.
+   *
+   * @return string
+   */
+  public function getChartTitle() {
+    return '@total total random data points.';
+  }
+
+  /**
    * Generates the random data.
    *
    * @return array

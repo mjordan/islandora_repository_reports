@@ -2,23 +2,23 @@
 
 ## Introduction
 
-A Drupal 8 module that provides a lightweight framework for reporting on various aspects of and Islandora repository using charts. Default reports are:
+A Drupal 8 module that provides a of graphical reports on various aspects of and Islandora repository. Reports included in this modul are:
 
-* Number of nodes by content type
-* Number of nodes by Islandora model
-* Number of nodes by genre
-* Number of nodes created by month
-* Number of media by MIME type
+* Number of nodes, grouped by content type
+* Number of nodes, grouped by Islandora model
+* Number of nodes, grouped by genre
+* Number of nodes, grouped created by month
+* Number of media, grouped by MIME type
 
 Submodules are included that add a report of media by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data.
 
 ## Overview
 
-Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list. The link to "Islandora Repository" will show the default MIME type report:
+Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list, or, if they don't have permission to view the Reporst list, they can link to it directly at `admin/reports/islandora_repository_reports`. Selecting one of the available reports, and then clicking on the "Go" button, will produce a chart, like this one for MIME type:
 
 ![MIME type report](docs/images/islandora_repo_reports.png)
 
-Checking the "Generate a CSV file of this data" box and clicking the "Go" button will provide a link to download the CSV file.
+Checking the "Generate a CSV file of this data" box before clicking on the "Go" button will provide a link to download the CSV file.
 
 ## Configuration
 
@@ -31,7 +31,7 @@ Users will need to have "View Repository Reports" permission to view the report 
 This module comes with a set of Drush commands that generates the data used in the reports and caches it:
 
 1. To list the enabled services that generate report data: `drush islandora_repository_reports:list_report_types`
-1. To pregenerate the data for the 'puid' report: `drush islandora_repository_reports:build_cache puid`
+1. To pregenerate the data for the 'model' report: `drush islandora_repository_reports:build_cache model`
 1. To delete the data for the 'mimetype' report: `islandora_repository_reports:delete_cache mimetype`
 
 ## Requirements
@@ -46,7 +46,7 @@ This module comes with a set of Drush commands that generates the data used in t
 
 ## Writing custom data source plugins
 
-Data for the MIME type, Islandora Model, and PUID report are taken from Drupal's database, but data source plugins can get their data from Solr, Blazegraph, or even a source external to Islandora.
+Data for most report are taken from Drupal's database, but data source plugins can get their data from Solr, Blazegraph, or even a source external to Islandora.
 
 The `modules` subdirectory contains two sample data source plugin. The minimum requirements for a data source plugin are:
 

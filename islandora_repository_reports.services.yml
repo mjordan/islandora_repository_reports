@@ -11,5 +11,7 @@ services:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\Genre
   islandora_repository_reports.datasource.content_type:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\ContentType
-  islandora_repository_reports.datasource.nodes_by_mont:
+  islandora_repository_reports.datasource.nodes_by_month:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\NodesByMonth
+  islandora_repository_reports.datasource.disk_usage:
+    class: Drupal\islandora_repository_reports\Plugin\DataSource\DiskUsage

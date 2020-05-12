@@ -30,6 +30,15 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
   }
 
   /**
+   * Returns the data source's chart title.
+   *
+   * @return string
+   */
+  public function getChartTitle() {
+    return '@total media with the selected Media Use terms, grouped by MIME type.';
+  }
+
+  /**
    * Gets the data.
    *
    * @return array

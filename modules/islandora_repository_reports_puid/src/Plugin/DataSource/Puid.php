@@ -31,6 +31,15 @@ class Puid implements IslandoraRepositoryReportsDataSourceInterface {
   }
 
   /**
+   * Returns the data source's chart title.
+   *
+   * @return string
+   */
+  public function getChartTitle() {
+    return '@total media grouped by PUID.';
+  }
+
+  /**
    * Gets the data.
    *
    * We don't include a condition/filter, we just get all the unique values in the db table.

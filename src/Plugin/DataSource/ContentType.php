@@ -30,6 +30,15 @@ class ContentType implements IslandoraRepositoryReportsDataSourceInterface {
   }
 
   /**
+   * Returns the data source's chart title.
+   *
+   * @return string
+   */
+  public function getChartTitle() {
+    return '@total nodes broken down by content type.';
+  }
+
+  /**
    * Gets the data.
    *
    * @return array

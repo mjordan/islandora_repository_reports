@@ -30,6 +30,15 @@ class Genre implements IslandoraRepositoryReportsDataSourceInterface {
   }
 
   /**
+   * Returns the data source's chart title.
+   *
+   * @return string
+   */
+  public function getChartTitle() {
+    return '@total uses of the Genre taxonomy.';
+  }
+
+  /**
    * Gets the data.
    *
    * @return array

@@ -30,6 +30,15 @@ class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
   }
 
   /**
+   * Returns the data source's chart title.
+   *
+   * @return string
+   */
+  public function getChartTitle() {
+    return '@total flavors in this sample.';
+  }
+
+  /**
    * Gets the data.
    *
    * @return array
