@@ -9,6 +9,7 @@ A Drupal 8 module that provides a collection of graphical reports on various asp
 * Number of nodes, grouped by terms from the Islandora Genre taxonomy 
 * Number of nodes, grouped by month created
 * Number of media, grouped by MIME type
+* Disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private)
 
 Submodules are included that add a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data.
 
