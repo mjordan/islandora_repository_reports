@@ -10,29 +10,21 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
 
   /**
-   * Returns the data source's name.
-   *
-   * @return string
-   *   The name of the data source.
+   * {@inheritdoc}
    */
   public function getName() {
     return t('Flavors (sample)');
   }
 
   /**
-   * Returns the data source's chart type.
-   *
-   * @return string
-   *   Either 'pie' or 'bar'.
+   * {@inheritdoc}
    */
   public function getChartType() {
     return 'pie';
   }
 
   /**
-   * Returns the data source's chart title.
-   *
-   * @return string
+   * {@inheritdoc}
    */
   public function getChartTitle() {
     return '@total flavors in this sample.';
@@ -42,12 +34,13 @@ class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
    * Gets the data.
    *
    * @return array
-   *   An assocative array containing formatlabel => count members. 
+   *   An assocative array containing dataLabel => count members. 
    *
-   *   The data returned by this sample method is hard-coded, but the
-   *   data in a custom plugin could come from a specific field on
-   *   Media (see the MIME Type, and PRONOM PUID plugins for examples
-   *   of how to do that), from a Solr query, or from some other data source.
+   *   The data returned by this sample method is hard-coded, but the data
+   *   in a custom plugin could come from a specific field on Media (see
+   *   the MIME Type plugin), or nodes (see the NodesByMonth for an example
+   *   of how to do that), from a Solr or Blazegraph query, or from some
+   *   other data source.
    */
   public function getData() {
     return [

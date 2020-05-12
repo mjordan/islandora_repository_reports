@@ -10,42 +10,30 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * Returns the data source's name.
-   *
-   * @return string
-   *   The name of the data source.
+   * {@inheritdoc}
    */
   public function getName() {
     return t('Media MIME Type');
   }
  
   /**
-   * Returns the data source's chart type.
-   *
-   * @return string
-   *   Either 'pie' or 'bar'.
+   * {@inheritdoc}
    */
   public function getChartType() {
     return 'pie';
   }
 
   /**
-   * Returns the data source's chart title.
-   *
-   * @return string
+   * {@inheritdoc}
    */
   public function getChartTitle() {
     return '@total media with the selected Media Use terms, grouped by MIME type.';
   }
 
   /**
-   * Gets the data.
-   *
-   * @return array
-   *   An assocative array containing formatlabel => count members. 
+   * {@inheritdoc}
    */
   public function getData() {
-
     if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
       if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
         $media_use_term_ids = $form_state->getValue('islandora_repository_reports_media_use_terms');

@@ -3,7 +3,7 @@
 namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 
 /**
- * Gets data for rendering in a media formats report.
+ * Gets data for rendering in an Islandora Repository Reports report.
  */
 interface IslandoraRepositoryReportsDataSourceInterface {
 
@@ -37,7 +37,7 @@ interface IslandoraRepositoryReportsDataSourceInterface {
    * Gets the data.
    *
    * @return array
-   *   An assocative array containing formatlabel => count members. 
+   *   An assocative array containing dataLabel => count members. 
    */
   public function getData();
 

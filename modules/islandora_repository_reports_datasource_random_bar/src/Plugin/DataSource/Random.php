@@ -10,39 +10,28 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Random implements IslandoraRepositoryReportsDataSourceInterface{
 
   /**
-   * Returns the data source's name.
-   *
-   * @return string
-   *   The name of the data source.
+   * {@inheritdoc}
    */
   public function getName() {
     return t('Random data for bar charts (for testing, etc.)');
   }
 
   /**
-   * Returns the data source's chart type.
-   *
-   * @return string
-   *   Either 'pie' or 'bar'.
+   * {@inheritdoc}
    */
   public function getChartType() {
     return 'bar';
   }
 
   /**
-   * Returns the data source's chart title.
-   *
-   * @return string
+   * {@inheritdoc}
    */
   public function getChartTitle() {
     return '@total total random data points.';
   }
 
   /**
-   * Generates the random data.
-   *
-   * @return array
-   *   An assocative array containing formatlabel => count members. 
+   * {@inheritdoc}
    */
   public function getData() {
     if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
@@ -57,7 +46,7 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
     $data = [];
     for ($x = 1; $x <= $num_data_elements; $x++) {
       $label = ucfirst(substr(str_shuffle($chars), 3, 12));
-      $data[$label] = rand(0,1000);
+      $data[$label] = rand(0,100);
     } 
     return $data;
   }

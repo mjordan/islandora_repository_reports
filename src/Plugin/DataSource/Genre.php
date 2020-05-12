@@ -10,39 +10,28 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Genre implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * Returns the data source's name.
-   *
-   * @return string
-   *   The name of the data source.
+   * {@inheritdoc}
    */
   public function getName() {
     return t('Genre');
   }
 
   /**
-   * Returns the data source's chart type.
-   *
-   * @return string
-   *   Either 'pie' or 'bar'.
+   * {@inheritdoc}
    */
   public function getChartType() {
     return 'pie';
   }
 
   /**
-   * Returns the data source's chart title.
-   *
-   * @return string
+   * {@inheritdoc}
    */
   public function getChartTitle() {
     return '@total uses of the Genre taxonomy.';
   }
 
   /**
-   * Gets the data.
-   *
-   * @return array
-   *   An assocative array containing formatlabel => count members. 
+   * {@inheritdoc}
    */
   public function getData() {
     $entity_type_manager = \Drupal::service('entity_type.manager');

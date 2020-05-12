@@ -10,39 +10,28 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Model implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * Returns the data source's name.
-   *
-   * @return string
-   *   The name of the data source.
+   * {@inheritdoc}
    */
   public function getName() {
     return t('Islandora Model');
   }
 
   /**
-   * Returns the data source's chart type.
-   *
-   * @return string
-   *   Either 'pie' or 'bar'.
+   * {@inheritdoc}
    */
   public function getChartType() {
     return 'pie';
   }
 
   /**
-   * Returns the data source's chart title.
-   *
-   * @return string
+   * {@inheritdoc}
    */
   public function getChartTitle() {
     return '@total total nodes broken down by Islandora model.';
   }
 
   /**
-   * Gets the data.
-   *
-   * @return array
-   *   An assocative array containing formatlabel => count members. 
+   * {@inheritdoc}
    */
   public function getData() {
     $entity_type_manager = \Drupal::service('entity_type.manager');

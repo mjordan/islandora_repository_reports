@@ -4,13 +4,15 @@
 
 A Drupal 8 module that provides a of graphical reports on various aspects of and Islandora repository. Reports included in this modul are:
 
-* Number of nodes, grouped by content type
-* Number of nodes, grouped by Islandora model
-* Number of nodes, grouped by genre
+* Number of nodes, grouped by Drupal content type
+* Number of nodes, grouped by terms from the Islandora Models taxonomy
+* Number of nodes, grouped by terms from the Islandora Genre taxonomy 
 * Number of nodes, grouped created by month
 * Number of media, grouped by MIME type
 
-Submodules are included that add a report of media by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data.
+Submodules are included that add a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data.
+
+This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration on basic information about their content. It is not a replacment for Views.
 
 ## Overview
 
@@ -46,7 +48,7 @@ This module comes with a set of Drush commands that generates the data used in t
 
 ## Writing custom data source plugins
 
-Data for most report are taken from Drupal's database, but data source plugins can get their data from Solr, Blazegraph, or even a source external to Islandora.
+Data for most report are taken from Drupal's database, but data source plugins can get their data from Solr, Blazegraph, or even a source external to Islandora. Writing data submodules that provide a data source plugin is fairly straight forward.
 
 The `modules` subdirectory contains two sample data source plugin. The minimum requirements for a data source plugin are:
 
@@ -54,7 +56,8 @@ The `modules` subdirectory contains two sample data source plugin. The minimum r
 1. a .services.yml file
    * Within the .services.yml file, the service ID must be in the form `islandora_repository_reports.datasource.xxx`, where `xxx` is specific to the plugin. This pattern ensures that the plugin will show up in the list of media formats reports in the select list in the reports form.
 1. a plugin class file that implements the `MediaFormatsReportsDataSourceInterface` interface.
-   * The plugin's `getData()` method needs to return an associative array containing formatname => count members.
+   * The plugin's `getData()` method needs to return an associative array containing dataLabel => count members.
+   * The chart visualizing your data can be either a [bar chart with a single data series](https://www.chartjs.org/samples/latest/charts/bar/vertical.html)  or a [pie](https://www.chartjs.org/samples/latest/charts/pie.html) chart.
 1. Optionally, a .module file containing any standard Drupal hook implementations. For example, data source plugins can add form elements to the report selector form. See the comments in the random data source plugin's .module file for more information.
 
 ## Current maintainer
