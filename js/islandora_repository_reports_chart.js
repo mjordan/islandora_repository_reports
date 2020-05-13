@@ -26,7 +26,7 @@ Javascript that renders a Chart.js chart.
           title: {
             display: true,
             fontSize: 16,
-	    text: IslandoraRepositoryReportsPieChartTitle
+	    text: [IslandoraRepositoryReportsPieChartTitle, 'Click on entries in the legend to turn them on/off.']
           }
         }
       });
