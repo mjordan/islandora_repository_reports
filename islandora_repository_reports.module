@@ -48,24 +48,24 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
  */
 function islandora_repository_reports_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
   // MIME type report form.
+  $media_use_terms = [];
   if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
     if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
       $media_use_terms = $form_state->getValue('islandora_repository_reports_media_use_terms');
     }
   }
-  if (empty($num_data_elements)) {
-    $config = \Drupal::config('islandora_repository_reports.settings');
-    $media_use_terms = $config->get('islandora_repository_reports_media_use_terms');
-  }
 
+  $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('islandora_media_use');
+  $options = [];
+  foreach ($terms as $term) {
+    $options[$term->tid] = $term->name;
+  }
   $form['islandora_repository_reports_media_use_terms'] = [
-    '#type' => 'textfield',
-    '#size' => 20,
-    '#maxlength' => 256,
+    '#type' => 'checkboxes',
     '#weight' => 0,
-    '#title' => t('Media Use Term IDs'),
+    '#title' => t('Include media with the following Media Use tags:'),
+    '#options' => $options,
     '#default_value' => $media_use_terms,
-    '#description' => t('A comma-separated list of the IDs of the terms from the Islandora Media Use vocabulary to include in the MIME Type report.'),
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'mimetype'],
