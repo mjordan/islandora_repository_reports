@@ -27,7 +27,7 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
    * {@inheritdoc}
    */
   public function getChartTitle() {
-    return '@total worth of random data.';
+    return '@total total random data points.';
   }
 
   /**

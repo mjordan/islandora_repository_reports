@@ -34,10 +34,10 @@ Checking the "Generate a CSV file of this data" box before clicking on the "Go" 
 
 ## Configuration
 
-There is only one configuration option, whether or not to cache report data. If you select this option, you can periodically pregenerate report data as described below.
+* There is only one global configuration option, whether or not to cache report data. If you select this option, you can periodically pregenerate report data as described in the next section.
+* Users will need to have "View Repository Reports" permission to view the reports page.
+* Options selected by the user within the form used to select which report to generate are specific to each Drupal user. They are not set by the site administrator for all users.
 
-Users will need to have "View Repository Reports" permission to view the reports page.
-	
 ## Pregenerating report data
 
 Generally speaking, as the size of your repository grows, the longer it will take to generate the data that is visualized in the charts. If you choose to cache your reports data, you can pregenerate the data to make the charts render in a reasonable amount of time. This module comes with a set of Drush commands that generates the data used in the reports and caches it:
@@ -45,6 +45,8 @@ Generally speaking, as the size of your repository grows, the longer it will tak
 1. To list the enabled report types: `drush islandora_repository_reports:list_report_types`
 1. To pregenerate the data for the 'model' report: `drush islandora_repository_reports:build_cache model`
 1. To delete the data for the 'mimetype' report: `islandora_repository_reports:delete_cache mimetype`
+
+Note that the Drush command that generates the cached data uses the chart options that the user most recently selected via the report selection form at `admin/reports/islandora_repository_reports`. Chart options cannot be passed into the Drush command.
 
 ## Writing custom data source plugins
 
