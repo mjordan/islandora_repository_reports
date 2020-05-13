@@ -212,3 +212,18 @@ function islandora_repository_reports_get_data($report_type) {
   $tempstore->delete('islandora_repository_reports_generate_csv');
   return $chart_data;
 }
+
+/**
+ * Implements hook_file_download().
+ */
+function islandora_repository_reports_file_download($uri) {
+  if (preg_match('/islandora_repository_reports_/', $uri)) {
+    if (\Drupal::currentUser()->hasPermission('view islandora repository reports')) {
+      return ['Content-disposition' => 'attachment; filename="' . basename($uri) . '"',];    
+    }
+    else {
+      return -1;
+    }
+  }
+  return NULL;
+}
