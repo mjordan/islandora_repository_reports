@@ -2,4 +2,9 @@
   {% if show_csv_link %}
     <div id="islandora-repository-reports-csv_link"><a href="{{ csv_url }}">Download the CSV</a></div>
   {% endif %}
-<div id="islandora-repository-reports-content"><canvas id="islandora-repository-reports-chart"></canvas></div>
+
+  {% if chart_type == 'table' %}
+  <div id="islandora-repository-reports-content"><div id="islandora-repository-reports-table"></div></div>
+  {% else %}
+  <div id="islandora-repository-reports-content"><canvas id="islandora-repository-reports-chart"></canvas></div>
+  {% endif %}
