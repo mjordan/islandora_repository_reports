@@ -190,7 +190,7 @@ function islandora_repository_reports_get_data($report_type) {
       $chart_title = t("No @name data available to report on.", ['@name' => $data_source->getName()]);
     }
     $dataset->label = $data_source->getName();
-    $dataset->backgroundColor = '#99b3ff';
+    $dataset->backgroundColor = $config->get('islandora_repository_reports_bar_chart_color');
     $chart_data = array(
       'labels' => array_keys($data_element_counts),
       'datasets' =>  array($dataset),
