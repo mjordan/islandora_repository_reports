@@ -34,7 +34,8 @@ Checking the "Generate a CSV file of this data" box before clicking on the "Go" 
 
 ## Configuration
 
-* There is only one global configuration option, whether or not to cache report data. If you select this option, you can periodically pregenerate report data as described in the next section.
+Configuration options are available in the "Islandora" config group, or directly at `admin/config/islandora/islandora_repository_reports`. Some additional coniguration-related notes:
+
 * Users will need to have "View Repository Reports" permission to view the reports page.
 * Options selected by the user within the form used to select which report to generate are specific to each Drupal user. They are not set by the site administrator for all users.
 

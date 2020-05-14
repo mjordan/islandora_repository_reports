@@ -167,7 +167,15 @@ function islandora_repository_reports_get_data($report_type) {
     else {
       $chart_title = t("No @name data available to report on.", ['@name' => $data_source->getName()]);
     }
-    $dataset->backgroundColor = $utilities->getChartColors($num_data_elements);
+
+    if ($config->get('islandora_repository_reports_randomize_pie_chart_colors')) {
+      $dataset->backgroundColor = $utilities->getRandomChartColors($num_data_elements);
+    }
+    else {
+      $dataset->backgroundColor = $utilities->getStaticChartColors($num_data_elements);
+    }
+
+
     $chart_data = array(
       'labels' => array_keys($data_element_counts),
       'datasets' =>  array($dataset),
