@@ -16,6 +16,18 @@ function islandora_repository_reports_theme($existing, $type, $theme, $path) {
     'islandora_repository_reports_chart' => [
       'variables' => ['form' => null, 'show_csv_link' => null],
     ],
+    'islandora_repository_reports_tips_block' => [
+      'variables' => ['content' => null],
+    ],
+  ];
+}
+
+/**
+ * Default preprocessor function for the islandora_repository_reports_theme hook.
+ */
+function template_preprocess_islandora_repository_reports_tips_block(&$variables) {
+  $variables['attributes'] = [
+    'id' => ['islandora_repository_reports_tips_content'],
   ];
 }
 
