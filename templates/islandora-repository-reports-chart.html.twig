@@ -4,7 +4,7 @@
   {% endif %}
 
   {% if html_content %}
-  <div id="islandora-repository-reports-content"><div id="islandora-repository-reports-table">{{ html_content }}</div></div>
+    <div id="islandora-repository-reports-content"><div style="padding-top: 20px" id="islandora-repository-reports-html">{{ html_content }}</div></div>
   {% else %}
-  <div id="islandora-repository-reports-content"><canvas id="islandora-repository-reports-chart"></canvas></div>
+    <div id="islandora-repository-reports-content"><canvas id="islandora-repository-reports-chart"></canvas></div>
   {% endif %}
