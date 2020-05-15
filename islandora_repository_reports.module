@@ -37,6 +37,10 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
 
   $data_source = \Drupal::service('islandora_repository_reports.datasource.' . $report_type);
 
+  if ($data_source->getChartType() == 'table') {
+    $variables['table_content'] = $data_source->getData();
+  }
+
   if ($variables['show_csv_link']) {
     $files_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
     $filename = 'islandora_repository_reports_' . $data_source_service_id . '.csv';

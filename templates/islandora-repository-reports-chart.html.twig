@@ -3,8 +3,8 @@
     <div id="islandora-repository-reports-csv_link"><a href="{{ csv_url }}">Download the CSV</a></div>
   {% endif %}
 
-  {% if chart_type == 'table' %}
-  <div id="islandora-repository-reports-content"><div id="islandora-repository-reports-table"></div></div>
+  {% if table_content %}
+  <div id="islandora-repository-reports-content"><div id="islandora-repository-reports-table">{{ table_content }}</div></div>
   {% else %}
   <div id="islandora-repository-reports-content"><canvas id="islandora-repository-reports-chart"></canvas></div>
   {% endif %}
