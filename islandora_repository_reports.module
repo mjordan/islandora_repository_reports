@@ -37,8 +37,8 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
 
   $data_source = \Drupal::service('islandora_repository_reports.datasource.' . $report_type);
 
-  if ($data_source->getChartType() == 'table') {
-    $variables['table_content'] = $data_source->getData();
+  if ($data_source->getChartType() == 'html') {
+    $variables['html_content'] = $data_source->getData();
   }
 
   if ($variables['show_csv_link']) {
@@ -46,7 +46,8 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
     $filename = 'islandora_repository_reports_' . $data_source_service_id . '.csv';
     $report_url = file_create_url(file_default_scheme() . '://' . $filename);
     $variables['csv_url'] = $report_url;
-    // chart_type is 'pie', 'bar', etc from Chart.js, or 'table' for HTML table.
+    // chart_type is 'pie', 'bar', etc from Chart.js, or 'html' for rendered
+    // HTML content such as a table or list.
     $variables['chart_type'] = $data_source->getChartType();
   }
 }
