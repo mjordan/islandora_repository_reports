@@ -9,7 +9,7 @@ dependencies:
 id: tipsonusingislandorarepositoryreports
 theme: seven
 region: content
-weight: -2
+weight: 10
 provider: null
 plugin: islandora_repository_reports_tips
 settings:

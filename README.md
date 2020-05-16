@@ -38,6 +38,7 @@ Configuration options are available in the "Islandora" config group, or directly
 
 * Users will need to have "View Repository Reports" permission to view the reports page.
 * Options selected by the user within the form used to select which report to generate are specific to each Drupal user. They are not set by the site administrator for all users.
+* On installation, a block containing some "tips" on using the reports is installed. If Seven is your administrative theme, this block will be placed at the bottom of the Repository Reports page.
 
 ## Pregenerating report data
 
