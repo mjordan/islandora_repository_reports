@@ -47,7 +47,13 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
     $report_type = 'mimetype';
   }
 
-  $data_source = \Drupal::service('islandora_repository_reports.datasource.' . $report_type);
+  if (!empty(\Drupal::hasService('islandora_repository_reports.datasource.' . $report_type))) {
+    $data_source = \Drupal::service('islandora_repository_reports.datasource.' . $report_type);
+  }
+  else {
+    \Drupal::messenger()->addMessage(t('The report type you last selected is no longer available. Choose another report type, or contact the site administrator.'), 'warning');
+    return;
+  }
 
   if ($data_source->getChartType() == 'html') {
     $variables['html_content'] = $data_source->getData();
@@ -133,7 +139,13 @@ function islandora_repository_reports_page_attachments(array &$attachments) {
     }
 
     $data_source_service_id = 'islandora_repository_reports.datasource.' . $report_type;
-    $data_source = \Drupal::service($data_source_service_id);
+    if (!empty(\Drupal::hasService($data_source_service_id))) {
+      $data_source = \Drupal::service($data_source_service_id);
+    }
+    else {
+      \Drupal::messenger()->addMessage(t('The report type you last selected is no longer available. Choose another report type, or contact the site administrator.'), 'warning');
+      return;
+    }
     $chart_type = $data_source->getChartType();
     if ($chart_type == 'pie') {
       $pie_chart_data = islandora_repository_reports_get_data($report_type);
