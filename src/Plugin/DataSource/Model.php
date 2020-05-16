@@ -5,7 +5,7 @@ namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
 
 /**
- * Data source plugin that gets node by Islandra model.
+ * Data source plugin that gets nodes by Islandora model.
  */
 class Model implements IslandoraRepositoryReportsDataSourceInterface {
 
@@ -13,7 +13,7 @@ class Model implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('Islandora Model');
+    return t('Nodes by Islandora Model');
   }
 
   /**

@@ -5,11 +5,12 @@
 A Drupal 8 module that provides a collection of graphical reports on various aspects of an Islandora repository. Reports included in this module are:
 
 * Number of nodes, grouped by Drupal content type
+* Number of nodes, grouped by collection
 * Number of nodes, grouped by month created
+* Number of nodes, grouped by terms from the Islandora Models taxonomy
+* Number of nodes, grouped by terms from the Islandora Genre taxonomy 
 * Number of media, grouped by MIME type
 * Disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private)
-* Usage of terms from the Islandora Models taxonomy
-* Usage of terms from the Islandora Genre taxonomy 
 
 Submodules are included that add a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data. You will need to enable these submodules to use their reports.
 

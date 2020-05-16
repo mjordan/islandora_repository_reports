@@ -14,7 +14,7 @@ class Puid implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('PRONOM PUID');
+    return t('Media by PRONOM PUID');
   }
 
   /**

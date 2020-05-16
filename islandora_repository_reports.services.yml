@@ -15,3 +15,5 @@ services:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\NodesByMonth
   islandora_repository_reports.datasource.disk_usage:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\DiskUsage
+  islandora_repository_reports.datasource.collection:
+    class: Drupal\islandora_repository_reports\Plugin\DataSource\Collection

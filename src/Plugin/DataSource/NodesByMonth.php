@@ -13,7 +13,7 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('Nodes created by month');
+    return t('Nodes by month created');
   }
 
   /**

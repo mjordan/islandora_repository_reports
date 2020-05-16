@@ -13,7 +13,7 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('Media MIME Type');
+    return t('Media by MIME type');
   }
  
   /**
