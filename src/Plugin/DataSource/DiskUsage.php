@@ -71,14 +71,25 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
     }
 
     if ($disk_usage_type == 'collection') {
-      $filesystem_usage = [];
-      $result = $database->query("SELECT {node__field_member_of}.field_member_of_target_id AS collection_id, {media__field_file_size}.field_file_size_value AS filesize FROM {node__field_member_of}, {media__field_file_size}, {media__field_media_of} WHERE {media__field_file_size}.entity_id = {media__field_media_of}.entity_id AND {node__field_member_of}.entity_id = {media__field_media_of}.field_media_of_target_id");
+      $filesystem_usage_cid = [];
+      $result = $database->query("SELECT {node__field_member_of}.field_member_of_target_id AS collection_id,
+	{media__field_file_size}.field_file_size_value AS filesize FROM {node__field_member_of},
+	{media__field_file_size}, {media__field_media_of} WHERE
+	{media__field_file_size}.entity_id = {media__field_media_of}.entity_id AND
+        {node__field_member_of}.entity_id = {media__field_media_of}.field_media_of_target_id");
       foreach ($result as $row) {
-        if (array_key_exists($row->collection_id, $filesystem_usage)) {
-          $filesystem_usage[$row->collection_id] = $filesystem_usage[$row->collection_id] + $row->filesize;
+        if (array_key_exists($row->collection_id, $filesystem_usage_cid)) {
+          $filesystem_usage_cid[$row->collection_id] = $filesystem_usage_cid[$row->collection_id] + $row->filesize;
         }
         else {
-          $filesystem_usage[$row->collection_id] = $row->filesize;
+          $filesystem_usage_cid[$row->collection_id] = $row->filesize;
+        }
+      }
+
+      $filesystem_usage = [];
+      foreach ($filesystem_usage_cid as $collection_id => $disk_usage) {
+        if ($collection_node = \Drupal::entityTypeManager()->getStorage('node')->load($collection_id)) {
+          $filesystem_usage[$collection_node->getTitle()] = $disk_usage;
         }
       }
     }
