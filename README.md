@@ -53,17 +53,18 @@ Note that the Drush command that generates the cached data uses the chart option
 
 ## Writing custom data source plugins
 
-Data for most report are taken from Drupal's database, but data source plugins can get their data from Solr, Blazegraph, or even a source external to Islandora. Writing data submodules that provide a data source plugin is fairly straight forward.
+The most typical source for report data is Drupal's database, but data source plugins can get their data from Solr, Blazegraph, or log files on disk (for exampl). Writing data submodules that provide a data source plugin is fairly straight forward.
 
-The `modules` subdirectory contains two sample data source plugin. The minimum requirements for a data source plugin are:
+The minimum requirements for a module that provides a data source plugin are:
 
 1. a .info.yml file
 1. a .services.yml file
    * Within the .services.yml file, the service ID must be in the form `islandora_repository_reports.datasource.xxx`, where `xxx` is specific to the plugin. This pattern ensures that the plugin will show up in the list of media formats reports in the select list in the reports form.
 1. a plugin class file that implements the `MediaFormatsReportsDataSourceInterface` interface.
-   * The plugin's `getData()` method needs to return an associative array containing dataLabel => count members.
    * The chart visualizing your data can be either a [bar chart with a single data series](https://www.chartjs.org/samples/latest/charts/bar/vertical.html)  or a [pie](https://www.chartjs.org/samples/latest/charts/pie.html) chart.
 1. Optionally, a .module file containing any standard Drupal hook implementations. For example, data source plugins can add form elements to the report selector form. See the comments in the random data source plugin's .module file for more information.
+
+The `modules` subdirectory contains some sample modules that provide data source plugins.
 
 ## Current maintainer
 
