@@ -260,7 +260,7 @@ function islandora_repository_reports_get_data($report_type) {
 function islandora_repository_reports_file_download($uri) {
   if (preg_match('/islandora_repository_reports_/', $uri)) {
     if (\Drupal::currentUser()->hasPermission('view islandora repository reports')) {
-      return ['Content-disposition' => 'attachment; filename="' . basename($uri) . '"',];    
+      return ['Content-disposition' => 'attachment; filename="' . basename($uri) . '"',];
     }
     else {
       return -1;

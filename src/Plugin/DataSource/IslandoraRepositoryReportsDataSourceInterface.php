@@ -37,7 +37,7 @@ interface IslandoraRepositoryReportsDataSourceInterface {
    * Gets the data.
    *
    * @return array
-   *   An assocative array containing dataLabel => count members. 
+   *   An assocative array containing dataLabel => count members.
    */
   public function getData();
 

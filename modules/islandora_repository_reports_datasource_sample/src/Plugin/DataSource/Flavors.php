@@ -34,7 +34,7 @@ class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
    * Gets the data.
    *
    * @return array
-   *   An assocative array containing dataLabel => count members. 
+   *   An assocative array containing dataLabel => count members.
    *
    *   The data returned by this sample method is hard-coded, but the data
    *   in a custom plugin could come from a specific field on Media (see
@@ -44,11 +44,11 @@ class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
    */
   public function getData() {
     return [
-      'Spicy' => 100,  
-      'Sweet' => 20,  
-      'Salty' => 56,  
-      'Bitter' => 82,  
-      'Sour' => 5,  
+      'Spicy' => 100,
+      'Sweet' => 20,
+      'Salty' => 56,
+      'Bitter' => 82,
+      'Sour' => 5,
     ];
   }
 

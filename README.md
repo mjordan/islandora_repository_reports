@@ -8,7 +8,7 @@ A Drupal 8 module that provides a collection of graphical reports on various asp
 * Number of nodes, grouped by collection
 * Number of nodes, grouped by month created
 * Number of nodes, grouped by terms from the Islandora Models taxonomy
-* Number of nodes, grouped by terms from the Islandora Genre taxonomy 
+* Number of nodes, grouped by terms from the Islandora Genre taxonomy
 * Number of media, grouped by MIME type
 * Disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private), MIME type, or collection
 

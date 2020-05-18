@@ -42,7 +42,7 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
     else {
       $disk_usage_type = 'filesystem';
     }
-	  
+
     $database = \Drupal::database();
     $result = $database->query("SELECT uri, filesize, filemime FROM {file_managed}");
 

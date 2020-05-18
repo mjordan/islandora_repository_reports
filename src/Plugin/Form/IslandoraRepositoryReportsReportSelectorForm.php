@@ -38,7 +38,7 @@ class IslandoraRepositoryReportsReportSelectorForm extends FormBase {
       '#options' => $services,
       '#attributes' => [
         'name' => 'islandora_repository_reports_report_type',
-      ],      
+      ],
     ];
     $form['islandora_repository_reports_generate_csv'] = [
       '#type' => 'checkbox',

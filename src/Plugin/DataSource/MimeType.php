@@ -15,7 +15,7 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
   public function getName() {
     return t('Media by MIME type');
   }
- 
+
   /**
    * {@inheritdoc}
    */

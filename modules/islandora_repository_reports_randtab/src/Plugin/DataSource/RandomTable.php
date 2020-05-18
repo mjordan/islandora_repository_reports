@@ -39,7 +39,7 @@ class RandomTable implements IslandoraRepositoryReportsDataSourceInterface{
     for ($x = 1; $x <= $num_data_elements; $x++) {
       $label = ucfirst(substr(str_shuffle($chars), 3, 12));
       $data[$label] = rand(0,1000);
-    } 
+    }
 
     $header = ['Column 1', 'Column 2'];
     $rows = [

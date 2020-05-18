@@ -48,7 +48,7 @@ class Puid implements IslandoraRepositoryReportsDataSourceInterface {
         $format_counts[$format['fits_droid_puid_value']] = $format['fits_droid_puid_count'];
       }
     }
-	  
+
     return $format_counts;
   }
 
