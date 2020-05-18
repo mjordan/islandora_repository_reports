@@ -42,8 +42,10 @@ class Genre implements IslandoraRepositoryReportsDataSourceInterface {
       ->execute();
     $genre_counts = [];
     foreach ($result as $genre) {
-      if ($term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($genre['field_genre_target_id'])) {
-        $genre_counts[$term->label()] = $genre['field_genre_count'];
+      if (!is_null(($genre['field_genre_target_id']))) {
+        if ($term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($genre['field_genre_target_id'])) {
+          $genre_counts[$term->label()] = $genre['field_genre_count'];
+        }
       }
     }
     return $genre_counts;
