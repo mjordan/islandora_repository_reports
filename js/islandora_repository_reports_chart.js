@@ -6,6 +6,10 @@ Javascript that renders a Chart.js chart.
 (function (Drupal, $) {
   "use strict";
 
+  $("#islandora_repository_reports_report_type").change(function(){
+    $('#islandora-repository-reports-content').fadeTo(0, 0.3)
+  });
+
   var IslandoraRepositoryReportsChartCanvas = document.getElementById('islandora-repository-reports-chart');
   var IslandoraRepositoryReportsChartType = drupalSettings.islandora_repository_reports.chart_type;
 
