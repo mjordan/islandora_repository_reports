@@ -18,9 +18,13 @@ This module's goal is to provide Islandora repository administrators with a set 
 
 ## Overview
 
-Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list (`admin/reports`), or, if they don't have permission to view the Reporst list, they can link to it directly at `admin/reports/islandora_repository_reports`. Selecting one of the available reports, and then clicking on the "Go" button, will produce a chart, like this one for MIME type:
+Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list (`admin/reports`), or, if they don't have permission to view the Reporst list, they can link to it directly at `admin/reports/islandora_repository_reports`. Selecting one of the available reports, and then clicking on the "Go" button, will produce a pie chart, like this one:
 
-![MIME type report](docs/images/islandora_repo_reports.png)
+![Random pie chart](docs/images/random_pie.png)
+
+Or a bar chart, like this one:
+
+![Random bar chart](docs/images/random_bar.png)
 
 Checking the "Generate a CSV file of this data" box before clicking on the "Go" button will provide a link to download the CSV file.
 
