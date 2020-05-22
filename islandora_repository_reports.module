@@ -81,7 +81,19 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     }
   }
 
-  $content_types =  \Drupal\node\Entity\NodeType::loadMultiple(); 
+  // Determine whether to show the content type list in the report selector form.
+  $utilities = \Drupal::service('islandora_repository_reports.utilities');
+  $data_sources = $utilities->getServices(TRUE);
+  $need_content_type_list = [];
+  foreach ($data_sources as $report_type) {
+    $data_source_service_id = 'islandora_repository_reports.datasource.' . $report_type;
+    $data_source = \Drupal::service($data_source_service_id);
+    if ($data_source->getBaseEntity() == 'node') {
+      $need_content_type_list[] = ['value' => $report_type];
+    }
+  }
+
+  $content_types = \Drupal\node\Entity\NodeType::loadMultiple(); 
   $content_type_options = [];
   foreach ($content_types as $key => $value) {
     $content_type_options[$key] = $value->label();
@@ -95,10 +107,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => [
-          // @todo: we need a way to get from the data source whether to include it in this list.
-	  ['value' => 'genre'],
-	  ['value' => 'collection'],
-	  ['value' => 'model'],
+	  $need_content_type_list,
 	],
       ],
     ],

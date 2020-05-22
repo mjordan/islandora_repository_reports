@@ -19,6 +19,13 @@ class Model implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
+  public function getBaseEntity() {
+    return 'node';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getChartType() {
     return 'pie';
   }

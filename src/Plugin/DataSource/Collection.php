@@ -19,6 +19,13 @@ class Collection implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
+  public function getBaseEntity() {
+    return 'node';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getChartType() {
     return 'pie';
   }
@@ -44,8 +51,10 @@ class Collection implements IslandoraRepositoryReportsDataSourceInterface {
       ->execute();
     $collection_counts = [];
     foreach ($result as $collection) {
-      if ($collection_node = \Drupal::entityTypeManager()->getStorage('node')->load($collection['field_member_of_target_id'])) {
-        $collection_counts[$collection_node->getTitle()] = $collection['field_member_of_count'];
+      if (!is_null($collection['field_member_of_target_id'])) {
+        if ($collection_node = \Drupal::entityTypeManager()->getStorage('node')->load($collection['field_member_of_target_id'])) {
+          $collection_counts[$collection_node->getTitle()] = $collection['field_member_of_count'];
+        }
       }
     }
     return $collection_counts;

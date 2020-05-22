@@ -26,7 +26,7 @@ Or a bar chart, like this one:
 
 ![Random bar chart](docs/images/random_bar.png)
 
-Checking the "Generate a CSV file of this data" box before clicking on the "Go" button will provide a link to download the CSV file.
+All reports allow the user to "Generate a CSV file of this data" by checking a box before clicking on the "Go" button. If this box is checked, a link to download the CSV file will appear.
 
 ## Requirements
 

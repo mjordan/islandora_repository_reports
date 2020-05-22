@@ -16,6 +16,17 @@ interface IslandoraRepositoryReportsDataSourceInterface {
   public function getName();
 
   /**
+   * Indicates whether the report is on nodes, media, etc.
+   *
+   * Currently used only to indicate whether or not to show the content type
+   * list on the report selection form.
+   *
+   * @return null|string
+   *   The Drupal entity type. Return null if the report is not a Drupal entity.
+   */
+  public function getBaseEntity();
+
+  /**
    * Returns the data source's chart type.
    *
    * @return string

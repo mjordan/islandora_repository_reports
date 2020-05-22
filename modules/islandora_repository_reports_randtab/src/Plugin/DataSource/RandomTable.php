@@ -19,6 +19,13 @@ class RandomTable implements IslandoraRepositoryReportsDataSourceInterface{
   /**
    * {@inheritdoc}
    */
+  public function getBaseEntity() {
+    return null;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getChartType() {
     return 'html';
   }

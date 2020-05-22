@@ -19,6 +19,13 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
+  public function getBaseEntity() {
+    return 'media';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getChartType() {
     return 'pie';
   }
