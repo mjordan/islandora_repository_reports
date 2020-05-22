@@ -62,6 +62,23 @@ class Utils {
   }
 
   /**
+   * Generate a set of random colors to use in the chart.
+   *
+   * @return array
+   *   An array containing machine names of the content types for use in
+   *   the content type form widget. 
+   */
+  public function getSelectedContentTypes() {
+    $content_types = [];
+    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+      if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
+        $content_types = $form_state->getValue('islandora_repository_reports_content_types');
+      }
+    }
+    return $content_types;
+  }
+
+  /**
    * Return a static set of colors to use in the chart.
    *
    * @param int $length

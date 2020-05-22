@@ -34,11 +34,13 @@ class Model implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getData() {
+    $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $node_storage = $entity_type_manager->getStorage('node');
     $result = $node_storage->getAggregateQuery()
       ->groupBy('field_model')
       ->aggregate('field_model', 'COUNT')
+      ->condition('type', $utilities->getSelectedContentTypes(), 'IN')
       ->execute();
     $model_counts = [];
     foreach ($result as $model) {

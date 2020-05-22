@@ -74,6 +74,36 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
  * Implements hook_form_form_id_alter().
  */
 function islandora_repository_reports_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Content type select widget.
+  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
+      $selected_content_types = $form_state->getValue('islandora_repository_reports_content_types');
+    }
+  }
+
+  $content_types =  \Drupal\node\Entity\NodeType::loadMultiple(); 
+  $content_type_options = [];
+  foreach ($content_types as $key => $value) {
+    $content_type_options[$key] = $value->label();
+  }
+  $form['islandora_repository_reports_content_types'] = [
+    '#type' => 'checkboxes',
+    '#weight' => 0,
+    '#title' => t('Content types to include in report:'),
+    '#options' => $content_type_options,
+    '#default_value' => $selected_content_types,
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => [
+          // @todo: we need a way to get from the data source whether to include it in this list.
+	  ['value' => 'genre'],
+	  ['value' => 'collection'],
+	  ['value' => 'model'],
+	],
+      ],
+    ],
+  ];
+
   // MIME type report form.
   $media_use_terms = [];
   if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
@@ -83,15 +113,15 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   }
 
   $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('islandora_media_use');
-  $options = [];
+  $media_use_options = [];
   foreach ($terms as $term) {
-    $options[$term->tid] = $term->name;
+    $media_use_options[$term->tid] = $term->name;
   }
   $form['islandora_repository_reports_media_use_terms'] = [
     '#type' => 'checkboxes',
     '#weight' => 0,
     '#title' => t('Include media with the following Media Use tags:'),
-    '#options' => $options,
+    '#options' => $media_use_options,
     '#default_value' => $media_use_terms,
     '#states' => [
       'visible' => [
