@@ -77,14 +77,30 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
       }
     }
 
+    $utilities = \Drupal::service('islandora_repository_reports.utilities');
     if ($disk_usage_type == 'collection') {
       $filesystem_usage_cid = [];
       $result = $database->query("SELECT {node__field_member_of}.field_member_of_target_id AS collection_id,
 	{media__field_file_size}.field_file_size_value AS filesize FROM {node__field_member_of},
 	{media__field_file_size}, {media__field_media_of} WHERE
 	{media__field_file_size}.entity_id = {media__field_media_of}.entity_id AND
-        {node__field_member_of}.entity_id = {media__field_media_of}.field_media_of_target_id");
+	{node__field_member_of}.entity_id = {media__field_media_of}.field_media_of_target_id");
+
       foreach ($result as $row) {
+        if (is_numeric($row->collection_id)) {
+          if ($collection_node = \Drupal::entityTypeManager()->getStorage('node')->load($row->collection_id)) {
+            if (!$utilities->nodeIsCollection($collection_node)) {
+              continue;
+            }
+	  }
+	  else {
+            continue;
+	  }
+        }
+        else {
+          continue;
+        }
+
         if (array_key_exists($row->collection_id, $filesystem_usage_cid)) {
           $filesystem_usage_cid[$row->collection_id] = $filesystem_usage_cid[$row->collection_id] + $row->filesize;
         }

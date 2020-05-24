@@ -2,6 +2,8 @@
 
 namespace Drupal\islandora_repository_reports;
 
+use Drupal\node\NodeInterface;
+
 /**
  * Utilities for the Media Formats Reports module.
  */
@@ -349,4 +351,35 @@ class Utils {
    return array_slice($colors, 0, $length);
   }
 
+  /**
+   * Determines whether a node is tagged with the term correcponding to http://purl.org/dc/dcmitype/Collection.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *    The node to check.
+   *
+   * @return bool
+   *    TRUE if the node has tag with that URI, FALSE if not.
+   */
+  public function nodeIsCollection(NodeInterface $node) {
+    $islandora_utils = \Drupal::service('islandora.utils');
+    $collection_term = $islandora_utils->getTermForUri('http://purl.org/dc/dcmitype/Collection');
+    // Check that the node has the 'islandora_model' field and
+    // that the term ID is a value in that field.
+    if ($node->hasField('field_model')) {
+      $model_terms_ids = [];
+      $model_terms = $node->get('field_model')->referencedEntities();
+      foreach ($model_terms as $model_term) {
+        $model_terms_ids[] = $model_term->id();
+      }
+      if (in_array($collection_term->id(), $model_terms_ids)) {
+        return TRUE;
+      }
+      else {
+        return FALSE;
+      }
+    }
+    else {
+      return FALSE;
+    }
+  }
 }
