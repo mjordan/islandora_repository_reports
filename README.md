@@ -2,20 +2,28 @@
 
 ## Introduction
 
-A Drupal 8 module that provides a collection of graphical (and other) reports on various aspects of an Islandora repository. Reports included in this module are:
+A Drupal 8 module that provides a collection of graphical and tabluar reports on various aspects of an Islandora repository. This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration on basic information about their content. It is not a replacment for Views.
 
-* Number of nodes, grouped by Drupal content type
-* Number of nodes, grouped by collection
-* Number of nodes, grouped by month created
-* Number of nodes, grouped by terms from the Islandora Models taxonomy
-* Number of nodes, grouped by terms from the Islandora Genre taxonomy
-* Number of media, grouped by MIME type
-* Disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private), MIME type, or collection
-* RDF field mappings
+Reports included in this module are:
 
-Submodules are included that add a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed), and three sample reports, "Flavors" and one each for generating random pie and bar chart data. You will need to enable these submodules to use their reports.
+* number of nodes, grouped by Drupal content type
+* number of nodes, grouped by collection
+* number of nodes, grouped by month created
+* number of nodes, grouped by terms from the Islandora Models taxonomy
+* number of nodes, grouped by terms from the Islandora Genre taxonomy
+* number of media, grouped by MIME type
+* disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private), MIME type, or collection
 
-This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration on basic information about their content. It is not a replacment for Views.
+Submodules are included that add:
+
+* RDF field mappings (more information is available in the Islandora [documentation](https://islandora.github.io/documentation/islandora/rdf-mapping/))
+* a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed)
+* three sample reports
+   * "Flavors", a very simple example module for developers
+   * a report of randomly generated pie chart data
+   * a report of randomly generated bar chart data
+
+You will need to enable these submodules to use their reports.
 
 ## Overview
 
@@ -27,7 +35,7 @@ Or a bar chart, like this one:
 
 ![Random bar chart](docs/images/random_bar.png)
 
-Even though the focus of this module is graphical reports, it also provides some reports, such as RDF field mappings, in tabluar form.
+Even though the focus of this module is graphical reports, some reports, such as RDF field mappings, are in tabluar form.
 
 All reports allow the user to "Generate a CSV file of this data" by checking a box before clicking on the "Go" button. If this box is checked, a link to download the CSV file will appear.
 

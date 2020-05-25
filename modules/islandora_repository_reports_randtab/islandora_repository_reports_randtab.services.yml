@@ -1,3 +1,0 @@
-services:
-  islandora_repository_reports.datasource.random_table:
-    class: Drupal\islandora_repository_reports_randtab\Plugin\DataSource\RandomTable

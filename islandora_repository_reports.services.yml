@@ -17,5 +17,3 @@ services:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\DiskUsage
   islandora_repository_reports.datasource.collection:
     class: Drupal\islandora_repository_reports\Plugin\DataSource\Collection
-  islandora_repository_reports.datasource.rdf_mappings:
-    class: Drupal\islandora_repository_reports\Plugin\DataSource\RdfMappings

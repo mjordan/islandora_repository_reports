@@ -57,6 +57,7 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
 
   if ($data_source->getChartType() == 'html') {
     $variables['html_content'] = $data_source->getData();
+    $variables['chart_title'] = $data_source->getChartTitle();
   }
 
   if ($variables['show_csv_link']) {

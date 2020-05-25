@@ -1,7 +1,0 @@
-name: 'Islandora Repository Reports random data source plugin for tabular data'
-description: "Provides a plugin for the Islandora Repository Reporst module that generates random tabular data."
-type: module
-package: Islandora
-core: 8.x
-dependencies:
-  - islandora_repository_reports

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandora_repository_reports\Plugin\DataSource;
+namespace Drupal\islandora_repository_reports_rdfmappings\Plugin\DataSource;
 
 use Drupal\Core\Render\Markup;
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
@@ -14,7 +14,7 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
    * {@inheritdoc}
    */
   public function getName() {
-    return t('Drupal field to RDF property mappings.');
+    return t('Drupal field to RDF property mappings');
   }
 
   /**
@@ -35,16 +35,28 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
    * {@inheritdoc}
    */
   public function getChartTitle() {
-    // Only used in Chart.js charts.
-    return '';
+    return t('Drupal field to RDF property mappings');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getData() {
-    $rdf_mappings = rdf_get_mapping('node', 'islandora_object');
+    $namespaces = rdf_get_namespaces();
+    $namespaces_table_rows = [];
+    foreach ($namespaces as $alias => $namespace_uri) {
+      $namespaces_table_rows[] =  [$alias, $namespace_uri];
+    }
+    $namespaces_table_header = [t('Namespace alias'), t('Namespace URI')];
 
+    $namespaces_table = [
+      '#theme' => 'table',
+      '#header' => $namespaces_table_header,
+      '#rows' => $namespaces_table_rows,
+    ];
+    $namespaces_table_markup = \Drupal::service('renderer')->render($namespaces_table);
+
+    $rdf_mappings = rdf_get_mapping('node', 'islandora_object');
     $fields = \Drupal::entityManager()->getFieldDefinitions('node', 'islandora_object');
     $mappings_table_rows = [];
     foreach ($fields as $field_name => $field_object) {
@@ -54,20 +66,6 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
       }
     }
 
-    $namespaces = rdf_get_namespaces();
-    $namespaces_table_rows = [];
-    foreach ($namespaces as $alias => $namespace_uri) {
-      $namespaces_table_rows[] =  [$alias, $namespace_uri];
-    }
-    $namespaces_table_header = [t('Namespace alias'), t('Namespace URI')];
-
-    $namespace_table = [
-      '#theme' => 'table',
-      '#header' => $namespaces_table_header,
-      '#rows' => $namespaces_table_rows,
-    ];
-    $namespace_table_markup = \Drupal::service('renderer')->render($namespace_table);
-
     // Reports of type 'html' return rendered markup, not raw data.
     $mappings_header = [t('Drupal field'), t('RDF property')];
     return [
@@ -75,7 +73,7 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
       '#header' => $mappings_header,
       '#rows' => $mappings_table_rows,
       '#prefix' => t('Namespaces are defined below.'),
-      '#suffix' => $namespace_table_markup, 
+      '#suffix' => $namespaces_table_markup, 
     ];
   }
 
