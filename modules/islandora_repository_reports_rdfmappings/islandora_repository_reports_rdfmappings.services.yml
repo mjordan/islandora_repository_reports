@@ -1,0 +1,3 @@
+services:
+  islandora_repository_reports.datasource.rdf_mappings:
+    class: Drupal\islandora_repository_reports_rdfmappings\Plugin\DataSource\RdfMappings
