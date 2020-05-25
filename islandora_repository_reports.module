@@ -209,112 +209,25 @@ function islandora_repository_reports_page_attachments(array &$attachments) {
       \Drupal::messenger()->addMessage(t('The report type you last selected is no longer available. Choose another report type, or contact the site administrator.'), 'warning');
       return;
     }
+
+    $utilities = \Drupal::service('islandora_repository_reports.utilities');
+
     $chart_type = $data_source->getChartType();
     if ($chart_type == 'pie') {
-      $pie_chart_data = islandora_repository_reports_get_data($report_type);
+      $pie_chart_data = $utilities->getReportData($report_type);
       $attachments['#attached']['library'][] = 'islandora_repository_reports/islandora_repository_reports_chart';
       $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_type'] = 'pie';
       $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_title'] = $pie_chart_data['title'];
       $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_data'] = $pie_chart_data;
     }
     if ($chart_type == 'bar') {
-      $bar_chart_data = islandora_repository_reports_get_data($report_type);
+      $bar_chart_data = $utilities->getReportData($report_type);
       $attachments['#attached']['library'][] = 'islandora_repository_reports/islandora_repository_reports_chart';
       $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_type'] = 'bar';
       $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_title'] = $bar_chart_data['title'];
       $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_data'] = $bar_chart_data;
     }
   }
-}
-
-/**
- * @return object
- *   A Chart.js dataset object.
- */
-function islandora_repository_reports_get_data($report_type) {
-  $utilities = \Drupal::service('islandora_repository_reports.utilities');
-
-  $config = \Drupal::config('islandora_repository_reports.settings');
-  $cache_data = $config->get('islandora_repository_reports_cache_report_data');
-
-  $data_element_counts = &drupal_static(__FUNCTION__);
-  $cid = 'islandora_repository_reports_data_' . $report_type;
-  if ($cache_data && $cache = \Drupal::cache()->get($cid)) {
-    $data_element_counts = $cache->data;
-  }
-  else {
-    $data_source_service_id = 'islandora_repository_reports.datasource.' . $report_type;
-    $data_source = \Drupal::service($data_source_service_id);
-    $data_element_counts = $data_source->getData();
-    if ($cache_data) {
-      \Drupal::cache()->set($cid, $data_element_counts);
-    }
-  }
-
-  // Populate the Chart.js dataset object.
-  $num_data_elements = count($data_element_counts);
-  $dataset = new StdClass();
-  $dataset->data = array_values($data_element_counts);
-
-  if ($data_source->getChartType() == 'pie') {
-    if (count($data_element_counts) > 0) {
-      $chart_title = t($data_source->getChartTitle(), ['@total' => array_sum($dataset->data)]);
-    }
-    else {
-      $chart_title = t("No @name data available to report on.", ['@name' => $data_source->getName()]);
-    }
-
-    if ($config->get('islandora_repository_reports_randomize_pie_chart_colors')) {
-      $dataset->backgroundColor = $utilities->getRandomChartColors($num_data_elements);
-    }
-    else {
-      $dataset->backgroundColor = $utilities->getStaticChartColors($num_data_elements);
-    }
-
-
-    $chart_data = array(
-      'labels' => array_keys($data_element_counts),
-      'datasets' =>  array($dataset),
-      'title' =>  $chart_title,
-    );
-  }
-  if ($data_source->getChartType() == 'bar') {
-    if (count($data_element_counts) > 0) {
-      $chart_title = t($data_source->getChartTitle(), ['@total' => array_sum($dataset->data)]);
-    }
-    else {
-      $chart_title = t("No @name data available to report on.", ['@name' => $data_source->getName()]);
-    }
-    $dataset->label = $data_source->getName();
-    $dataset->backgroundColor = $config->get('islandora_repository_reports_bar_chart_color');
-    $chart_data = array(
-      'labels' => array_keys($data_element_counts),
-      'datasets' =>  array($dataset),
-      'title' =>  $chart_title,
-    );
-  }
-
-  // Write out a CSV for download.
-  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-    $tempstore->get('islandora_repository_reports_generate_csv');
-    $files_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
-    $data_source_name = $data_source->getName();
-    $csv_data = [[$data_source_name, 'Count']];
-    foreach ($data_element_counts as $format => $count) {
-      $csv_data[] = [$format, $count];
-    }
-    $filename = 'islandora_repository_reports_' . $report_type . '.csv';
-    $fp = fopen($files_path . '/' . $filename, 'w');
-    foreach ($csv_data as $fields) {
-      fputcsv($fp, $fields);
-    }
-    fclose($fp);
-  }
-
-  // We're finished with this session variable, so clear it for
-  // the next rendering of the report page.
-  $tempstore->delete('islandora_repository_reports_generate_csv');
-  return $chart_data;
 }
 
 /**
