@@ -1,0 +1,82 @@
+<?php
+
+namespace Drupal\islandora_repository_reports\Plugin\DataSource;
+
+use Drupal\Core\Render\Markup;
+use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
+
+/**
+ * Random data source for the Islandora Repository Reports module.
+ */
+class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getName() {
+    return t('Drupal field to RDF property mappings.');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBaseEntity() {
+    return null;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getChartType() {
+    return 'html';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getChartTitle() {
+    // Only used in Chart.js charts.
+    return '';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getData() {
+    $rdf_mappings = rdf_get_mapping('node', 'islandora_object');
+
+    $fields = \Drupal::entityManager()->getFieldDefinitions('node', 'islandora_object');
+    $mappings_table_rows = [];
+    foreach ($fields as $field_name => $field_object) {
+      $field_mappings = $rdf_mappings->getPreparedFieldMapping($field_name);
+      if (array_key_exists('properties', $field_mappings)) {
+        $mappings_table_rows[] = [$field_name, $field_mappings['properties'][0]];
+      }
+    }
+
+    $namespaces = rdf_get_namespaces();
+    $namespaces_table_rows = [];
+    foreach ($namespaces as $alias => $namespace_uri) {
+      $namespaces_table_rows[] =  [$alias, $namespace_uri];
+    }
+    $namespaces_table_header = [t('Namespace alias'), t('Namespace URI')];
+
+    $namespace_table = [
+      '#theme' => 'table',
+      '#header' => $namespaces_table_header,
+      '#rows' => $namespaces_table_rows,
+    ];
+    $namespace_table_markup = \Drupal::service('renderer')->render($namespace_table);
+
+    // Reports of type 'html' return rendered markup, not raw data.
+    $mappings_header = [t('Drupal field'), t('RDF property')];
+    return [
+      '#theme' => 'table',
+      '#header' => $mappings_header,
+      '#rows' => $mappings_table_rows,
+      '#prefix' => t('Namespaces are defined below.'),
+      '#suffix' => $namespace_table_markup, 
+    ];
+  }
+
+}
