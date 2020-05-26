@@ -16,7 +16,7 @@ Reports included in this module are:
 
 Submodules are included that add:
 
-* RDF field mappings (more information is available in the Islandora [documentation](https://islandora.github.io/documentation/islandora/rdf-mapping/))
+* a report listing configured RDF field mappings (more information is available in the Islandora [documentation](https://islandora.github.io/documentation/islandora/rdf-mapping/))
 * a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed)
 * three sample reports
    * "Flavors", a very simple example module for developers
