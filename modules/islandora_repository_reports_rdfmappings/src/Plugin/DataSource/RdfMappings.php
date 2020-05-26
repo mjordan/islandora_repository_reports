@@ -103,7 +103,7 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
       '#theme' => 'table',
       '#header' => $mappings_header,
       '#rows' => $mappings_table_rows,
-      '#prefix' => t('RDF namespaces are defined below. Mappings altered or created dynamically by modules are not reflected in this table.'),
+      '#prefix' => t('RDF namespaces used in these mappings are defined below. Mappings altered or created dynamically by modules are not reflected in this table.'),
       '#suffix' => $namespaces_table_markup, 
     ];
   }

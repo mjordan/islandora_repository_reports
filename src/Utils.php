@@ -42,6 +42,28 @@ class Utils {
   }
 
   /**
+   * Gets a form element's default value.
+   *
+   * For use in implementations of hook_form_alter() and in data source plugins.
+   *
+   * @param string $form_element
+   *    The machine name of the form element.
+   * @param string|array $default_value
+   *    The default value of the element if one is not present in the user's tempstore.
+   *
+   * @return string|array
+   *    The default value of the element.
+   */
+  public function getFormElementDefault($form_element, $default_value) {
+    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+      if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
+        $default_value = $form_state->getValue($form_element);
+      }
+    }
+    return $default_value;
+  }
+
+  /**
    * Generate a set of random colors to use in the chart.
    *
    * @param int $length

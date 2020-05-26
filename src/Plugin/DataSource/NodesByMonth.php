@@ -48,18 +48,15 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getData() {
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-      if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
-        $start_of_range = $form_state->getValue('islandora_repository_reports_nodes_by_month_range');
-      }
-    }
-    else {
-      $start_of_range = NULL;
-    }
+    $utilities = \Drupal::service('islandora_repository_reports.utilities');
+    $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range', '');
     $start_of_range = trim($start_of_range);
-	  
+
     $database = \Drupal::database();
-    $result = $database->query("SELECT created FROM {node_field_data}");
+    $node_types = $utilities->getSelectedContentTypes();
+    $result = $database->query("SELECT created FROM {node_field_data} WHERE type in (:types[])",
+      [':types[]' => $utilities->getSelectedContentTypes()]
+    );
 
     $created_counts = [];
     foreach ($result as $row) {

@@ -75,15 +75,12 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
  * Implements hook_form_form_id_alter().
  */
 function islandora_repository_reports_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $utilities = \Drupal::service('islandora_repository_reports.utilities');
+
   // Content type select widget.
-  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
-      $selected_content_types = $form_state->getValue('islandora_repository_reports_content_types');
-    }
-  }
+  $selected_content_types = $utilities->getFormElementDefault('islandora_repository_reports_content_types', []);
 
   // Determine whether to show the content type list in the report selector form.
-  $utilities = \Drupal::service('islandora_repository_reports.utilities');
   $data_sources = $utilities->getServices(TRUE);
   $need_content_type_list = [];
   foreach ($data_sources as $report_type) {
@@ -115,12 +112,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   ];
 
   // MIME type report form.
-  $media_use_terms = [];
-  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
-      $media_use_terms = $form_state->getValue('islandora_repository_reports_media_use_terms');
-    }
-  }
+  $media_use_terms = $utilities->getFormElementDefault('islandora_repository_reports_media_use_terms', []);
 
   $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('islandora_media_use');
   $media_use_options = [];
@@ -141,13 +133,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   ];
 
   // Disk usage report form.
-  // Default to filesystem if user's choice not available.
-  $disk_usage_type = 'filesystem';
-  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
-      $disk_usage_type = $form_state->getValue('islandora_repository_reports_disk_usage_type');
-    }
-  }
+  $disk_usage_type = $utilities->getFormElementDefault('islandora_repository_reports_disk_usage_type', 'filesystem');
 
   $form['islandora_repository_reports_disk_usage_type'] = [
     '#type' => 'select',
@@ -163,13 +149,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   ];
 
   // Nodes by month form.
-  // Default to all months if the user's choice not available.
-  $start_of_range = NULL;
-  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
-      $start_of_range = $form_state->getValue('islandora_repository_reports_nodes_by_month_range');
-    }
-  }
+  $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range', '');
 
   $form['islandora_repository_reports_nodes_by_month_range'] = [
     '#type' => 'textfield',

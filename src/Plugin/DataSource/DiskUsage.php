@@ -48,14 +48,8 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getData() {
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-      if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
-        $disk_usage_type = $form_state->getValue('islandora_repository_reports_disk_usage_type');
-      }
-    }
-    else {
-      $disk_usage_type = 'filesystem';
-    }
+    $utilities = \Drupal::service('islandora_repository_reports.utilities');
+    $disk_usage_type = $utilities->getFormElementDefault('islandora_repository_reports_disk_usage_type', 'filesystem');
 
     $database = \Drupal::database();
     $result = $database->query("SELECT uri, filesize, filemime FROM {file_managed}");
@@ -84,7 +78,6 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
       }
     }
 
-    $utilities = \Drupal::service('islandora_repository_reports.utilities');
     if ($disk_usage_type == 'collection') {
       $filesystem_usage_cid = [];
       $result = $database->query("SELECT {node__field_member_of}.field_member_of_target_id AS collection_id,
