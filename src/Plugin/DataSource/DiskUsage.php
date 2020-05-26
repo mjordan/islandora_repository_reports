@@ -10,6 +10,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -121,6 +128,11 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
     $converted_filesystem_usage = [];
     foreach ($filesystem_usage as $key => $usage) {
       $converted_filesystem_usage[$key] = round($usage / 1024 / 1024 / 1024, 4);
+    }
+
+    $this->csvData = [[t('Type of disk usage'), 'Usage']];
+    foreach ($converted_filesystem_usage as $type => $usage) {
+      $this->csvData[] = [$type, $usage . ' GB'];
     }
 
     return $converted_filesystem_usage;

@@ -10,6 +10,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Model implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -54,6 +61,12 @@ class Model implements IslandoraRepositoryReportsDataSourceInterface {
       $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($model['field_model_target_id']);
       $model_counts[$term->label()] = $model['field_model_count'];
     }
+
+    $this->csvData = [[t('Islandora model'), 'Count']];
+    foreach ($model_counts as $model => $count) {
+      $this->csvData[] = [$model, $count];
+    }
+
     return $model_counts;
   }
 }

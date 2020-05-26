@@ -7,6 +7,14 @@ namespace Drupal\islandora_repository_reports\Plugin\DataSource;
  */
 interface IslandoraRepositoryReportsDataSourceInterface {
 
+  /*
+   * Data source plugins should define a public variable $csvData, which is an
+   * array of arrays corresponding to CSV records. All data source plugins should
+   * populate this variable in their getData() method. In addition, HTML report
+   * plugins should call $utilities->writeCsvFile() and pass in their $csvData
+   * variable there as well (this method is called automatically for Chart.js reports).
+   */
+
   /**
    * Returns the data source's name.
    *

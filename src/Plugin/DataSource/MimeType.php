@@ -10,6 +10,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -62,6 +69,12 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
     foreach ($result as $format) {
       $format_counts[$format['field_mime_type']] = $format['field_mime_type_count'];
     }
+
+    $this->csvData = [[t('MIME type'), 'Count']];
+    foreach ($format_counts as $type => $count) {
+      $this->csvData[] = [$type, $count];
+    }
+
     return $format_counts;
   }
 

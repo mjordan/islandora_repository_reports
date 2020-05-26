@@ -11,6 +11,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -65,6 +72,15 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
         $mappings_table_rows[] = [$field_name, $field_mappings['properties'][0]];
       }
     }
+
+    $this->csvData[] = ['Drupal field', 'RDF property'];
+    foreach ($mappings_table_rows as $mapping) {
+      $this->csvData[] = $mapping;
+    }
+    // Unlike Chart.js reports, HTML reports need to call the writeCsvFile()
+    // method explicitly here in getData().
+    $utilities = \Drupal::service('islandora_repository_reports.utilities');
+    $utilities->writeCsvFile('rdf_mappings', $this->csvData);
 
     // Reports of type 'html' return rendered markup, not raw data.
     $mappings_header = [t('Drupal field'), t('RDF property')];

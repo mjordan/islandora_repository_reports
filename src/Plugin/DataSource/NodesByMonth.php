@@ -10,6 +10,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -66,6 +73,11 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
           $created_counts[$label] = 1;
         }
       }
+    }
+
+    $this->csvData = [[t('Month created'), 'Count']];
+    foreach ($created_counts as $month => $count) {
+      $this->csvData[] = [$month, $count];
     }
 
     return $created_counts;

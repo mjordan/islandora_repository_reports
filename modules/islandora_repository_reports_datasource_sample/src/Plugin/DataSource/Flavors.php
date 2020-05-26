@@ -10,6 +10,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -50,13 +57,20 @@ class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
    *   other data source.
    */
   public function getData() {
-    return [
+    $flavors = [
       'Spicy' => 100,
       'Sweet' => 20,
       'Salty' => 56,
       'Bitter' => 82,
       'Sour' => 5,
     ];
+
+    $this->csvData = [[t('Flavor'), 'Count']];
+    foreach ($flavors as $flavor => $count) {
+      $this->csvData[] = [$flavor, $count];
+    }
+
+    return $flavors;
   }
 
 }

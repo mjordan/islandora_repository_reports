@@ -386,8 +386,6 @@ class Utils {
   /**
    * Gets the data from a data source plugin.
    *
-   * Also creates the CSV file.
-   *
    * @param string $report_type
    *    The report type.
    *
@@ -455,28 +453,41 @@ class Utils {
         'title' =>  $chart_title,
       );
     }
-  
-    // Write out a CSV for download.
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-      $tempstore->get('islandora_repository_reports_generate_csv');
-      $files_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
-      $data_source_name = $data_source->getName();
-      $csv_data = [[$data_source_name, 'Count']];
-      foreach ($data_element_counts as $format => $count) {
-        $csv_data[] = [$format, $count];
-      }
-      $filename = 'islandora_repository_reports_' . $report_type . '.csv';
-      $fp = fopen($files_path . '/' . $filename, 'w');
-      foreach ($csv_data as $fields) {
-        fputcsv($fp, $fields);
-      }
-      fclose($fp);
-    }
-  
-    // We're finished with this session variable, so clear it for
-    // the next rendering of the report page.
-    $tempstore->delete('islandora_repository_reports_generate_csv');
+
+    // Unlike Chart.js reports, HTML reports need to call the writeCsvFile() method explicitly
+    // in their getData() method.
+    $this->writeCsvFile($report_type, $data_source->csvData);
+
     return $chart_data;
   }
-  
+
+  /**
+   * Writes the CSV file.
+   *
+   * @param string $report_type
+   *    The report type.
+   * @param string $csv_data
+   *    An array of arrays corresponding to CSV records.
+   *
+   * @return object
+   *   A Chart.js dataset object.
+   */
+  public function writeCsvFile($report_type, $csv_data) {
+    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+      if ($tempstore->get('islandora_repository_reports_generate_csv')) {
+        $files_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+        $filename = 'islandora_repository_reports_' . $report_type . '.csv';
+        $fp = fopen($files_path . '/' . $filename, 'w');
+        foreach ($csv_data as $fields) {
+          fputcsv($fp, $fields);
+        }
+        fclose($fp);
+
+        // We're finished with this session variable, so clear it for
+        // the next rendering of the report page.
+        $tempstore->delete('islandora_repository_reports_generate_csv');
+      }
+    }
+  }
+
 }

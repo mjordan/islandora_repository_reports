@@ -11,6 +11,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Puid implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -47,6 +54,11 @@ class Puid implements IslandoraRepositoryReportsDataSourceInterface {
       if (strlen($format['fits_droid_puid_value'])) {
         $format_counts[$format['fits_droid_puid_value']] = $format['fits_droid_puid_count'];
       }
+    }
+
+    $this->csvData = [[t('PRONOM ID'), 'Count']];
+    foreach ($format_counts as $label => $count) {
+      $this->csvData[] = [$label, $count];
     }
 
     return $format_counts;

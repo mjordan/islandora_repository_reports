@@ -10,6 +10,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Collection implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -59,6 +66,12 @@ class Collection implements IslandoraRepositoryReportsDataSourceInterface {
         }
       }
     }
+
+    $this->csvData = [[t('Collection'), 'Count']];
+    foreach ($collection_counts as $collection => $count) {
+      $this->csvData[] = [$collection, $count];
+    }
+
     return $collection_counts;
   }
 }

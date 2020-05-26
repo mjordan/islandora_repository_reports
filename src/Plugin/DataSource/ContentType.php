@@ -10,6 +10,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class ContentType implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -51,6 +58,12 @@ class ContentType implements IslandoraRepositoryReportsDataSourceInterface {
     foreach ($result as $type) {
       $type_counts[$type['type']] = $type['type_count'];
     }
+ 
+    $this->csvData = [[t('Content type'), 'Count']];
+    foreach ($type_counts as $type => $count) {
+      $this->csvData[] = [$type, $count];
+    }
+ 
     return $type_counts;
   }
 }

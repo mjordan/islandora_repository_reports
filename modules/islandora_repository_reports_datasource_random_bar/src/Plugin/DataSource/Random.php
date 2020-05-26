@@ -10,6 +10,13 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Random implements IslandoraRepositoryReportsDataSourceInterface{
 
   /**
+   * $csvData is an array of arrays corresponding to CSV records.
+   *
+   * @var string
+   */
+  public $csvData;
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -55,6 +62,12 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
       $label = ucfirst(substr(str_shuffle($chars), 3, 12));
       $data[$label] = rand(0,100);
     }
+
+    $this->csvData = [[t('Random data point'), 'Count']];
+    foreach ($data as $label => $count) {
+      $this->csvData[] = [$label, $count];
+    }
+
     return $data;
   }
 
