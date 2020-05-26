@@ -59,10 +59,25 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
       }
     }
 
+    $rdf_mappings = rdf_get_mapping($entity_type, $bundle_type);
+    $fields = \Drupal::entityManager()->getFieldDefinitions($entity_type, $bundle_type);
+    $mappings_table_rows = [];
+    $property_namespaces = [];
+    foreach ($fields as $field_name => $field_object) {
+      $field_mappings = $rdf_mappings->getPreparedFieldMapping($field_name);
+      if (array_key_exists('properties', $field_mappings)) {
+        $mappings_table_rows[] = [$field_object->getLabel() . ' (' . $field_name . ')', $field_mappings['properties'][0]];
+        list($property_namespace, $property_name) = explode(':', $field_mappings['properties'][0]);
+        $property_namespaces[] = $property_namespace;
+      }
+    }
+
     $namespaces = rdf_get_namespaces();
     $namespaces_table_rows = [];
     foreach ($namespaces as $alias => $namespace_uri) {
-      $namespaces_table_rows[] =  [$alias, $namespace_uri];
+      if (in_array($alias, $property_namespaces)) {
+        $namespaces_table_rows[] =  [$alias, $namespace_uri];
+      }
     }
     $namespaces_table_header = [t('Namespace alias'), t('Namespace URI')];
 
@@ -72,16 +87,6 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
       '#rows' => $namespaces_table_rows,
     ];
     $namespaces_table_markup = \Drupal::service('renderer')->render($namespaces_table);
-
-    $rdf_mappings = rdf_get_mapping($entity_type, $bundle_type);
-    $fields = \Drupal::entityManager()->getFieldDefinitions($entity_type, $bundle_type);
-    $mappings_table_rows = [];
-    foreach ($fields as $field_name => $field_object) {
-      $field_mappings = $rdf_mappings->getPreparedFieldMapping($field_name);
-      if (array_key_exists('properties', $field_mappings)) {
-        $mappings_table_rows[] = [$field_object->getLabel() . ' (' . $field_name . ')', $field_mappings['properties'][0]];
-      }
-    }
 
     $this->csvData[] = ['Drupal field', 'RDF property'];
     foreach ($mappings_table_rows as $mapping) {
