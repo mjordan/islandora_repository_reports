@@ -1,0 +1,47 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function islandora_repository_reports_rdfmappings_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $bundle_type = 'page';
+  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
+      $bundle_type = $form_state->getValue('islandora_repository_reports_rdf_mapping_bundle_type');
+    }
+  }
+
+  $node_bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo('node');
+  $node_bundle_options = [];
+  foreach ($node_bundles as $name => $attr) {
+    $bundle_options[$name] = $attr['label'];
+    $bundle_entity_info[$name] = 'node';
+  }
+
+  $media_bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo('media');
+  $media_bundle_options = [];
+  foreach ($media_bundles as $name => $attr) {
+    $bundle_options[$name] = $attr['label'];
+    $bundle_entity_info[$name] = 'media';
+  }
+
+  $form['islandora_repository_reports_rdf_mapping_bundle_type'] = [
+    '#type' => 'select',
+    '#weight' => 0,
+    '#title' => t('Get mappings for'),
+    '#default_value' => $bundle_type,
+    '#options' => $bundle_options,
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'rdf_mappings'],
+      ],
+    ],
+  ];
+
+  $form['islandora_repository_reports_rdf_mapping_entity_type'] = [
+    '#type' => 'value',
+    '#value' => serialize($bundle_entity_info),
+  ];
+}
