@@ -2,15 +2,13 @@
 
 namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 
-use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
-
 /**
  * Data source plugin that gets nodes by Islandora model.
  */
 class Model implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * An array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -69,4 +67,5 @@ class Model implements IslandoraRepositoryReportsDataSourceInterface {
 
     return $model_counts;
   }
+
 }

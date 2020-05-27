@@ -2,15 +2,13 @@
 
 namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 
-use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
-
 /**
  * Data source plugin that gets nodes by Islandora genre.
  */
 class Genre implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * Array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -69,7 +67,8 @@ class Genre implements IslandoraRepositoryReportsDataSourceInterface {
     foreach ($genre_counts as $genre => $count) {
       $this->csvData[] = [$genre, $count];
     }
- 
+
     return $genre_counts;
   }
+
 }

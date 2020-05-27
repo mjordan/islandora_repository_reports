@@ -2,8 +2,6 @@
 
 namespace Drupal\islandora_repository_reports_puid\Plugin\DataSource;
 
-use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
-
 /**
  * Data source that gets media counts by PUID.
  *
@@ -11,7 +9,7 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Puid implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * An array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -44,7 +42,7 @@ class Puid implements IslandoraRepositoryReportsDataSourceInterface {
   public function getData() {
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $media_storage = $entity_type_manager->getStorage('media');
-    //  We don't include a condition/filter, we just get all the unique values in the db table.
+    // We don't include a condition/filter, we just get all the unique values in the db table.
     $result = $media_storage->getAggregateQuery()
       ->groupBy('fits_droid_puid')
       ->aggregate('fits_droid_puid', 'COUNT')

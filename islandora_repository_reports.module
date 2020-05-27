@@ -1,6 +1,5 @@
 <?php
 
-use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -14,16 +13,16 @@ use Drupal\Core\Form\FormStateInterface;
 function islandora_repository_reports_theme($existing, $type, $theme, $path) {
   return [
     'islandora_repository_reports_chart' => [
-      'variables' => ['form' => null, 'show_csv_link' => null],
+      'variables' => ['form' => NULL, 'show_csv_link' => NULL],
     ],
     'islandora_repository_reports_tips_block' => [
-      'variables' => ['content' => null],
+      'variables' => ['content' => NULL],
     ],
   ];
 }
 
 /**
- * Default preprocessor function for the islandora_repository_reports_theme hook.
+ * Default preprocessor for the islandora_repository_reports_theme hook.
  */
 function template_preprocess_islandora_repository_reports_tips_block(&$variables) {
   $variables['attributes'] = [
@@ -32,7 +31,7 @@ function template_preprocess_islandora_repository_reports_tips_block(&$variables
 }
 
 /**
- * Default preprocessor function for the islandora_repository_reports_theme hook.
+ * Default preprocessor for the islandora_repository_reports_theme hook.
  */
 function template_preprocess_islandora_repository_reports_chart(&$variables) {
   $variables['attributes'] = [
@@ -80,7 +79,8 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   // Content type select widget.
   $selected_content_types = $utilities->getFormElementDefault('islandora_repository_reports_content_types', []);
 
-  // Determine whether to show the content type list in the report selector form.
+  // Determine whether to show the content type list in the
+  // report selector form.
   $data_sources = $utilities->getServices(TRUE);
   $need_content_type_list = [];
   foreach ($data_sources as $report_type) {
@@ -91,7 +91,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     }
   }
 
-  $content_types = \Drupal\node\Entity\NodeType::loadMultiple(); 
+  $content_types = \Drupal\node\Entity\NodeType::loadMultiple();
   $content_type_options = [];
   foreach ($content_types as $key => $value) {
     $content_type_options[$key] = $value->label();
@@ -105,8 +105,8 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => [
-	  $need_content_type_list,
-	],
+          $need_content_type_list,
+        ],
       ],
     ],
   ];
@@ -114,7 +114,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   // MIME type report form.
   $media_use_terms = $utilities->getFormElementDefault('islandora_repository_reports_media_use_terms', []);
 
-  $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('islandora_media_use');
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('islandora_media_use');
   $media_use_options = [];
   foreach ($terms as $term) {
     $media_use_options[$term->tid] = $term->name;
@@ -140,7 +140,11 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#weight' => 0,
     '#title' => t('Group disk usage by'),
     '#default_value' => $disk_usage_type,
-    '#options' => ['filesystem' => t('Drupal filesystem'), 'mimetype' => t('MIME type'), 'collection' => t('Collection')],
+    '#options' => [
+      'filesystem' => t('Drupal filesystem'),
+      'mimetype' => t('MIME type'),
+      'collection' => t('Collection'),
+    ],
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'disk_usage'],
@@ -216,7 +220,7 @@ function islandora_repository_reports_page_attachments(array &$attachments) {
 function islandora_repository_reports_file_download($uri) {
   if (preg_match('/islandora_repository_reports_/', $uri)) {
     if (\Drupal::currentUser()->hasPermission('view islandora repository reports')) {
-      return ['Content-disposition' => 'attachment; filename="' . basename($uri) . '"',];
+      return ['Content-disposition' => 'attachment; filename="' . basename($uri) . '"'];
     }
     else {
       return -1;

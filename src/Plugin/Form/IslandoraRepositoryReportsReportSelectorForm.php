@@ -60,7 +60,8 @@ class IslandoraRepositoryReportsReportSelectorForm extends FormBase {
     $tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports');
     $tempstore->set('islandora_repository_reports_report_type', $form_state->getValue('islandora_repository_reports_report_type'));
     $tempstore->set('islandora_repository_reports_generate_csv', $form_state->getValue('islandora_repository_reports_generate_csv'));
-    // Pass the entire form state in so third-party modules that alter the form can retrieve their custom form values.
+    // Pass the entire form state in so third-party modules that alter the
+    // form can retrieve their custom form values.
     $tempstore->set('islandora_repository_reports_report_form_values', $form_state);
   }
 

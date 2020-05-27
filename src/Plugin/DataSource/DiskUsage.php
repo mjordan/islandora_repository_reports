@@ -2,15 +2,13 @@
 
 namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 
-use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
-
 /**
  * Data source plugin that gets disk usage by Drupal filesystem.
  */
 class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * Variable $csvData is an array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -27,7 +25,7 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getBaseEntity() {
-    return null;
+    return NULL;
   }
 
   /**
@@ -63,7 +61,7 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
         }
         else {
           $filesystem_usage[$filesystem] = $row->filesize;
-	}
+        }
       }
     }
 
@@ -92,10 +90,10 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
             if (!$utilities->nodeIsCollection($collection_node)) {
               continue;
             }
-	  }
-	  else {
+          }
+          else {
             continue;
-	  }
+          }
         }
         else {
           continue;
@@ -130,4 +128,5 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
 
     return $converted_filesystem_usage;
   }
+
 }

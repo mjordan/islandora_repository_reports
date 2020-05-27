@@ -7,10 +7,10 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 /**
  * Random data source for the Islandora Repository Reports module.
  */
-class Random implements IslandoraRepositoryReportsDataSourceInterface{
+class Random implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * Array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -27,7 +27,7 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
    * {@inheritdoc}
    */
   public function getBaseEntity() {
-    return null;
+    return NULL;
   }
 
   /**
@@ -59,7 +59,7 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface{
     $data = [];
     for ($x = 1; $x <= $num_data_elements; $x++) {
       $label = ucfirst(substr(str_shuffle($chars), 3, 12));
-      $data[$label] = rand(0,1000);
+      $data[$label] = rand(0, 1000);
     }
 
     $this->csvData = [[t('Random data point'), 'Count']];

@@ -43,12 +43,12 @@ class IslandoraRepositoryReportsSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('islandora_repository_reports_randomize_pie_chart_colors'),
       '#description' => $this->t('Check to randomize colors used in pie charts. Amusing to look at, but does not guarantee large differences in colors. Uncheck to use default colors.'),
     ];
-    $form['islandora_repository_reports_bar_chart_color'] = array(
+    $form['islandora_repository_reports_bar_chart_color'] = [
       '#type' => 'color',
       '#title' => $this->t('Bar color'),
       '#default_value' => $config->get('islandora_repository_reports_bar_chart_color'),
       '#description' => $this->t('Color to use in bar charts.'),
-    );
+    ];
     return parent::buildForm($form, $form_state);
   }
 

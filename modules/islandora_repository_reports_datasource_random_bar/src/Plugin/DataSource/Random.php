@@ -10,7 +10,7 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Random implements IslandoraRepositoryReportsDataSourceInterface{
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * An array of arrays corresponding to CSV records.
    *
    * @var string
    */

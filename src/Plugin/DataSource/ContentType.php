@@ -2,15 +2,13 @@
 
 namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 
-use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
-
 /**
  * Data source plugin that gets nodes by Drupal content type.
  */
 class ContentType implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * An array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -58,12 +56,13 @@ class ContentType implements IslandoraRepositoryReportsDataSourceInterface {
     foreach ($result as $type) {
       $type_counts[$type['type']] = $type['type_count'];
     }
- 
+
     $this->csvData = [[t('Content type'), 'Count']];
     foreach ($type_counts as $type => $count) {
       $this->csvData[] = [$type, $count];
     }
- 
+
     return $type_counts;
   }
+
 }

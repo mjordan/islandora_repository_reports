@@ -2,15 +2,13 @@
 
 namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 
-use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
-
 /**
  * Data source that gets media counts by MIME type.
  */
 class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * An array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -49,7 +47,7 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
    */
   public function getData() {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
-    $media_use_term_ids = $utilities->getFormElementDefault('islandora_repository_reports_media_use_terms', $media_use_term_ids);
+    $media_use_term_ids = $utilities->getFormElementDefault('islandora_repository_reports_media_use_terms', []);
 
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $media_storage = $entity_type_manager->getStorage('media');

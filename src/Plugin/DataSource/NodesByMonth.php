@@ -2,15 +2,13 @@
 
 namespace Drupal\islandora_repository_reports\Plugin\DataSource;
 
-use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
-
 /**
  * Data source plugin that gets nodes created by month.
  */
 class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * An array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -79,4 +77,5 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
 
     return $created_counts;
   }
+
 }

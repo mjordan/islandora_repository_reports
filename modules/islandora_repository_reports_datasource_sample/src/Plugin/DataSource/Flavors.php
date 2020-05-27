@@ -7,10 +7,10 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 /**
  * Sample data source for the Islandora Repository Reports module.
  */
-class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
+class Flavors implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * An array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -27,7 +27,7 @@ class Flavors implements IslandoraRepositoryReportsDataSourceInterface{
    * {@inheritdoc}
    */
   public function getBaseEntity() {
-    return null;
+    return NULL;
   }
 
   /**
