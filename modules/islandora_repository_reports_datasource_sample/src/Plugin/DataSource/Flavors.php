@@ -40,8 +40,8 @@ class Flavors implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
-    return '@total flavors in this sample.';
+  public function getChartTitle($total) {
+    return t('@total flavors in this sample.', ['@total' => $total]);
   }
 
   /**

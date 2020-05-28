@@ -10,10 +10,12 @@ use Drush\Commands\DrushCommands;
 class IslandoraRepositoryReportsCommands extends DrushCommands {
 
   /**
+   * Lists available report types.
+   *
    * @command islandora_repository_reports:list_report_types
    * @usage islandora_repository_reports:list_report_types
    */
-  public function list_report_types() {
+  public function listReportTypes() {
     $output = $this->output();
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $services = $utilities->getServices(TRUE);
@@ -23,13 +25,15 @@ class IslandoraRepositoryReportsCommands extends DrushCommands {
   }
 
   /**
+   * Generates data for specified report type and caches it.
+   *
    * @param string $report_type
    *   The type of report (e.g., 'mimetype', 'model', 'puid').
    *
    * @command islandora_repository_reports:build_cache
    * @usage islandora_repository_reports:build_cache mimetype
    */
-  public function build_cache($report_type) {
+  public function buildCache($report_type) {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $services = $utilities->getServices(TRUE);
 
@@ -47,13 +51,15 @@ class IslandoraRepositoryReportsCommands extends DrushCommands {
   }
 
   /**
+   * Deletes the cached data for specified report type.
+   *
    * @param string $report_type
    *   The type of report (e.g., 'mimetype', 'model', 'puid').
    *
    * @command islandora_repository_reports:delete_cache
    * @usage islandora_repository_reports:delete_cache mimetype
    */
-  public function delete_cache($report_type) {
+  public function deleteCache($report_type) {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $services = $utilities->getServices(TRUE);
 

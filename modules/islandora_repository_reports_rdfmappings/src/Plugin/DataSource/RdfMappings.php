@@ -2,16 +2,15 @@
 
 namespace Drupal\islandora_repository_reports_rdfmappings\Plugin\DataSource;
 
-use Drupal\Core\Render\Markup;
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
 
 /**
  * Random data source for the Islandora Repository Reports module.
  */
-class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
+class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * $csvData is an array of arrays corresponding to CSV records.
+   * Array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -28,7 +27,7 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
    * {@inheritdoc}
    */
   public function getBaseEntity() {
-    return null;
+    return NULL;
   }
 
   /**
@@ -41,7 +40,7 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
+  public function getChartTitle($total) {
     return t('Drupal field to RDF property mappings');
   }
 
@@ -76,7 +75,7 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
     $namespaces_table_rows = [];
     foreach ($namespaces as $alias => $namespace_uri) {
       if (in_array($alias, $property_namespaces)) {
-        $namespaces_table_rows[] =  [$alias, $namespace_uri];
+        $namespaces_table_rows[] = [$alias, $namespace_uri];
       }
     }
     $namespaces_table_header = [t('Namespace alias'), t('Namespace URI')];
@@ -104,7 +103,7 @@ class RdfMappings implements IslandoraRepositoryReportsDataSourceInterface{
       '#header' => $mappings_header,
       '#rows' => $mappings_table_rows,
       '#prefix' => t('RDF namespaces used in these mappings are defined below. Mappings altered or created dynamically by modules are not reflected in this table.'),
-      '#suffix' => $namespaces_table_markup, 
+      '#suffix' => $namespaces_table_markup,
     ];
   }
 

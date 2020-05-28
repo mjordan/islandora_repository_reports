@@ -38,8 +38,8 @@ class ContentType implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
-    return '@total nodes broken down by content type.';
+  public function getChartTitle($total) {
+    return t('@total nodes broken down by content type.', ['@total' => $total]);
   }
 
   /**

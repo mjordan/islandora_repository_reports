@@ -46,13 +46,14 @@ interface IslandoraRepositoryReportsDataSourceInterface {
   /**
    * Returns the data source's chart title.
    *
-   * This is run through Drupal's t() by the caller. Include the placeholder
-   * '@total' to interpolate the cumulative total in the title.
+   * @param string $total
+   *   The total number of data points in the chart. Is interpolated
+   *   into Drupal's t() function.
    *
    * @return string
    *   The chart's title.
    */
-  public function getChartTitle();
+  public function getChartTitle($total);
 
   /**
    * Gets the data.

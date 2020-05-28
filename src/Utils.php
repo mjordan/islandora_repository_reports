@@ -444,7 +444,7 @@ class Utils {
 
     if ($data_source->getChartType() == 'pie') {
       if (count($data_element_counts) > 0) {
-        $chart_title = t($data_source->getChartTitle(), ['@total' => array_sum($dataset->data)]);
+        $chart_title = $data_source->getChartTitle(array_sum($dataset->data));
       }
       else {
         $chart_title = t("No @name data available to report on.", ['@name' => $data_source->getName()]);
@@ -465,7 +465,7 @@ class Utils {
     }
     if ($data_source->getChartType() == 'bar') {
       if (count($data_element_counts) > 0) {
-        $chart_title = t($data_source->getChartTitle(), ['@total' => array_sum($dataset->data)]);
+        $chart_title = $data_source->getChartTitle(array_sum($dataset->data));
       }
       else {
         $chart_title = t("No @name data available to report on.", ['@name' => $data_source->getName()]);
@@ -479,8 +479,8 @@ class Utils {
       ];
     }
 
-    // Unlike Chart.js reports, HTML reports need to call the writeCsvFile() method explicitly
-    // in their getData() method.
+    // Unlike Chart.js reports, HTML reports need to call the writeCsvFile()
+    // method explicitly in their getData() method.
     $this->writeCsvFile($report_type, $data_source->csvData);
 
     return $chart_data;

@@ -38,8 +38,8 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
-    return '@total nodes broken down by month created.';
+  public function getChartTitle($total) {
+    return t('@total nodes broken down by month created.', ['@total' => $total]);
   }
 
   /**

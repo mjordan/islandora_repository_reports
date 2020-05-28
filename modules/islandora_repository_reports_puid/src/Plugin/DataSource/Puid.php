@@ -4,7 +4,6 @@ namespace Drupal\islandora_repository_reports_puid\Plugin\DataSource;
 
 /**
  * Data source that gets media counts by PUID.
- *
  */
 class Puid implements IslandoraRepositoryReportsDataSourceInterface {
 
@@ -32,8 +31,8 @@ class Puid implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
-    return '@total media grouped by PUID.';
+  public function getChartTitle($total) {
+    return t('@total media grouped by PUID.', ['@total' => $total]);
   }
 
   /**
@@ -42,7 +41,8 @@ class Puid implements IslandoraRepositoryReportsDataSourceInterface {
   public function getData() {
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $media_storage = $entity_type_manager->getStorage('media');
-    // We don't include a condition/filter, we just get all the unique values in the db table.
+    // We don't include a condition/filter, we just get all the
+    // unique values in the db table.
     $result = $media_storage->getAggregateQuery()
       ->groupBy('fits_droid_puid')
       ->aggregate('fits_droid_puid', 'COUNT')

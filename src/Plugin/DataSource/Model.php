@@ -38,8 +38,8 @@ class Model implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
-    return '@total total nodes broken down by Islandora model.';
+  public function getChartTitle($total) {
+    return t('@total total nodes broken down by Islandora model.', ['@total' => $total]);
   }
 
   /**

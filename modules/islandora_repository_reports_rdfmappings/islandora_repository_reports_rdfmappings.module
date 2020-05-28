@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Module file for the Islandora Repository Reports RDF mappings datasource.
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 
 /**

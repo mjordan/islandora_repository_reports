@@ -38,8 +38,8 @@ class Genre implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
-    return '@total uses of the Genre taxonomy.';
+  public function getChartTitle($total) {
+    return t('@total uses of the Genre taxonomy.', ['@total' => $total]);
   }
 
   /**

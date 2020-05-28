@@ -38,8 +38,8 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
-    return '@total media with the selected Media Use terms, grouped by MIME type.';
+  public function getChartTitle($total) {
+    return t('@total media with the selected Media Use terms, grouped by MIME type.', ['@total' => $total]);
   }
 
   /**

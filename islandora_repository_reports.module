@@ -1,6 +1,12 @@
 <?php
 
+/**
+ * @file
+ * Islandora Repository Reports module file.
+ */
+
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\NodeType;
 
 /**
  * @file
@@ -56,7 +62,7 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
 
   if ($data_source->getChartType() == 'html') {
     $variables['html_content'] = $data_source->getData();
-    $variables['chart_title'] = $data_source->getChartTitle();
+    $variables['chart_title'] = $data_source->getChartTitle('');
   }
 
   if ($variables['show_csv_link']) {
@@ -91,7 +97,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     }
   }
 
-  $content_types = \Drupal\node\Entity\NodeType::loadMultiple();
+  $content_types = NodeType::loadMultiple();
   $content_type_options = [];
   foreach ($content_types as $key => $value) {
     $content_type_options[$key] = $value->label();

@@ -38,8 +38,8 @@ class DiskUsage implements IslandoraRepositoryReportsDataSourceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getChartTitle() {
-    return '@total GB total disk usage.';
+  public function getChartTitle($total) {
+    return t('@total GB total disk usage.', ['@total' => $total]);
   }
 
   /**
