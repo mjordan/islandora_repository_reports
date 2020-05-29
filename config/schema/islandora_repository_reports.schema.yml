@@ -1,0 +1,14 @@
+# Schema for the configuration files of the Islandora Repository Reports module.
+islandora_repository_reports.settings:
+  type: config_object
+  label: 'Islandora Repository Reports admin settings'
+  mapping:
+    islandora_repository_reports_randomize_pie_chart_colors:
+      type: integer
+      label: 'Cache report data'
+    islandora_repository_reports_cache_report_data:
+      type: integer
+      label: 'Randomize colors in pie charts'
+    islandora_repository_reports_bar_chart_color:
+      type: string
+      label: 'Bar color'
