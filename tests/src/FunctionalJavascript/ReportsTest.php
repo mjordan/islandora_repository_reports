@@ -9,7 +9,7 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
  *
  * @group islandora_repository_reports
  */
-class IslandoraRepoReportsTest extends WebDriverTestBase {
+class ReportsTest extends WebDriverTestBase {
 
   /**
    * {@inheritdoc}

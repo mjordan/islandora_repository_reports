@@ -88,7 +88,7 @@ class Utils {
   }
 
   /**
-   * Generate a set of random colors to use in the chart.
+   * Gets content types from the user's tempstore.
    *
    * @return array
    *   An array containing machine names of the content types for use in
