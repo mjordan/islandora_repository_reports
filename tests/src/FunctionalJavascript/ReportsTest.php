@@ -14,7 +14,10 @@ class ReportsTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['islandora_repository_reports'];
+  public static $modules = [
+    'islandora_repository_reports',
+    'islandora_repository_reports_datasource_random_bar',
+  ];
 
   /**
    * {@inheritdoc}
@@ -37,9 +40,12 @@ class ReportsTest extends WebDriverTestBase {
    */
   public function testReports() {
     $this->drupalGet('admin/reports/islandora_repository_reports');
-    // "No @name data available to report on." will appear before the
-    // user selects a report.
-    $this->assertSession()->pageTextContains('data available to report on');
+    $web_assert = $this->assertSession();
+    $page = $this->getSession()->getPage();
+    $report_dropdown = $assert->fieldExists('islandora_repository_reports_report_type');
+    $report_dropdown->setValue('random_bar');
+    $button = $page->findButton('Go');
+    $this->assertSession()->pageTextContains('Random data for bar charts');
   }
 
 }
