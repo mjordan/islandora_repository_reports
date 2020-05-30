@@ -1,8 +1,0 @@
-name: 'Islandora Repository Reports RDF Mappings'
-description: "Provides a report on configured field to RDF property mappings."
-type: module
-package: Islandora
-core: 8.x
-dependencies:
-  - search_api
-  - islandora_repository_reports

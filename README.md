@@ -14,17 +14,6 @@ Reports included in this module are:
 * number of media, grouped by MIME type
 * disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private), MIME type, or collection
 
-Submodules are included that add:
-
-* a report listing configured RDF field mappings and their namespaces (more information is available in the Islandora [documentation](https://islandora.github.io/documentation/islandora/rdf-mapping/))
-* a report of media grouped by [PRONOM PUID](https://en.wikipedia.org/wiki/PRONOM) (if Islandora FITS is installed)
-* three sample reports
-   * "Flavors", a very simple example module for developers
-   * a report of randomly generated pie chart data
-   * a report of randomly generated bar chart data
-
-You will need to enable these submodules to use their reports.
-
 ## Overview
 
 Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list (`admin/reports`), or, if they don't have permission to view the Reporst list, they can link to it directly at `admin/reports/islandora_repository_reports`. Selecting one of the available reports, and then clicking on the "Go" button, will produce a pie chart, like this one:
@@ -79,7 +68,12 @@ The minimum requirements for a module that provides a data source plugin are:
    * The chart visualizing your data can be either a [bar chart with a single data series](https://www.chartjs.org/samples/latest/charts/bar/vertical.html)  or a [pie](https://www.chartjs.org/samples/latest/charts/pie.html) chart.
 1. Optionally, a .module file containing any standard Drupal hook implementations. For example, data source plugins can add form elements to the report selector form. See the comments in the random data source plugin's .module file for more information.
 
-The `modules` subdirectory contains some sample modules that provide data source plugins.
+Sample submodules are available in the 'modules' subdirectory:
+
+* "Flavors", a very simple example module for developers
+* a report of randomly generated pie chart data
+* a report of randomly generated bar chart data
+* a sample tabular report
 
 ## Current maintainer
 

@@ -1,0 +1,7 @@
+name: 'Islandora Repository Reports Sample Table'
+description: "Provides a sample tablular report."
+type: module
+package: Islandora
+core: 8.x
+dependencies:
+  - islandora_repository_reports
