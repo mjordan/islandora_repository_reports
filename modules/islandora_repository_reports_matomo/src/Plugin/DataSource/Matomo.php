@@ -42,7 +42,7 @@ class Matomo implements IslandoraRepositoryReportsDataSourceInterface {
    */
   public function getData() {
     $config = \Drupal::config('matomo.settings');
-    $matomo_url = strlen($config->get('url_https')) ? $config->get('url_https') : $config->get('url_http'); 
+    $matomo_url = strlen($config->get('url_https')) ? $config->get('url_https') : $config->get('url_http');
     $matomo_dashboard = '<iframe src="' . $matomo_url;
     $matomo_dashboard .= '/index.php?module=Widgetize&action=iframe&';
     $matomo_dashboard .= 'moduleToWidgetize=Dashboard&';

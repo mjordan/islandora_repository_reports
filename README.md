@@ -14,6 +14,8 @@ Reports included in this module are:
 * number of media, grouped by MIME type
 * disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private), MIME type, or collection
 
+Also included is a submodule that provides access to the Matomo dashboard from within the Islandora Repository Reports interface. See its [README](modules/islandora_repository_reports_matomo/README.md) for more information.
+
 ## Overview
 
 Users with "View Repository Reports" permission can visit the reports page from Drupal's Reports list (`admin/reports`), or, if they don't have permission to view the Reporst list, they can link to it directly at `admin/reports/islandora_repository_reports`. Selecting one of the available reports, and then clicking on the "Go" button, will produce a pie chart, like this one:
