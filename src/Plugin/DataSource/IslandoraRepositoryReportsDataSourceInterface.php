@@ -13,7 +13,10 @@ interface IslandoraRepositoryReportsDataSourceInterface {
    * plugins should populate this variable in their getData() method. In
    * addition, HTML report plugins should call $utilities->writeCsvFile()
    * and pass in their $csvData variable there as well (this method is
-   * called automatically for Chart.js reports).
+   * called automatically for Chart.js reports). If a plugin does not
+   * generate data that can be downloaded as a CSV, use hook_form_alter()
+   * to set the "Generate a CSV of this data" form widget to 'invisible'.
+   * See the Matomo data source module for an example.
    */
 
   /**

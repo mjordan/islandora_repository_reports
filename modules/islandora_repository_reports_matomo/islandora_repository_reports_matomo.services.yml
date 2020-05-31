@@ -1,0 +1,3 @@
+services:
+  islandora_repository_reports.datasource.matomo:
+    class: Drupal\islandora_repository_reports_matomo\Plugin\DataSource\Matomo

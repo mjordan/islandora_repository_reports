@@ -44,6 +44,9 @@ class IslandoraRepositoryReportsReportSelectorForm extends FormBase {
     $form['islandora_repository_reports_generate_csv'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Generate a CSV file of this data'),
+      '#attributes' => [
+        'name' => 'islandora_repository_reports_generate_csv',
+      ],
     ];
     $form['actions']['submit'] = [
       '#type' => 'submit',

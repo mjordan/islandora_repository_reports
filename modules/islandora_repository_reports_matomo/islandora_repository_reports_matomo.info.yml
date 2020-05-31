@@ -1,0 +1,8 @@
+name: 'Islandora Repository Reports Matomo'
+description: "Provides Matomo reports."
+type: module
+package: Islandora
+core: 8.x
+dependencies:
+  - matomo
+  - islandora_repository_reports
