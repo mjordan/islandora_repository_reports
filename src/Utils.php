@@ -512,4 +512,27 @@ class Utils {
     }
   }
 
+  /**
+   * Converts dates like 2020-06 to timestamps.
+   *
+   * @param string $start
+   *   The start date, in yyyy-mm format.
+   * @param string $end
+   *   The end date, in yyyy-mm format.
+   *
+   * @return array
+   *   An array whose first member is a Unix timestamp of the 00-00-00
+   *   minute/second of the start date, and whose second member is
+   *   a Unix timestamp of the 23-59-59 minute/second of the end date.
+   */
+  public function monthsToTimestamps($start, $end) {
+    $start = empty($start) ? '1900-01' : $start;
+    $end = empty($end) ? '2050-12' : $end;
+    $start_timestamp = strtotime($start);
+    $end_date = date('Y-m-t', strtotime($end));
+    $end_date .= ' 23:59:59';
+    $end_timestamp = strtotime($end_date);
+    return [$start_timestamp, $end_timestamp];
+  }
+
 }
