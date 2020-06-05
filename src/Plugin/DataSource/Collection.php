@@ -47,6 +47,10 @@ class Collection implements IslandoraRepositoryReportsDataSourceInterface {
    */
   public function getData() {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
+    if (count($utilities->getSelectedContentTypes()) == 0) {
+      return [];
+    }
+
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $node_storage = $entity_type_manager->getStorage('node');
     $result = $node_storage->getAggregateQuery()

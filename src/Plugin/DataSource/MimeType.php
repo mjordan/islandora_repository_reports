@@ -49,6 +49,10 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $media_use_term_ids = $utilities->getFormElementDefault('islandora_repository_reports_media_use_terms', []);
 
+    if (count($media_use_term_ids) == 0) {
+      return [];
+    }
+
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $media_storage = $entity_type_manager->getStorage('media');
     $result = $media_storage->getAggregateQuery()
