@@ -158,7 +158,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     ],
   ];
 
-  // Nodes by month form.
+  // Nodes by month and genre form.
   $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_start', '');
   $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_end', '');
 
@@ -168,10 +168,14 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#size' => 10,
     '#title' => t('Start date'),
     '#default_value' => $start_of_range,
-    '#description' => t('First month to include in report, in yyyy-mm format. Leave empty to include all months up to end date.'),
+    '#placeholder' => 'yyyy-mm',
+    '#description' => t('Limit report to nodes created in or after this month. Leave empty to include all months up to end date.'),
     '#states' => [
       'visible' => [
-        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'nodes_by_month'],
+        ':input[name="islandora_repository_reports_report_type"]' => [
+          ['value' => 'nodes_by_month'],
+          ['value' => 'genre'],
+        ],
       ],
     ],
   ];
@@ -181,11 +185,15 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#weight' => 0,
     '#size' => 10,
     '#title' => t('End date'),
+    '#placeholder' => 'yyyy-mm',
     '#default_value' => $end_of_range,
-    '#description' => t('Last month to include in report, in yyyy-mm format. Leave empty to include all months after start date.'),
+    '#description' => t('Limit report to nodes created up to and including this month. Leave empty to include all months up to end date.'),
     '#states' => [
       'visible' => [
-        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'nodes_by_month'],
+        ':input[name="islandora_repository_reports_report_type"]' => [
+          ['value' => 'nodes_by_month'],
+          ['value' => 'genre'],
+        ],
       ],
     ],
   ];

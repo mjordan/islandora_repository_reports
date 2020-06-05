@@ -47,12 +47,18 @@ class Genre implements IslandoraRepositoryReportsDataSourceInterface {
    */
   public function getData() {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
+    $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_start', '');
+    $start_of_range = trim($start_of_range);
+    $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_end', '');
+    $end_of_range = trim($end_of_range);
+
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $node_storage = $entity_type_manager->getStorage('node');
     $result = $node_storage->getAggregateQuery()
       ->groupBy('field_genre')
       ->aggregate('field_genre', 'COUNT')
       ->condition('type', $utilities->getSelectedContentTypes(), 'IN')
+      ->condition('created', $utilities->monthsToTimestamps($start_of_range, $end_of_range), 'BETWEEN')
       ->execute();
     $genre_counts = [];
     foreach ($result as $genre) {
