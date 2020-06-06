@@ -1,0 +1,3 @@
+services:
+  islandora_repository_reports.datasource.vocab:
+    class: Drupal\islandora_repository_reports_vocab\Plugin\DataSource\Vocab

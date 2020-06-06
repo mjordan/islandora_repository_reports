@@ -105,7 +105,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   $form['islandora_repository_reports_content_types'] = [
     '#type' => 'checkboxes',
     '#weight' => 0,
-    '#title' => t('Content types to include in report:'),
+    '#title' => t('Content types to include in report'),
     '#options' => $content_type_options,
     '#default_value' => $selected_content_types,
     '#states' => [
@@ -128,7 +128,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   $form['islandora_repository_reports_media_use_terms'] = [
     '#type' => 'checkboxes',
     '#weight' => 0,
-    '#title' => t('Include media with the following Media Use tags:'),
+    '#title' => t('Include media with the following Media Use tags'),
     '#options' => $media_use_options,
     '#default_value' => $media_use_terms,
     '#states' => [
@@ -158,7 +158,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     ],
   ];
 
-  // Nodes by month and genre form.
+  // Date range widgets for some reports.
   $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_start', '');
   $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_end', '');
 
@@ -175,6 +175,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
         ':input[name="islandora_repository_reports_report_type"]' => [
           ['value' => 'nodes_by_month'],
           ['value' => 'genre'],
+          ['value' => 'vocab'],
         ],
       ],
     ],
@@ -193,6 +194,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
         ':input[name="islandora_repository_reports_report_type"]' => [
           ['value' => 'nodes_by_month'],
           ['value' => 'genre'],
+          ['value' => 'vocab'],
         ],
       ],
     ],

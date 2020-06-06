@@ -1,0 +1,7 @@
+name: 'Islandora Repository Reports any vocab'
+description: "Provides ..."
+type: module
+package: Islandora
+core: 8.x
+dependencies:
+  - islandora_repository_reports

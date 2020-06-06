@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Module file for the Islandora Repository Reports Vocab datasource.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function islandora_repository_reports_vocab_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
+      $target_vocab = $form_state->getValue('islandora_repository_reports_vocabulary');
+    }
+  }
+  if (empty($target_vocab)) {
+    $target_vocab = 'islandora_models';
+  }
+
+  $vocab_options = [];
+  $vocabs = Vocabulary::loadMultiple();
+  foreach ($vocabs as $vid => $vocab) {
+    $vocab_options[$vid] = $vocab->label();
+  }
+
+  $form['islandora_repository_reports_content_types']['#weight'] = -1;
+  $form['islandora_repository_reports_report_type']['#weight'] = -1;
+
+  $single_type_message = t('Note: The "Nodes by terms in vocabulary" report can only process one content type at a time. If you check more than one, the first will be used.');
+  $form['islandora_repository_reports_vocabulary_single_type'] = [
+    '#type' => 'item',
+    '#weight' => -1,
+    '#markup' => $single_type_message,
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'vocab'],
+      ],
+    ],
+  ];
+
+  $form['islandora_repository_reports_vocabulary'] = [
+    '#type' => 'select',
+    '#weight' => 0,
+    '#title' => t('Vocabulary'),
+    '#default_value' => $target_vocab,
+    '#options' => $vocab_options,
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'vocab'],
+      ],
+    ],
+  ];
+}

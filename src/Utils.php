@@ -101,7 +101,7 @@ class Utils {
         $content_types = $form_state->getValue('islandora_repository_reports_content_types');
       }
     }
-    return $content_types;
+    return (array) $content_types;
   }
 
   /**

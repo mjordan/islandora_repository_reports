@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A Drupal 8 module that provides a collection of graphical and tabluar reports on various aspects of an Islandora repository. This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration on basic information about their content. It is not a replacment for Views.
+A Drupal 8 module that provides a collection of reports on various aspects of an Islandora repository. This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration. It is not a replacment for Views.
 
 Reports included in this module are:
 
@@ -14,7 +14,10 @@ Reports included in this module are:
 * number of media, grouped by MIME type
 * disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private), MIME type, or collection
 
-Also included is a submodule that provides access to the Matomo dashboard from within the Islandora Repository Reports interface. See its [README](modules/islandora_repository_reports_matomo/README.md) for more information.
+Also included are to submodules (these need be enabled separately):
+
+* One that provides access to the Matomo dashboard from within the Islandora Repository Reports interface. See its [README](modules/islandora_repository_reports_matomo/README.md) for more information.
+* One that allows the user to generate a report on the usage of terms in any vocabulary/taxonomy.
 
 ## Overview
 
@@ -25,8 +28,6 @@ Users with "View Repository Reports" permission can visit the reports page from 
 Or a bar chart, like this one:
 
 ![Random bar chart](docs/images/random_bar.png)
-
-Even though the focus of this module is graphical reports, some reports, such as RDF field mappings, are in tabluar form.
 
 All reports allow the user to "Generate a CSV file of this data" by checking a box before clicking on the "Go" button. If this box is checked, a link to download the CSV file will appear.
 
