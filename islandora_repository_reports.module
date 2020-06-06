@@ -169,7 +169,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#title' => t('Start date'),
     '#default_value' => $start_of_range,
     '#placeholder' => 'yyyy-mm',
-    '#description' => t('Limit report to nodes created in or after this month. Leave empty to include all months up to end date.'),
+    '#description' => t('Limit report to nodes created in or after the specified month. Leave empty to include all months up to end date.'),
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => [
@@ -188,7 +188,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#title' => t('End date'),
     '#placeholder' => 'yyyy-mm',
     '#default_value' => $end_of_range,
-    '#description' => t('Limit report to nodes created up to and including this month. Leave empty to include all months after start date.'),
+    '#description' => t('Limit report to nodes created up to and including the specified month. Leave empty to include all months after start date.'),
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => [
