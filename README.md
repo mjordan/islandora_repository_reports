@@ -6,18 +6,19 @@ A Drupal 8 module that provides a collection of reports on various aspects of an
 
 Reports included in this module are:
 
-* number of nodes, grouped by Drupal content type
 * number of nodes, grouped by collection
+* number of nodes, grouped by Drupal content type
 * number of nodes, grouped by month created
 * number of nodes, grouped by terms from the Islandora Models taxonomy
 * number of nodes, grouped by terms from the Islandora Genre taxonomy
 * number of media, grouped by MIME type
+* number of media, grouped by Islandora Media Use taxonomy
 * disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private), MIME type, or collection
 
-Also included are to submodules (these need be enabled separately):
+Also included are two submodules (these need be enabled separately):
 
 * One that provides access to the Matomo dashboard from within the Islandora Repository Reports interface. See its [README](modules/islandora_repository_reports_matomo/README.md) for more information.
-* One that allows the user to generate a report on the usage of terms in any vocabulary/taxonomy.
+* One that allows the user to generate a report on the usage of terms in any taxonomy/vocabulary.
 
 ## Overview
 

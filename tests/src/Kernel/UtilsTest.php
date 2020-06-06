@@ -42,6 +42,7 @@ class UtilsTest extends KernelTestBase {
     $this->utilsService = \Drupal::service('islandora_repository_reports.utilities');
     $this->assertEquals([
       'mimetype',
+      'media_use',
       'model',
       'genre',
       'content_type',

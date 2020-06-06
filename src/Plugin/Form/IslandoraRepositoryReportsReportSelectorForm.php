@@ -30,6 +30,7 @@ class IslandoraRepositoryReportsReportSelectorForm extends FormBase {
 
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $services = $utilities->getServices();
+    natsort($services);
 
     $form['islandora_repository_reports_report_type'] = [
       '#type' => 'select',
