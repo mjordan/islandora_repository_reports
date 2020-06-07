@@ -75,6 +75,7 @@ The minimum requirements for a module that provides a data source plugin are:
 Sample submodules are available in the 'modules' subdirectory:
 
 * "Flavors", a very simple example module for developers
+* "People currently in space", which demonstrates how a report can get data from outside of Drupal
 * a report of randomly generated pie chart data
 * a report of randomly generated bar chart data
 * a sample tabular report
