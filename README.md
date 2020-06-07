@@ -43,7 +43,7 @@ All reports allow the user to "Generate a CSV file of this data" by checking a b
 
 ## Configuration
 
-Configuration options are available in the "Islandora" config group, or directly at `admin/config/islandora/islandora_repository_reports`. Some additional coniguration-related notes:
+Configuration options (pie vs. doughnut, color options, caching) are available in the "Islandora" config group, or directly at `admin/config/islandora/islandora_repository_reports`. Some additional coniguration-related notes:
 
 * Users will need to have "View Repository Reports" permission to view the reports page.
 * Options selected by the user within the form used to select which report to generate are specific to each Drupal user. They are not set by the site administrator for all users.

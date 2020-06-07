@@ -226,11 +226,14 @@ function islandora_repository_reports_page_attachments(array &$attachments) {
 
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
 
+
     $chart_type = $data_source->getChartType();
     if ($chart_type == 'pie') {
+      $config = \Drupal::config('islandora_repository_reports.settings');
+      $food_chart_type = $config->get('islandora_repository_reports_pie_or_doughnut');
       $pie_chart_data = $utilities->getReportData($report_type);
       $attachments['#attached']['library'][] = 'islandora_repository_reports/islandora_repository_reports_chart';
-      $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_type'] = 'pie';
+      $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_type'] = $food_chart_type;
       $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_title'] = $pie_chart_data['title'];
       $attachments['#attached']['drupalSettings']['islandora_repository_reports']['chart_data'] = $pie_chart_data;
     }
