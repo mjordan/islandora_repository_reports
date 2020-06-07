@@ -1,0 +1,8 @@
+name: 'Islandora Repository Reports plugin for failed fixity events'
+description: "Renders the Islandora Riprap failed fixity events chart within the Islandora Repository Reports interface."
+type: module
+package: Islandora
+core: 8.x
+dependencies:
+  - islandora_repository_reports
+  - islandora_riprap

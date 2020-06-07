@@ -1,0 +1,3 @@
+services:
+  islandora_repository_reports.datasource.riprap_report:
+    class: Drupal\islandora_repository_reports_riprap\Plugin\DataSource\RiprapReport

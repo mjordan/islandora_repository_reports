@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Islandora Repository Reports Riprap module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function islandora_repository_reports_riprap_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['islandora_repository_reports_generate_csv']['#states'] = [
+    'invisible' => [
+      ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'riprap_report'],
+    ],
+  ];
+}
