@@ -52,6 +52,9 @@ class IslandoraRepositoryReportsReportSelectorForm extends FormBase {
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Go'),
+      '#attributes' => [
+        'id' => 'islandora_repository_reports_go_button',
+      ],
     ];
 
     return $form;
