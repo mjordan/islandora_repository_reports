@@ -41,7 +41,7 @@ class SampleTable implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getChartTitle($total) {
-    return t('Sample Tabular Report');
+    return t('Sample tabular report showing registered RDF namespaces');
   }
 
   /**

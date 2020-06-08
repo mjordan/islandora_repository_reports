@@ -56,7 +56,7 @@ Generally speaking, as the size of your repository grows, the longer it will tak
 
 1. To list the enabled report types: `drush islandora_repository_reports:list_report_types`
 1. To pregenerate the data for the 'model' report: `drush islandora_repository_reports:build_cache model`
-1. To delete the data for the 'mimetype' report: `islandora_repository_reports:delete_cache mimetype`
+1. To delete the data for the 'mimetype' report: `drush islandora_repository_reports:delete_cache mimetype`
 
 Note that the Drush command that generates the cached data uses the chart options that the user most recently selected via the report selection form at `admin/reports/islandora_repository_reports`. Chart options cannot be passed into the Drush command.
 

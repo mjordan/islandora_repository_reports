@@ -7,7 +7,7 @@ Javascript that renders a Chart.js chart.
   "use strict";
 
   $('#islandora_repository_reports_go_button').click(function(){
-    $('.islandora-repository-reports-is-loading-message').show();
+    $('.islandora-repository-reports-is-loading-message').css('display', 'visible');
   });
   $(window).on('load', function(){
     $('.islandora-repository-reports-is-loading-message').fadeOut('slow')

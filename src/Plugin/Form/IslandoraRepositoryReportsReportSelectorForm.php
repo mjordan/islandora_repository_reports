@@ -52,6 +52,7 @@ class IslandoraRepositoryReportsReportSelectorForm extends FormBase {
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Go'),
+      '#suffix' => '<span class="islandora-repository-reports-is-loading-message" style="text-align:center; display:none;">' . $this->t("Please stand by while your report is being prepared.") . '</span>',
       '#attributes' => [
         'id' => 'islandora_repository_reports_go_button',
       ],

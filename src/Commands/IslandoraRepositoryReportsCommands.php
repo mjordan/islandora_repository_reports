@@ -54,7 +54,7 @@ class IslandoraRepositoryReportsCommands extends DrushCommands {
    * Deletes the cached data for specified report type.
    *
    * @param string $report_type
-   *   The type of report (e.g., 'mimetype', 'model', 'puid').
+   *   The type of report (e.g., 'mimetype', 'model', 'content_type').
    *
    * @command islandora_repository_reports:delete_cache
    * @usage islandora_repository_reports:delete_cache mimetype

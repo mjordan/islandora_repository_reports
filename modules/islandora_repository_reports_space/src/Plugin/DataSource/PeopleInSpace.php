@@ -57,7 +57,8 @@ class PeopleInSpace implements IslandoraRepositoryReportsDataSourceInterface {
     $data = [];
     foreach ($response_output['people'] as $astro) {
       $label = $astro['name'] . ' (' . $astro['craft'] . ')';
-      // We aren't counting anything in this report, so we just add 1 to every name.
+      // We aren't counting anything in this report,
+      // so we just add 1 to every name.
       $data[$label] = 1;
     }
 

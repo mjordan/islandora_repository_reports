@@ -66,6 +66,27 @@ class Utils {
   }
 
   /**
+   * Determines if the tempstore has been populated within a specific time.
+   *
+   * @param string $key
+   *   The name of the key in the user's tempstore to check.
+   * @param int $bb
+   *   The 'best before' time, in seconds, for the tempstore.
+   *
+   * @return bool
+   *   TRUE if the tempstore has passed its best before, FALSE if not.
+   */
+  public function tempstoreIsStale($key = 'islandora_repository_reports_report_type', $bb = 60) {
+    $tempstore_age = 0;
+    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+      $tempstore_age = time() - $tempstore->getMetadata($key)->getUpdated();
+      if ($tempstore_age > $bb) {
+        return TRUE;
+      }
+    }
+  }
+
+  /**
    * Generate a set of random colors to use in the chart.
    *
    * @param int $length
