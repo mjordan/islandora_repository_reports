@@ -425,12 +425,13 @@ class Utils {
 
     $data_element_counts = &drupal_static(__FUNCTION__);
     $cid = 'islandora_repository_reports_data_' . $report_type;
+    $data_source_service_id = 'islandora_repository_reports.datasource.' . $report_type;
+    $data_source = \Drupal::service($data_source_service_id);
+
     if ($cache_data && $cache = \Drupal::cache()->get($cid)) {
       $data_element_counts = $cache->data;
     }
     else {
-      $data_source_service_id = 'islandora_repository_reports.datasource.' . $report_type;
-      $data_source = \Drupal::service($data_source_service_id);
       $data_element_counts = $data_source->getData();
       if ($cache_data) {
         \Drupal::cache()->set($cid, $data_element_counts);
