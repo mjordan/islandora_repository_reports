@@ -3,6 +3,9 @@ islandora_repository_reports_chart:
   js:
     https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js: { type: external }
     js/islandora_repository_reports_chart.js: {}
+  css:
+    theme:
+      css/islandora_repository_reports.css: {}
   dependencies:
     - core/jquery
     - core/jquery.once

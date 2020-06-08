@@ -6,6 +6,12 @@ Javascript that renders a Chart.js chart.
 (function (Drupal, $) {
   "use strict";
 
+  // This works, but it appears with the chart. We need it to appear right away, after the "go" button
+  // is clicked.
+  $(window).on('load', function(){
+    $('.islandora-repository-reports-is-loading-message').fadeOut('slow')
+  });
+
   $("#islandora_repository_reports_report_type").change(function(){
     $('#islandora-repository-reports-content').find('*').fadeTo(0, 0.3)
   });
