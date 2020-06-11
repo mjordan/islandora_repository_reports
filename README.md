@@ -74,12 +74,12 @@ The minimum requirements for a module that provides a data source plugin are:
 1. a plugin class file that implements the `MediaFormatsReportsDataSourceInterface` interface.
    * The chart visualizing your data can be either a Chart.js [pie](https://www.chartjs.org/samples/latest/charts/pie.html) or [bar](https://www.chartjs.org/samples/latest/charts/bar/vertical.html) chart with a single data series. You do not need to interact with the Chart.js Javascript directly; all you need to do is have your plugin's `getData()` method return an associative array containing `label => count` member arrays.
    * Data source plugins can also generate HTML markup (more accurately, a render array) that is displayed to the user instead of Chart.js charts.
-1. Optionally, a .module file containing any standard Drupal hook implementations. The most common hook you will want to implement is `hook_form_form_id_alter()` to add/delete form elements to the report selector form (e.g., `your_module_form_islandora_repository_reports_report_selector_alter()`). See the comments in the random data source plugin's .module file for more information.
+1. Optionally, a .module file containing any standard Drupal hook implementations. The most common hook you will want to implement is `hook_form_form_id_alter()` to add/delete form elements to the report selector form, e.g., `YOUR_MODULE_form_islandora_repository_reports_report_selector_alter()`. See the [comments](modules/islandora_repository_reports_datasource_random/islandora_repository_reports_datasource_random.module#L11) in the random data source plugin's .module file for more information.
 
 Sample submodules are available in the 'modules' subdirectory:
 
 * "Flavors", a very simple example module for developers
-* "People currently in space", which demonstrates how a report can get data from outside of Drupal
+* "People currently in space", which demonstrates how a report can get data from a remote API
 * a report of randomly generated pie chart data
 * a report of randomly generated bar chart data
 * a sample report that generates HTML markup instead of data for a Chart.js chart
