@@ -88,6 +88,10 @@ Sample submodules are available in the 'modules' subdirectory:
 
 * [Mark Jordan](https://github.com/mjordan)
 
+## Contributing
+
+[Contributing to this module](CONTRIBUTING.md) will increase your awesomeness.
+
 ## License
 
 [GPLv2](http://www.gnu.org/licenses/gpl-2.0.txt)
