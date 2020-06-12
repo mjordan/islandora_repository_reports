@@ -63,7 +63,7 @@ Note that the Drush command that generates the cached data uses the chart option
 
 ## Writing data source plugins
 
-This module is intended to be easy for repository admins to use, and also for developers to extend. [Writing Drupal submodules](docs/Plugins.md) that provide data source plugin is fairly straight forward.
+This module is intended to be easy for repository admins to use, and also for developers to extend. [Writing Drupal submodules](docs/Plugins.md) that provide data source plugins is fairly straight forward.
 
 ## Current maintainer
 

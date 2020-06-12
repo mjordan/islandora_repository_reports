@@ -14,7 +14,7 @@ function islandora_repository_reports_log_form_islandora_repository_reports_repo
   $form['#attached']['library'][] = 'islandora_repository_reports/islandora_repository_reports_loading_message';
   $utilities = \Drupal::service('islandora_repository_reports.utilities');
 
-  // Drupal log report form.
+  // Drupal log report type selector element.
   $facet = $utilities->getFormElementDefault('islandora_repository_reports_log_facet', 'type');
 
   $form['islandora_repository_reports_log_facet'] = [
