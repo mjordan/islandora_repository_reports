@@ -1,8 +1,8 @@
 ## Writing report submodules
 
-A variety of basic reports are bundled with this module, but it is easy for developers to add additional reports. The best way to do this is to write a submodule that provides a data source plugin. Additional functionality (for example, a custom input form) can be added as well. Submodules let you package reports that are specific to your site, or mangage dependencies on third-part Drupal modules.
+A variety of basic reports are bundled with this module, but developers can add additional reports by writing submodules that provide data source plugins. Submodule can add functionality such as custom input form as well. In addition, submodules can package reports that are specific to a site (or shared!), and mangage dependencies on third-part Drupal modules.
 
-The most typical source for report data is Drupal's database, but data source plugins can get their data from Solr, Blazegraph, or log files on disk (for example). Sample submodules are available in the 'modules' subdirectory:
+The most typical source for report data is Drupal's database, but although source plugins can get their data from Solr, Blazegraph, or log files on disk (for example). Sample submodules are available in the 'modules' subdirectory:
 
 * "Flavors", a very simple example module for developers
 * "People currently in space", which demonstrates how a report can get data from a remote API
@@ -21,18 +21,14 @@ The minimum requirements for a submodule that provides a data source plugin are:
 
 ### Data Source plugins
 
-Each report gets its data from a single data source plugin, which is a small PHP class file implementing the `IslandoraRepositoryReportsDataSourceInterface` that returns from its `getData()` method an associative array of label => count pairs, and, optionally, populate the `csvData` property:
+Each report gets its data from a single data source plugin, which is a small PHP class file implementing the `IslandoraRepositoryReportsDataSourceInterface` that returns from its `getData()` method an associative array of label => count pairs, and, optionally, populate the `csvData` property. To illustrate how a data source plugin works, let's look at the one in the Flavors sample module. The data returned by this sample method is hard-coded, but the data could come from a database query, or a call to an external service:
 
 ```php
   /**
-   * Gets the data.
+   * This is from the 'Flavors' sample data source plugin.
    *
    * @return array
    *   An assocative array containing dataLabel => count members.
-   *
-   *   The data returned by this sample method is hard-coded, but the data
-   *   in a custom plugin would come from a database query, or a call to
-   *   an external service.
    */
   public function getData() {
     $flavors = [
@@ -52,9 +48,13 @@ Each report gets its data from a single data source plugin, which is a small PHP
   }
 ```
 
-That's all a data source plugin has to do. It (or any code in a submodule) does not interact with the Chart.js JavaScript directly; all you need to do is have your plugin's `getData()` method return an array of data and populate `csvData` with a version of that array. Code in `islandora_repository_reports_hook_page_attachments()` passes your data to a JavaScript file that instantiates a Chart.js chart. The chart visualizing your data can be either a Chart.js [pie](https://www.chartjs.org/samples/latest/charts/pie.html) or [bar](https://www.chartjs.org/samples/latest/charts/bar/vertical.html) chart with a single data series.
+That's all the `getData()` method in a data source plugin has to do. This one populates a chart that looks like this:
 
-Each data source plugin class is called as a Drupal service, which is why your plugin needs to be accompanied by a .services.yml file. Within the .services.yml file, the service ID must be in the form `islandora_repository_reports.datasource.xxx`, where `xxx` is an ID string specific to the plugin. This pattern ensures that the plugin will show up in the list of media formats reports in the select list in the reports form. For example, 'flavors' is he data source ID in this example:
+![Random bar chart](images/flavors.png)
+
+Code in submodules does not interact with the Chart.js JavaScript directly. All plugins need to do is have their `getData()` method return an array of data and populate `csvData` (which is not returned but is a property of the data source instance). Code in `islandora_repository_reports_hook_page_attachments()` passes the data to a JavaScript file that instantiates a Chart.js chart. The chart visualizing the data can be either a Chart.js [pie](https://www.chartjs.org/samples/latest/charts/pie.html) or [bar](https://www.chartjs.org/samples/latest/charts/bar/vertical.html) chart. Both chart types only support a single data series.
+
+Each data source plugin class is called as a Drupal service, which is why plugins needs to be accompanied by a .services.yml file. Within the .services.yml file, the service ID must be in the form `islandora_repository_reports.datasource.xxx`, where `xxx` is an ID string specific to the plugin. This pattern ensures that the plugin will show up in the list of media formats reports in the select list in the reports form. For example, 'flavors' is the data source ID in this example:
 
 ```yaml
 services:
