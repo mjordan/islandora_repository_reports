@@ -16,14 +16,8 @@ use Drupal\Core\Form\FormStateInterface;
  * to the data source's getData() method.
  */
 function islandora_repository_reports_datasource_random_bar_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-    if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
-      $num_data_elements = $form_state->getValue('islandora_repository_reports_datasource_random_bar_num_data');
-    }
-  }
-  if (empty($num_data_elements)) {
-    $num_data_elements = 5;
-  }
+  $utilities = \Drupal::service('islandora_repository_reports.utilities');
+  $num_data_elements = $utilities->getFormElementDefault('islandora_repository_reports_datasource_random_bar_num_data', 5);
 
   $form['islandora_repository_reports_datasource_random_bar_num_data'] = [
     '#type' => 'textfield',

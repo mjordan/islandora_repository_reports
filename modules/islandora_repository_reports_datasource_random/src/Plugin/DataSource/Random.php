@@ -48,13 +48,9 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getData() {
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-      $form_state = $tempstore->get('islandora_repository_reports_report_form_values');
-      $num_data_elements = $form_state->getValue('islandora_repository_reports_datasource_random_num_data');
-    }
-    else {
-      $num_data_elements = 5;
-    }
+    $utilities = \Drupal::service('islandora_repository_reports.utilities');
+    $num_data_elements = $utilities->getFormElementDefault('islandora_repository_reports_datasource_random_num_data', 5);
+
     $chars = 'abcdefghijklmnopqrstuvwxyz';
     $data = [];
     for ($x = 1; $x <= $num_data_elements; $x++) {

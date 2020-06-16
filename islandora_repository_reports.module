@@ -45,13 +45,7 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
     'id' => ['islandora_repository_reports_chart'],
   ];
 
-  if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-    $report_type = $tempstore->get('islandora_repository_reports_report_type');
-  }
-  // Set safe default value.
-  if (empty($report_type)) {
-    $report_type = 'mimetype';
-  }
+  $report_type = $utilities->getFormElementDefault('islandora_repository_reports_report_type', 'mimetype');
 
   if (!empty(\Drupal::hasService('islandora_repository_reports.datasource.' . $report_type))) {
     $data_source = \Drupal::service('islandora_repository_reports.datasource.' . $report_type);
@@ -218,14 +212,7 @@ function islandora_repository_reports_page_attachments(array &$attachments) {
   $utilities = \Drupal::service('islandora_repository_reports.utilities');
   $current_path = \Drupal::service('path.current')->getPath();
   if ($current_path == '/admin/reports/islandora_repository_reports') {
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-      $report_type = $tempstore->get('islandora_repository_reports_report_type');
-    }
-
-    // Set safe default value.
-    if (empty($report_type)) {
-      $report_type = 'mimetype';
-    }
+    $report_type = $utilities->getFormElementDefault('islandora_repository_reports_report_type', 'mimetype');
 
     // Since the report is generate by calling $utilities->getReportData(),
     // we need a way to avoid calling that method when a user simply views

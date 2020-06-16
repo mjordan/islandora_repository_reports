@@ -21,14 +21,8 @@ class IslandoraRepositoryReportsReportSelectorForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
-      $report_type = $tempstore->get('islandora_repository_reports_report_type');
-    }
-    else {
-      $report_type = 'mimetype';
-    }
-
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
+    $report_type = $utilities->getFormElementDefault('islandora_repository_reports_report_type', 'mimetype');
     $services = $utilities->getServices();
     natsort($services);
 
