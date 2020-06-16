@@ -61,7 +61,9 @@ class Model implements IslandoraRepositoryReportsDataSourceInterface {
     $model_counts = [];
     foreach ($result as $model) {
       $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($model['field_model_target_id']);
-      $model_counts[$term->label()] = $model['field_model_count'];
+      if ($term && method_exists($term, 'label')) {
+        $model_counts[$term->label()] = $model['field_model_count'];
+      }
     }
 
     $this->csvData = [[t('Islandora model'), 'Count']];
