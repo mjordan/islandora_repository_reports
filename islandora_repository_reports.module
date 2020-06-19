@@ -92,10 +92,11 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
   // report selector form.
   $data_sources = $utilities->getServices(TRUE);
   $need_content_type_list = [];
+  $do_not_need_content_type_list = ['content_type'];
   foreach ($data_sources as $report_type) {
     $data_source_service_id = 'islandora_repository_reports.datasource.' . $report_type;
     $data_source = \Drupal::service($data_source_service_id);
-    if ($data_source->getBaseEntity() == 'node') {
+    if ($data_source->getBaseEntity() == 'node' && !in_array($report_type, $do_not_need_content_type_list)) {
       $need_content_type_list[] = ['value' => $report_type];
     }
   }

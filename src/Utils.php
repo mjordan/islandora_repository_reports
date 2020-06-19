@@ -79,6 +79,9 @@ class Utils {
   public function tempstoreIsStale($key = 'islandora_repository_reports_report_type', $bb = 60) {
     $tempstore_age = 0;
     if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+      if (is_null($tempstore->getMetadata($key))) {
+        return TRUE;
+      }
       $tempstore_age = time() - $tempstore->getMetadata($key)->getUpdated();
       if ($tempstore_age > $bb) {
         return TRUE;
