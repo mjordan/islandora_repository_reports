@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A Drupal 8 module that provides a collection of reports on various aspects of an Islandora repository. This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration. It is not a replacment for Views.
+A Drupal 8/9 module that provides a collection of reports on various aspects of an Islandora repository. This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration. It is not a replacment for Views.
 
 Reports included in this module are:
 
@@ -37,6 +37,8 @@ All reports allow the user to "Generate a CSV file of this data" by checking a b
 ## Requirements
 
 * [Islandora 8](https://github.com/Islandora/islandora)
+
+Islandora Repository Reports is ready for for Drupal 9.
 
 ## Installation
 

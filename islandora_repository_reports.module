@@ -68,9 +68,10 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
   }
 
   if ($variables['show_csv_link']) {
-    $files_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+    $default_schema = \Drupal::config('system.file')->get('default_scheme');
+    $files_path = \Drupal::service('file_system')->realpath(default_schema . "://");
     $filename = 'islandora_repository_reports_' . $report_type . '.csv';
-    $report_url = file_create_url(file_default_scheme() . '://' . $filename);
+    $report_url = file_create_url($default_schema . '://' . $filename);
     $variables['csv_url'] = $report_url;
     // chart_type is 'pie', 'bar', etc from Chart.js, or 'html' for rendered
     // HTML content such as a table or list.

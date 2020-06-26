@@ -522,7 +522,8 @@ class Utils {
   public function writeCsvFile($report_type, $csv_data) {
     if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
       if ($tempstore->get('islandora_repository_reports_generate_csv')) {
-        $files_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+        $default_schema = \Drupal::config('system.file')->get('default_scheme');
+        $files_path = \Drupal::service('file_system')->realpath($default_schema . "://");
         $filename = 'islandora_repository_reports_' . $report_type . '.csv';
         $fp = fopen($files_path . '/' . $filename, 'w');
         foreach ($csv_data as $fields) {
