@@ -1,0 +1,3 @@
+islandora_repository_reports_activemq_admin_console_url: 'http://localhost:8161/admin/queues.jsp'
+islandora_repository_reports_activemq_admin_username: 'admin'
+islandora_repository_reports_activemq_admin_password: 'admin'

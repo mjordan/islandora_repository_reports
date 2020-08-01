@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Islandora Repository Reports Log module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function islandora_repository_reports_activemq_form_islandora_repository_reports_admin_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $config = \Drupal::config('islandora_repository_reports_activemq.settings');
+
+  $form['activemq_settings'] = [
+    '#type' => 'fieldset',
+    '#title' => t('ActiveMQ report settings'),
+  ];
+  $form['activemq_settings']['islandora_repository_reports_activemq_admin_console_url'] = [
+    '#type' => 'textfield',
+    '#size' => 50,
+    '#title' => t('ActiveMQ admin console URL'),
+    '#default_value' => $config->get('islandora_repository_reports_activemq_admin_console_url'),
+  ];
+  $form['activemq_settings']['islandora_repository_reports_activemq_admin_username'] = [
+    '#type' => 'textfield',
+    '#size' => 50,
+    '#title' => t('ActiveMQ admin username'),
+    '#default_value' => $config->get('islandora_repository_reports_activemq_admin_username'),
+  ];
+  $form['activemq_settings']['islandora_repository_reports_activemq_admin_password'] = [
+    '#type' => 'textfield',
+    '#size' => 50,
+    '#title' => t('ActiveMQ admin password'),
+    '#default_value' => $config->get('islandora_repository_reports_activemq_admin_password'),
+    '#description' => t('Note: the username and password values are stored in the Drupal database as plain text.'), 
+  ];
+
+  $form['#submit'][] = 'islandora_repository_reports_activemq_settings_submit';
+}
+
+/**
+ * Submit callback.
+ *
+ * Saves the values of fields defined in the form alter hook above.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function islandora_repository_reports_activemq_settings_submit(array &$form, FormStateInterface $form_state) {
+  $config_factory = \Drupal::configFactory();
+  $config_factory->getEditable('islandora_repository_reports_activemq.settings')
+    ->set('islandora_repository_reports_activemq_admin_console_url', trim($form_state->getValue('islandora_repository_reports_activemq_admin_console_url')))
+    ->set('islandora_repository_reports_activemq_admin_username', trim($form_state->getValue('islandora_repository_reports_activemq_admin_username')))
+    ->set('islandora_repository_reports_activemq_admin_password', trim($form_state->getValue('islandora_repository_reports_activemq_admin_password')))
+    ->save();
+}

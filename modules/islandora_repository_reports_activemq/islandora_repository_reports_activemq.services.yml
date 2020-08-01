@@ -1,0 +1,3 @@
+services:
+  islandora_repository_reports.datasource.activemq:
+    class: Drupal\islandora_repository_reports_activemq\Plugin\DataSource\ActiveMq
