@@ -77,7 +77,7 @@ class ActiveMq implements IslandoraRepositoryReportsDataSourceInterface {
       }
     }
 
-    $this->csvData = [[t('Random data point'), 'Count']];
+    $this->csvData = [[t('Pending ActiveMQ messages'), 'Count']];
     foreach ($queue_counts as $label => $count) {
       $this->csvData[] = [$label, $count];
     }
