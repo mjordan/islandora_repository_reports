@@ -69,6 +69,7 @@ class OaiUsage implements IslandoraRepositoryReportsDataSourceInterface {
       // }
     }
 
+    // @todo: Even if we don't include hostnames in the chart, we should include them in the CSV.
     $this->csvData = [[t('Month'), 'Count']];
     foreach ($harvest_counts as $month => $count) {
       $this->csvData[] = [$month, $count];
