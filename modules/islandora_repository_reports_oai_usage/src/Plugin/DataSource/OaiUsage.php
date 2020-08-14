@@ -54,7 +54,9 @@ class OaiUsage implements IslandoraRepositoryReportsDataSourceInterface {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
 
     $database = \Drupal::database();
-    $result = $database->query("SELECT created FROM {islandora_repository_reports_oai_usage_requests}");
+    $filter = '/oai/request?verb=ListRecords%';
+    $sql = "SELECT created FROM {islandora_repository_reports_oai_usage_requests} WHERE request LIKE '$filter'";
+    $result = $database->query($sql);
 
     $harvest_counts = [];
     foreach ($result as $row) {
@@ -69,7 +71,7 @@ class OaiUsage implements IslandoraRepositoryReportsDataSourceInterface {
       // }
     }
 
-    // @todo: Even if we don't include hostnames in the chart, we should include them in the CSV.
+    // @todo: Include hostnames in the chart so users know who is harvesting them.
     $this->csvData = [[t('Month'), 'Count']];
     foreach ($harvest_counts as $month => $count) {
       $this->csvData[] = [$month, $count];
