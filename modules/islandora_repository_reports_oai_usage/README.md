@@ -11,7 +11,7 @@ Data source plugin for the Islandora Repository Reports module that shows number
 
 This module records usage of the endpoint provided by the REST OAI-PMH module, starting immediately after this module is enabled. It then renders a summary of that usage as a bar chart, broken down by month.
 
-OAI-PMH harvesters make a number of requests to a repository to get all of the records. The first request is different from subsequent requests that are part of the same harvest in that they do not contain a `resumptionToken` argument. Using this pattern, this module defines a "harvest" by the initial request to the OAI-PMH endpoint contains the `ListRecords` verb but does not contain the request argument `resumptionToken`.
+To complete an OAI-PMH harvest, a harvester must make one or, usually, more than one request to a repository's OAI-PMH endpoint. The initial request is different from subsequent requests that are part of the same harvest in that it does not contain a `resumptionToken` argument. Taking advantage of this pattern, this module defines a "harvest" by the request to the OAI-PMH endpoint that contains the `ListRecords` verb but does not contain the request argument `resumptionToken`.
 
 ## Installation
 
