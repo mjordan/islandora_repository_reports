@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Install file for theislandora_repository_reports_oai_usage modlue.
+ */
+
+/**
  * Implements hook_schema().
  */
 function islandora_repository_reports_oai_usage_schema() {

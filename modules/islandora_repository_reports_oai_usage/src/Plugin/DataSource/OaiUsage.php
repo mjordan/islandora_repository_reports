@@ -51,27 +51,24 @@ class OaiUsage implements IslandoraRepositoryReportsDataSourceInterface {
    *   An assocative array containing dataLabel => count members.
    */
   public function getData() {
-    $utilities = \Drupal::service('islandora_repository_reports.utilities');
-
     $database = \Drupal::database();
-    $filter = '/oai/request?verb=ListRecords%';
-    $sql = "SELECT created FROM {islandora_repository_reports_oai_usage_requests} WHERE request LIKE '$filter'";
+    $sql = "SELECT * FROM {islandora_repository_reports_oai_usage_requests}";
     $result = $database->query($sql);
 
     $harvest_counts = [];
     foreach ($result as $row) {
-      $label = date("Y-m", $row->created);
-      // if ($label >= $start_of_range) {
+      if (strpos($row->request, 'ListRecords') && !strpos($row->request, 'resumptionToken')) {
+        $label = date("Y-m", $row->created);
         if (array_key_exists($label, $harvest_counts)) {
           $harvest_counts[$label]++;
         }
         else {
           $harvest_counts[$label] = 1;
         }
-      // }
+      }
     }
 
-    // @todo: Include hostnames in the chart so users know who is harvesting them.
+    // @todo: Include hostnames in the CSV so users know who is harvesting them.
     $this->csvData = [[t('Month'), 'Count']];
     foreach ($harvest_counts as $month => $count) {
       $this->csvData[] = [$month, $count];

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file 
- *   Contains Drupal\islandora_repository_reports_oai_usage$\OaiUsageTrackerMiddleware.
- */
-
 namespace Drupal\islandora_repository_reports_oai_usage;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -14,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
  * OaiUsageTrackerMiddleware class.
  */
 class OaiUsageTrackerMiddleware implements HttpKernelInterface {
-
   /**
    * The kernel implementation.
    *
@@ -39,8 +33,8 @@ class OaiUsageTrackerMiddleware implements HttpKernelInterface {
     $current_uri = $request->getRequestUri();
     // @todo: Use the REST OAI-PMH module's repository_path config value.
     // \Drupal::config('rest_oai_pmh.settings')->get('repository_path')->get('repository_path');
-    // should work (that syntax works for other configs) but it's coming back NULL in all cases.
-    // For now, we hard code it to the default endpoint path.
+    // should work (that syntax works for other configs) but it's coming back
+    // NULL in all cases. For now, we hard code it to the default endpoint path.
     $oai_endpoint = '/oai/request';
     $list_records_request = $oai_endpoint . '?verb=ListRecords';
     if (strpos($current_uri, $list_records_request) === 0) {
@@ -55,11 +49,11 @@ class OaiUsageTrackerMiddleware implements HttpKernelInterface {
       $result = $database->insert('islandora_repository_reports_oai_usage_requests')
         ->fields([
           'ip_address' => $ip_address,
-          'hostname' => $hostname, 
-	  'created' => \Drupal::time()->getRequestTime(),
-          'request' => $request->getRequestUri()
-	])
-	->execute();
+          'hostname' => $hostname,
+          'created' => \Drupal::time()->getRequestTime(),
+          'request' => $request->getRequestUri(),
+        ])
+        ->execute();
     }
     return $this->app->handle($request, $type, $catch);
   }

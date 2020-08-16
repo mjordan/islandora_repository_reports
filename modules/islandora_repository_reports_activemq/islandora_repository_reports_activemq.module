@@ -34,7 +34,7 @@ function islandora_repository_reports_activemq_form_islandora_repository_reports
     '#size' => 50,
     '#title' => t('ActiveMQ admin password'),
     '#default_value' => $config->get('islandora_repository_reports_activemq_admin_password'),
-    '#description' => t('Note: the username and password values are stored in the Drupal database as plain text.'), 
+    '#description' => t('Note: the username and password values are stored in the Drupal database as plain text.'),
   ];
 
   $form['#submit'][] = 'islandora_repository_reports_activemq_settings_submit';
