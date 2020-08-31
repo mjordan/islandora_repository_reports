@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Module file for the Islandora Repository Reports OAI-PMH Usage Report module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function islandora_repository_reports_oai_usage_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $utilities = \Drupal::service('islandora_repository_reports.utilities');
+
+  // Date range widgets for nodes created by month report.
+  $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_oai_usage_by_month_range_start', '');
+  $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_oai_usage_by_month_range_end', '');
+
+  $form['islandora_repository_reports_oai_usage_by_month_range_start'] = [
+    '#type' => 'textfield',
+    '#weight' => 0,
+    '#size' => 10,
+    '#title' => t('Start date'),
+    '#default_value' => $start_of_range,
+    '#placeholder' => 'yyyy-mm',
+    '#description' => t('Limit report to harvests in or after the specified month. Leave empty to include all months up to end date.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => [
+          ['value' => 'oaiusage'],
+        ],
+      ],
+    ],
+  ];
+
+  $form['islandora_repository_reports_oai_usage_by_month_range_end'] = [
+    '#type' => 'textfield',
+    '#weight' => 0,
+    '#size' => 10,
+    '#title' => t('End date'),
+    '#placeholder' => 'yyyy-mm',
+    '#default_value' => $end_of_range,
+    '#description' => t('Limit report to harvests up to and including the specified month. Leave empty to include all months after start date.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => [
+          ['value' => 'oaiusage'],
+        ],
+      ],
+    ],
+  ];
+}

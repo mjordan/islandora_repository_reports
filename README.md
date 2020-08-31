@@ -19,6 +19,7 @@ Also included are several optional submodules (each needs be enabled separately)
 
 * allow the user to generate a report on the usage of terms in any taxonomy/vocabulary
 * allow the user to generate a report on the entries in the Drupal system log
+* allow the user to generate a report on the number of OAI-PMH harvests, grouped by month
 * allow the user to see the number of pending messages in ActiveMQ queues
 * allow the user to generate a report on the collection usage, using Matomo data
 * provide access to the Matomo dashboard from within the Islandora Repository Reports interface. See its [README](modules/islandora_repository_reports_matomo/README.md) for more information.

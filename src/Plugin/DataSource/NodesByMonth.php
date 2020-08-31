@@ -66,7 +66,7 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
     $created_counts = [];
     foreach ($result as $row) {
       $label = date("Y-m", $row->created);
-      if ($label >= $start_of_range) {
+      if ($label >= $start_of_range && $label <= $end_of_range) {
         if (array_key_exists($label, $created_counts)) {
           $created_counts[$label]++;
         }
