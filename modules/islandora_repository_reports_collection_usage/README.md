@@ -1,4 +1,4 @@
-# Collection Usate Data Source Plugin for Islandora Repository Reports
+# Collection Usage Data Source Plugin for Islandora Repository Reports
 
 Data source plugin for the Islandora Repository Reports module that shows Matomo "views" for collections. For each collection, the number of views is the sum of all views on all nodes in that collection.
 
