@@ -4,6 +4,7 @@ namespace Drupal\islandora_repository_reports_oai_usage;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Database\Database;
 
 /**
  * OaiUsageTrackerMiddleware class.
@@ -19,7 +20,7 @@ class OaiUsageTrackerMiddleware implements HttpKernelInterface {
   /**
    * Create a new OaiUsageTrackerMiddleware instance.
    *
-   * @param  \Symfony\Component\HttpKernel\HttpKernelInterface $app
+   * @param \Symfony\Component\HttpKernel\HttpKernelInterface $app
    *   Http Kernel.
    */
   public function __construct(HttpKernelInterface $app) {
@@ -35,6 +36,7 @@ class OaiUsageTrackerMiddleware implements HttpKernelInterface {
     // \Drupal::config('rest_oai_pmh.settings')->get('repository_path')->get('repository_path');
     // should work (that syntax works for other configs) but it's coming back
     // NULL in all cases. For now, we hard code it to the default endpoint path.
+    // See https://github.com/mjordan/islandora_repository_reports/issues/55.
     $oai_endpoint = '/oai/request';
     $list_records_request = $oai_endpoint . '?verb=ListRecords';
     if (strpos($current_uri, $list_records_request) === 0) {
@@ -44,8 +46,7 @@ class OaiUsageTrackerMiddleware implements HttpKernelInterface {
       $hostname = gethostbyaddr($ip_address);
       $hostname = $hostname ? $hostname : '';
 
-      $rest_oai_pmh_config = \Drupal::config('islandora_repository_reports.settings')->get('islandora_repository_reports_pie_or_doughnut');
-      $database = \Drupal\Core\Database\Database::getConnection();
+      $database = Database::getConnection();
       $result = $database->insert('islandora_repository_reports_oai_usage_requests')
         ->fields([
           'ip_address' => $ip_address,
