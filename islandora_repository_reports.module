@@ -163,7 +163,9 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     ],
   ];
 
-  // Date range widgets for some reports.
+  // Date range widgets for some reports. Can be reused by other modules if
+  // their report describes nodes; otherwise (like the OAI usage report)
+  // they need to supply their own date range form elements.
   $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_start', '');
   $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_end', '');
 

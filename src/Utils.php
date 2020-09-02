@@ -10,6 +10,28 @@ use Drupal\node\NodeInterface;
 class Utils {
 
   /**
+   * Default start date for month queries.
+   *
+   * @var string
+   */
+  public $defaultStartDate;
+
+  /**
+   * Default end date for month queries.
+   *
+   * @var string
+   */
+  public $defaultEndDate;
+
+  /**
+   * Constructor.
+   */
+  public function __construct() {
+    $this->defaultStartDate = '1900-01';
+    $this->defaultEndDate = date('Y-m');
+  }
+
+  /**
    * Gets a list of data source services to be used in the report selector form.
    *
    * @param bool $ids_only
@@ -552,8 +574,11 @@ class Utils {
    *   a Unix timestamp of the 23-59-59 minute/second of the end date.
    */
   public function monthsToTimestamps($start, $end) {
-    $start = empty($start) ? '1900-01' : $start;
-    $end = empty($end) ? '2050-12' : $end;
+    // $start = empty($start) ? '1900-01' : $start;
+    $start = empty($start) ? $this->defaultStartDate : $start;
+    // $end = empty($end) ? '2050-12' : $end;
+    $end = empty($end) ? $this->defaultEndDate : $end;
+    // $end = empty($end) ? '2050-12' : $end;
     $start_timestamp = strtotime($start);
     $end_date = date('Y-m-t', strtotime($end));
     $end_date .= ' 23:59:59';

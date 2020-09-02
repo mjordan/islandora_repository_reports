@@ -53,10 +53,10 @@ class OaiUsage implements IslandoraRepositoryReportsDataSourceInterface {
   public function getData() {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_oai_usage_by_month_range_start', '');
-    $start_of_range = strlen($start_of_range) ? $start_of_range : date("Y-m");
+    $start_of_range = strlen($start_of_range) ? $start_of_range : $utilities->defaultStartDate;
     $start_of_range = trim($start_of_range);
     $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_oai_usage_by_month_range_end', '');
-    $end_of_range = strlen($end_of_range) ? $end_of_range : date("Y-m");
+    $end_of_range = strlen($end_of_range) ? $end_of_range : $utilities->defaultEndDate;
     $end_of_range = trim($end_of_range);
 
     $database = \Drupal::database();
