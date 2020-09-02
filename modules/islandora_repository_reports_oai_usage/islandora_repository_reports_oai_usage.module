@@ -28,7 +28,7 @@ function islandora_repository_reports_oai_usage_form_islandora_repository_report
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => [
-          ['value' => 'oaiusage'],
+          ['value' => 'oai_usage'],
         ],
       ],
     ],
@@ -45,7 +45,7 @@ function islandora_repository_reports_oai_usage_form_islandora_repository_report
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => [
-          ['value' => 'oaiusage'],
+          ['value' => 'oai_usage'],
         ],
       ],
     ],

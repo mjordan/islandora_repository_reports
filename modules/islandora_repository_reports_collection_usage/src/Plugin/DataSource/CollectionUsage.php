@@ -74,7 +74,7 @@ class CollectionUsage implements IslandoraRepositoryReportsDataSourceInterface {
             $collection_views = 0;
             foreach ($nids as $nid) {
               if ($nid) {
-                $node_views = \Drupal::service('islandora_matomo.default')->getViewsForNode($nid);
+                $node_views = \Drupal::service('islandora_matomo.default')->getViewsForNode(['nid' => $nid, 'end_date' => '2020-08-20']);
                 $collection_views = $collection_views + $node_views;
               }
             }
