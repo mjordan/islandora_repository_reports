@@ -1,4 +1,4 @@
-name: 'Islandora Repository Reports People in Space.'
+name: 'Islandora Repository Reports People in Space'
 description: "Informs you what people are currently in space, using a pie chart."
 type: module
 package: Islandora

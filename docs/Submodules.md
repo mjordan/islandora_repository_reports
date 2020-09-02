@@ -113,6 +113,6 @@ Any submodule that adds its own form elements, or removes an existing form eleme
 
 Submodules can add their own configuration settings to the form at `admin/config/islandora/islandora_repository_reports` by implementing `hook_form_form_id_alter()`. The same hook implementation that adds fields to the config settings form should define its own configuration using `\Drupal::config('mysubmodule.settings')` and add a custom submit handler; in that hanlder, an instance of `\Drupal::configFactory('mysubmodule.settings')` can then be used to save the form values. See `islandora_repository_reports_activemq.module` for a working example.
 
-### Pregenerating your data
+## Pregenerating your data
 
 The Drush command provided with this module will automatically detect your data source plugin (another useful benefit of implementing plugins as Drupal services). You do not need to do anything for this to happen.
