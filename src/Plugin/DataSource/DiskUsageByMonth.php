@@ -39,7 +39,7 @@ class DiskUsageByMonth implements IslandoraRepositoryReportsDataSourceInterface 
    * {@inheritdoc}
    */
   public function getChartTitle($total) {
-    return t('Total disk usage by month (GB).');
+    return t('@total GB total disk usage, broken down by month added.', ['@total' => $total]);
   }
 
   /**
