@@ -69,7 +69,7 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
 
   if ($variables['show_csv_link']) {
     $default_schema = \Drupal::config('system.file')->get('default_scheme');
-    $files_path = \Drupal::service('file_system')->realpath(default_schema . "://");
+    $files_path = \Drupal::service('file_system')->realpath($default_schema . "://");
     $filename = 'islandora_repository_reports_' . $report_type . '.csv';
     $report_url = file_create_url($default_schema . '://' . $filename);
     $variables['csv_url'] = $report_url;
@@ -159,6 +159,40 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'disk_usage'],
+      ],
+    ],
+  ];
+
+  // Date (month) range elements for the Disk Usage By Month report.
+  $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_disk_usage_by_month_range_start', '');
+  $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_disk_usage_by_month_range_end', '');
+
+  $form['islandora_repository_reports_disk_usage_by_month_range_start'] = [
+    '#type' => 'textfield',
+    '#weight' => 0,
+    '#size' => 10,
+    '#title' => t('Start date'),
+    '#default_value' => $start_of_range,
+    '#placeholder' => 'yyyy-mm',
+    '#description' => t('Limit report to media created in or after the specified month. Leave empty to include all months up to end date.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'disk_usage_by_month'],
+      ],
+    ],
+  ];
+
+  $form['islandora_repository_reports_disk_usage_by_month_range_end'] = [
+    '#type' => 'textfield',
+    '#weight' => 0,
+    '#size' => 10,
+    '#title' => t('End date'),
+    '#placeholder' => 'yyyy-mm',
+    '#default_value' => $end_of_range,
+    '#description' => t('Limit report to media created up to and including the specified month. Leave empty to include all months after start date.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'disk_usage_by_month'],
       ],
     ],
   ];
