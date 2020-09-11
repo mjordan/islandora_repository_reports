@@ -242,6 +242,22 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
       ],
     ],
   ];
+
+  $field_values_field_name = $utilities->getFormElementDefault('islandora_repository_reports_field_values_field_name', '');
+  $form['islandora_repository_reports_field_values_field_name'] = [
+    '#type' => 'textfield',
+    '#weight' => -1,
+    '#size' => 60,
+    '#title' => t('Field machine name'),
+    '#placeholder' => 'field_',
+    '#default_value' => $field_values_field_name,
+    '#description' => t('Machine name of the field you want to get unique values for.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'field_value'],
+      ],
+    ],
+  ];
 }
 
 /**

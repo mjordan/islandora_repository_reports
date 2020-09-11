@@ -59,10 +59,10 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
     $end_of_range = strlen($end_of_range) ? $end_of_range : $utilities->defaultEndDate;
     $end_of_range = trim($end_of_range);
 
-    $changed_date_range = $utilities->monthsToTimestamps($start_of_range, $end_of_range);
+    $field_name = $utilities->getFormElementDefault('islandora_repository_reports_field_values_field_name', '');
+    // $field_name = 'field_extent';
 
-    $field_name = 'field_extent';
-    // $field_name = 'field_identifier';
+    $changed_date_range = $utilities->monthsToTimestamps($start_of_range, $end_of_range);
 
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
     $query = \Drupal::entityQuery('node')
@@ -72,12 +72,17 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
     $nodes = $node_storage->loadMultiple($nids);
 
     $value_counts = [];
-    $table_header = [t('Values in @field', ['@field' => $field] ), t('Number of occurances')];
+    $table_header = [t('Values in @field', ['@field' => $field_name] ), t('Number of occurances')];
     $table_rows = [];
     // For now, only support specific field types. Add more later. See comment below.
     $allowed_field_types = ['string', 'string_long', 'text', 'text_long'];
     foreach ($nodes as $node) {
-      $field_type = $node->get($field_name)->getFieldDefinition()->getType();
+      try {
+        $field_type = $node->get($field_name)->getFieldDefinition()->getType();
+      }
+      catch (\Exception $e) {
+        \Drupal::messenger()->addWarning(t("Field '@field_name' does not exist.", ['@field_name' => $field_name]));
+      }
       if ($node->hasField($field_name) && in_array($field_type, $allowed_field_types)) {
 	$field_values = $node->get($field_name)->getValue();
         if (count($field_values) > 0) {
@@ -99,7 +104,7 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
       $table_rows[] = [$value, $count];
     }
 
-    $this->csvData[] = ['Values in ' . $field, 'Number of occurances'];
+    $this->csvData[] = ['Values in ' . $field_name, 'Number of occurances'];
     foreach ($value_counts as $value => $count) {
       $this->csvData[] = [$value, $count];
     }
@@ -109,6 +114,7 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
     $utilities->writeCsvFile('field_value', $this->csvData);
 
     // Reports of type 'html' return a render array, not raw data.
+    // @todo: count($field_values) is 0, tell the user.
     return [
       '#theme' => 'table',
       '#header' => $table_header,
