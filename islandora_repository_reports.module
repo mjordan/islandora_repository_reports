@@ -217,6 +217,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
           ['value' => 'nodes_by_month'],
           ['value' => 'genre'],
           ['value' => 'vocab'],
+          ['value' => 'field_value'],
         ],
       ],
     ],
@@ -236,6 +237,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
           ['value' => 'nodes_by_month'],
           ['value' => 'genre'],
           ['value' => 'vocab'],
+          ['value' => 'field_value'],
         ],
       ],
     ],
@@ -302,3 +304,13 @@ function islandora_repository_reports_file_download($uri) {
   }
   return NULL;
 }
+
+/**
+ * Implements hook_search_api_solr_field_mapping_alter().
+ */
+function islandora_repository_reports_search_api_solr_field_mapping_alter($index, &$fields, $language_id) {
+  // devel_debug($fields);
+  throw new Exception('MJ throws up.');
+  
+}
+

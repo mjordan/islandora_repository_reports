@@ -15,6 +15,7 @@ Reports included in this module are:
 * number of media, grouped by Islandora Media Use taxonomy
 * disk usage, grouped by Drupal filesystem (e.g., Fedora, public, private), MIME type, or collection
 * disk usage by month
+* number of unique values in a node field (text field types only)
 
 Also included are several optional submodules (each needs be enabled separately) that:
 
