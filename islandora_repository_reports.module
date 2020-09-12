@@ -249,7 +249,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#weight' => -1,
     '#size' => 60,
     '#title' => t('Field machine name'),
-    '#placeholder' => 'field_',
+    '#autocomplete_route_name' => 'islandora_repository_reports.field_list_autcomplete',
     '#default_value' => $field_values_field_name,
     '#description' => t('Machine name of the field you want to get unique values for. Currently, only string/text fields are available.'),
     '#states' => [

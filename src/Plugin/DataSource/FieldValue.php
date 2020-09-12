@@ -75,9 +75,6 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
       t('Number of occurances'),
     ];
     $table_rows = [];
-    // For now, only support specific field types. Add more
-    // later. See comment below.
-    $allowed_field_types = ['string', 'string_long', 'text', 'text_long'];
     foreach ($nodes as $node) {
       try {
         $field_type = $node->get($field_name)->getFieldDefinition()->getType();
@@ -85,12 +82,12 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
       catch (\Exception $e) {
         \Drupal::messenger()->addWarning(t("Field '@field_name' does not exist.", ['@field_name' => $field_name]));
       }
-      if ($node->hasField($field_name) && in_array($field_type, $allowed_field_types)) {
+      if ($node->hasField($field_name)) {
+        // If we add additional field types, we will need to add logic here to
+        // get their values.
         $field_values = $node->get($field_name)->getValue();
         if (count($field_values) > 0) {
           foreach ($field_values as $field_value) {
-            // Different field types will require different ways
-            // of accessing values.
             if (isset($value_counts[$field_value['value']])) {
               $value_counts[$field_value['value']]++;
             }
@@ -100,6 +97,11 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
           }
         }
       }
+    }
+
+    if (count($value_counts) === 0) {
+      \Drupal::messenger()->addWarning(t("No instances of '@field_name' found, using the search options below.", ['@field_name' => $field_name]));
+      return [];
     }
 
     // Sort most to least frequent.
