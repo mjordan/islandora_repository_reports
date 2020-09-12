@@ -32,7 +32,6 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getChartType() {
-    // return 'pie';
     return 'html';
   }
 
@@ -60,7 +59,6 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
     $end_of_range = trim($end_of_range);
 
     $field_name = $utilities->getFormElementDefault('islandora_repository_reports_field_values_field_name', '');
-    // $field_name = 'field_extent';
 
     $changed_date_range = $utilities->monthsToTimestamps($start_of_range, $end_of_range);
 
@@ -72,9 +70,13 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
     $nodes = $node_storage->loadMultiple($nids);
 
     $value_counts = [];
-    $table_header = [t('Values in @field', ['@field' => $field_name] ), t('Number of occurances')];
+    $table_header = [
+      t('Values in @field', ['@field' => $field_name]),
+      t('Number of occurances'),
+    ];
     $table_rows = [];
-    // For now, only support specific field types. Add more later. See comment below.
+    // For now, only support specific field types. Add more
+    // later. See comment below.
     $allowed_field_types = ['string', 'string_long', 'text', 'text_long'];
     foreach ($nodes as $node) {
       try {
@@ -84,21 +86,23 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
         \Drupal::messenger()->addWarning(t("Field '@field_name' does not exist.", ['@field_name' => $field_name]));
       }
       if ($node->hasField($field_name) && in_array($field_type, $allowed_field_types)) {
-	$field_values = $node->get($field_name)->getValue();
+        $field_values = $node->get($field_name)->getValue();
         if (count($field_values) > 0) {
           foreach ($field_values as $field_value) {
-	    // Differnt field types will require different ways of accessing values.
-	    if (isset($value_counts[$field_value['value']])) {
+            // Different field types will require different ways
+            // of accessing values.
+            if (isset($value_counts[$field_value['value']])) {
               $value_counts[$field_value['value']]++;
-	    }
-	    else {
+            }
+            else {
               $value_counts[$field_value['value']] = 1;
-	    }
-	  }
-	}
+            }
+          }
+        }
       }
     }
 
+    // Sort most to least frequent.
     arsort($value_counts);
     foreach ($value_counts as $value => $count) {
       $table_rows[] = [$value, $count];
@@ -114,14 +118,14 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
     $utilities->writeCsvFile('field_value', $this->csvData);
 
     // Reports of type 'html' return a render array, not raw data.
-    // @todo: count($field_values) is 0, tell the user.
+    // @todo: if count($field_values) is 0, tell the user.
     return [
       '#theme' => 'table',
       '#header' => $table_header,
       '#rows' => $table_rows,
+      // Sanitize the outgoing markup.
+      '#type' => 'processed_text',
     ];
-
-    return $value_counts;
   }
 
 }

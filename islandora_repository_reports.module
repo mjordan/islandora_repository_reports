@@ -251,7 +251,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     '#title' => t('Field machine name'),
     '#placeholder' => 'field_',
     '#default_value' => $field_values_field_name,
-    '#description' => t('Machine name of the field you want to get unique values for.'),
+    '#description' => t('Machine name of the field you want to get unique values for. Currently, only string/text fields are available.'),
     '#states' => [
       'visible' => [
         ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'field_value'],
@@ -320,13 +320,3 @@ function islandora_repository_reports_file_download($uri) {
   }
   return NULL;
 }
-
-/**
- * Implements hook_search_api_solr_field_mapping_alter().
- */
-function islandora_repository_reports_search_api_solr_field_mapping_alter($index, &$fields, $language_id) {
-  // devel_debug($fields);
-  throw new Exception('MJ throws up.');
-  
-}
-
