@@ -39,7 +39,7 @@ class IslandoraRepositoryReportsFieldListAutocompleteController extends Controll
         $label = $all_field_defs[$field_name]->getLabel();
         $type = $all_field_defs[$field_name]->getType();
         if (in_array($type, $allowed_field_types)) {
-          if (preg_match('/^' . $query_array['q'] . '/i', $label)) {
+          if (preg_match('/' . $query_array['q'] . '/i', $label)) {
             $field_autocomplete_data[] = ['label' => $label, 'value' => $field_name];
           }
         }
