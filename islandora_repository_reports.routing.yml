@@ -18,5 +18,4 @@ islandora_repository_reports.field_list_autcomplete:
     _controller: '\Drupal\islandora_repository_reports\Controller\IslandoraRepositoryReportsFieldListAutocompleteController::main'
     _format: json
   requirements:
-    # _permission: 'view islandora repository reports'
-    _access: 'TRUE'
+    _permission: 'view islandora repository reports'
