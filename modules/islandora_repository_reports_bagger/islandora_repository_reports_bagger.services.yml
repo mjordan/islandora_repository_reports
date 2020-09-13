@@ -1,0 +1,3 @@
+services:
+  islandora_repository_reports.datasource.bagger_queue:
+    class: Drupal\islandora_repository_reports_bagger\Plugin\DataSource\Queue
