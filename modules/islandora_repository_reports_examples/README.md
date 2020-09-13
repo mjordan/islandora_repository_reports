@@ -1,13 +1,12 @@
-# People Currently in Space Data Source Plugin for Islandora Repository Reports
+# Example Data Source Plugins for Islandora Repository Reports
 
-Example Data source plugins for the Islandora Repository Reports module. Includes data source plugins that:
+Example data source plugins for the Islandora Repository Reports module. Includes plugins that:
 
 * render a sample pie chart from static data
 * render a sample pie chart from random data
 * render a sample bar chart from random data
 * render a sample tabular report
 * fetches a list of people currenly in space from http://open-notify.org/Open-Notify-API/ and renders it as a pie chart.
-
 
 ## Requirements
 
