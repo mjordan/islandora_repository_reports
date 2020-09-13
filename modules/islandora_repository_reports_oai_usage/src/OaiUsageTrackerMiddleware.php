@@ -33,11 +33,12 @@ class OaiUsageTrackerMiddleware implements HttpKernelInterface {
   public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
     $current_uri = $request->getRequestUri();
     // @todo: Use the REST OAI-PMH module's repository_path config value.
-    // \Drupal::config('rest_oai_pmh.settings')->get('repository_path')->get('repository_path');
+    // \Drupal::config('rest_oai_pmh.settings')->get('repository_path')
     // should work (that syntax works for other configs) but it's coming back
-    // NULL in all cases. For now, we hard code it to the default endpoint path.
+    // NULL in all cases. For now, we define our own config setting.
     // See https://github.com/mjordan/islandora_repository_reports/issues/55.
-    $oai_endpoint = '/oai/request';
+    $config = \Drupal::config('islandora_repository_reports_oai_usage.settings');
+    $oai_endpoint = $config->get('islandora_repository_reports_oai_usage_endpoint');
     $list_records_request = $oai_endpoint . '?verb=ListRecords';
     if (strpos($current_uri, $list_records_request) === 0) {
       $ip_address = $request->getClientIp();

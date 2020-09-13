@@ -19,7 +19,7 @@ Enable the module either under the "Admin > Extend" menu or by running `drush en
 
 ## Configuration
 
-There are no configuration settings for this module.
+Visit `/admin/config/islandora/islandora_repository_reports` and set the "OAI-PMH endpoint" to match the "Repository path" value in the REST OAI-PMH module's admin settings.
 
 ## Current maintainer
 

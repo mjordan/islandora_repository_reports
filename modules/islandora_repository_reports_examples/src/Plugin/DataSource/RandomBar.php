@@ -50,7 +50,6 @@ class RandomBar implements IslandoraRepositoryReportsDataSourceInterface {
   public function getData() {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $num_data_elements = $utilities->getFormElementDefault('islandora_repository_reports_examples_datasource_random_bar_num_data', 5);
-    devel_debug($num_data_elements);
 
     $chars = 'abcdefghijklmnopqrstuvwxyz';
     $data = [];
