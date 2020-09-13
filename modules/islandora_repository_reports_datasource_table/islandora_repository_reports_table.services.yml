@@ -1,3 +1,0 @@
-services:
-  islandora_repository_reports.datasource.sample_table:
-    class: Drupal\islandora_repository_reports_table\Plugin\DataSource\SampleTable

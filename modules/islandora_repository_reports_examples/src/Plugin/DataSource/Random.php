@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandora_repository_reports_datasource_random_bar\Plugin\DataSource;
+namespace Drupal\islandora_repository_reports_examples\Plugin\DataSource;
 
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
 
@@ -10,7 +10,7 @@ use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryRep
 class Random implements IslandoraRepositoryReportsDataSourceInterface {
 
   /**
-   * An array of arrays corresponding to CSV records.
+   * Array of arrays corresponding to CSV records.
    *
    * @var string
    */
@@ -20,7 +20,7 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('Random data for bar charts (for testing, etc.)');
+    return t('Example: Random data for pie charts');
   }
 
   /**
@@ -34,7 +34,7 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getChartType() {
-    return 'bar';
+    return 'pie';
   }
 
   /**
@@ -49,13 +49,13 @@ class Random implements IslandoraRepositoryReportsDataSourceInterface {
    */
   public function getData() {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
-    $num_data_elements = $utilities->getFormElementDefault('islandora_repository_reports_datasource_random_bar_num_data', 5);
+    $num_data_elements = $utilities->getFormElementDefault('islandora_repository_reports_examples_datasource_random_num_data', 5);
 
     $chars = 'abcdefghijklmnopqrstuvwxyz';
     $data = [];
     for ($x = 1; $x <= $num_data_elements; $x++) {
       $label = ucfirst(substr(str_shuffle($chars), 3, 12));
-      $data[$label] = rand(0, 100);
+      $data[$label] = rand(0, 1000);
     }
 
     $this->csvData = [[t('Random data point'), 'Count']];

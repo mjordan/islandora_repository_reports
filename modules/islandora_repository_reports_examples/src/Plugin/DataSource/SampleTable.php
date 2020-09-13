@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandora_repository_reports_table\Plugin\DataSource;
+namespace Drupal\islandora_repository_reports_examples\Plugin\DataSource;
 
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
 
@@ -20,7 +20,7 @@ class SampleTable implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('Sample tabular report');
+    return t('Example: Tabular report');
   }
 
   /**

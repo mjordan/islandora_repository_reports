@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandora_repository_reports_space\Plugin\DataSource;
+namespace Drupal\islandora_repository_reports_examples\Plugin\DataSource;
 
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
 
@@ -20,7 +20,7 @@ class PeopleInSpace implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('List of people currently in space (for fun)');
+    return t('Example: List of people currently in space');
   }
 
   /**

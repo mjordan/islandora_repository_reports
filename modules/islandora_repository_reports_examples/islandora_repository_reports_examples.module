@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Module file for the Islandora Repository Reports Examples module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_form_id_alter().
+ *
+ * This hook implementation illustrates how a data source plugin adds
+ * form elements to the main report selector form. Basically, the form
+ * state is cached in the tempstore, and from there it is accessible
+ * to the data source's getData() method.
+ */
+function islandora_repository_reports_examples_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $utilities = \Drupal::service('islandora_repository_reports.utilities');
+
+  $num_pie_data_elements = $utilities->getFormElementDefault('islandora_repository_reports_examples_datasource_random_num_data', 5);
+  $form['islandora_repository_reports_examples_datasource_random_num_data'] = [
+    '#type' => 'textfield',
+    '#weight' => 0,
+    '#size' => 5,
+    '#default_value' => $num_pie_data_elements,
+    '#maxlength' => 10,
+    '#title' => t('Number of data elements'),
+    '#description' => t('The number of random data elements to show in this chart.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'random'],
+      ],
+    ],
+  ];
+
+  $num_bar_data_elements = $utilities->getFormElementDefault('islandora_repository_reports_examples_datasource_random_bar_num_data', 5);
+  $form['islandora_repository_reports_examples_datasource_random_bar_num_data'] = [
+    '#type' => 'textfield',
+    '#weight' => 0,
+    '#size' => 5,
+    '#default_value' => $num_bar_data_elements,
+    '#maxlength' => 10,
+    '#title' => t('Number of data elements'),
+    '#description' => t('The number of random data elements to show in this chart.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'random_bar'],
+      ],
+    ],
+  ];
+}

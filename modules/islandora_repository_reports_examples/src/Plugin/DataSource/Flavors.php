@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\islandora_repository_reports_datasource_sample\Plugin\DataSource;
+namespace Drupal\islandora_repository_reports_examples\Plugin\DataSource;
 
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
 
@@ -20,7 +20,7 @@ class Flavors implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('Flavors (sample)');
+    return t('Example: Flavors');
   }
 
   /**
