@@ -2,7 +2,7 @@
 
 A variety of basic reports are bundled with this module, but developers can add additional reports by writing submodules that provide data source plugins. Submodule can add functionality such as custom input form as well. In addition, submodules can package reports that are specific to a site (or shared!), and mangage dependencies on third-part Drupal modules.
 
-The most typical source for report data is Drupal's database, but although source plugins can get their data from Solr, Blazegraph, or log files on disk (for example). Sample submodules are available in the 'modules' subdirectory:
+The most typical source for report data is Drupal's database, but although source plugins can get their data from Solr, Blazegraph, or log files on disk (for example). The examples submodule provides several sample plugins:
 
 * "Flavors", a very simple example module for developers
 * "People currently in space", which demonstrates how a report can get data from a remote API
