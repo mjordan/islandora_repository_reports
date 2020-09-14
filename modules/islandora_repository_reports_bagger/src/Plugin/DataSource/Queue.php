@@ -3,6 +3,8 @@
 namespace Drupal\islandora_repository_reports_bagger\Plugin\DataSource;
 
 use Drupal\islandora_repository_reports\Plugin\DataSource\IslandoraRepositoryReportsDataSourceInterface;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 /**
  * Data source for the Islandora Repository Reports module.
@@ -49,18 +51,43 @@ class Queue implements IslandoraRepositoryReportsDataSourceInterface {
    */
   public function getData() {
     $config = \Drupal::config('islandora_repository_reports_bagger.settings');
-    $endpoint = $config->get('islandora_repository_reports_bagger_queue_endpoint');
+    $islandora_bagger_integration_config = \Drupal::config('islandora_bagger_integration.settings');
 
-    // @todo: Getting the queue via HTTP should only happen if in remote mode.
-    // If in local mode, run console command to get queue.
-    $client = \Drupal::httpClient();
-    $response = $client->request('GET', $endpoint, ['http_errors' => FALSE]);
-    $response_output = (string) $response->getBody();
-    $response_output = json_decode($response_output, TRUE);
+    $bagger_mode = $islandora_bagger_integration_config->get('islandora_bagger_mode');
+    if ($mode == 'remote') {
+      $endpoint = $config->get('islandora_repository_reports_bagger_queue_endpoint');
+      $client = \Drupal::httpClient();
+      $response = $client->request('GET', $endpoint, ['http_errors' => FALSE]);
+      $response_output = (string) $response->getBody();
+      $queue_contents = json_decode($response_output, TRUE);
+      devel_debug($response);
 
-    if (count($response_output) === 0) {
-      \Drupal::messenger()->addWarning(t("The Islandora Bagger queue is empty."));
-      return [];
+      if (count($queue_contents) === 0) {
+        \Drupal::messenger()->addWarning(t("The Islandora Bagger queue is empty."));
+        return [];
+      }
+    }
+    if ($mode == 'local') {
+      $path_to_queue = $config->get('islandora_repository_reports_bagger_queue_local_path');
+      $bagger_directory = $islandora_bagger_integration_config->get('islandora_bagger_local_bagger_directory');
+      $bagger_cmd = ['./bin/console', 'app:islandora_bagger:get_queue', '--queue=' . $path_to_queue, '--output_format=json'];
+
+      $process = new Process($bagger_cmd);
+      $process->setWorkingDirectory($bagger_directory);
+      $process->run();
+
+      if ($process->isSuccessful()) {
+        $queue_contents = $process->getOutput();
+      }
+      else {
+        \Drupal::messenger()->addWarning(t("The Islandora Bagger queue is empty."));
+        return [];
+      }
+
+      if (count($command_output) === 0) {
+        \Drupal::messenger()->addWarning(t("The Islandora Bagger queue is empty."));
+        return [];
+      }
     }
 
     $table_header = [
@@ -69,7 +96,7 @@ class Queue implements IslandoraRepositoryReportsDataSourceInterface {
     ];
 
     $table_rows = [];
-    foreach ($response_output as $queue_entry) {
+    foreach ($queue_contents as $queue_entry) {
       list($nid, $config_path) = explode('	', $queue_entry);
       $table_rows[] = [$nid, $config_path];
     }

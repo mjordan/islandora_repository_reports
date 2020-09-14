@@ -21,8 +21,15 @@ function islandora_repository_reports_bagger_form_islandora_repository_reports_a
     '#type' => 'textfield',
     '#size' => 50,
     '#title' => t('Islandora Bagger queue REST endpoint'),
-    '#description' => t('URL to the Islandora Bagger queue REST endpoint.'),
+    '#description' => t('URL to the Islandora Bagger queue REST endpoint. Used only when running Bagger in remote mode.'),
     '#default_value' => $config->get('islandora_repository_reports_bagger_queue_endpoint'),
+  ];
+  $form['bagger_settings']['islandora_repository_reports_bagger_queue_local_path'] = [
+    '#type' => 'textfield',
+    '#size' => 100,
+    '#title' => t("Path to queue file"),
+    '#description' => t("Absolute path to Islandora Bagger's queue file. Used only when running Bagger in local mode."),
+    '#default_value' => $config->get('islandora_repository_reports_bagger_queue_local_path'),
   ];
 
   $form['#submit'][] = 'islandora_repository_reports_bagger_settings_submit';
@@ -42,5 +49,6 @@ function islandora_repository_reports_bagger_settings_submit(array &$form, FormS
   $config_factory = \Drupal::configFactory();
   $config_factory->getEditable('islandora_repository_reports_bagger.settings')
     ->set('islandora_repository_reports_bagger_queue_endpoint', trim($form_state->getValue('islandora_repository_reports_bagger_queue_endpoint')))
+    ->set('islandora_repository_reports_bagger_queue_local_path', trim($form_state->getValue('islandora_repository_reports_bagger_queue_local_path')))
     ->save();
 }
