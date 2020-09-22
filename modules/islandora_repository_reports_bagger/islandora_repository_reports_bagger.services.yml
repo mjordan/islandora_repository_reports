@@ -1,3 +1,5 @@
 services:
   islandora_repository_reports.datasource.bagger_queue:
     class: Drupal\islandora_repository_reports_bagger\Plugin\DataSource\Queue
+  islandora_repository_reports.datasource.bagger_bags:
+    class: Drupal\islandora_repository_reports_bagger\Plugin\DataSource\Bags
