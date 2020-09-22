@@ -1,14 +1,18 @@
 # Islandora Bagger Data Source Plugin for Islandora Repository Reports
 
-Data source plugin for the Islandora Repository Reports module that shows number of items in the Islandora Bagger queue.
+Data source plugins for the Islandora Repository Reports module that:
+
+* show number of items in the Islandora Bagger queue
+* provide a report on the number of Bags registered with Islandora Bagger Integration, broken down by creating user, IP address of Islandora Bagger, hash algorithm, and Bagit version. In order for a Bag to be registered, the configuration file used to create it must contain `register_bags_with_islandora: true` (see Islandora Bagger's [README](https://github.com/mjordan/islandora_bagger) for more information.
 
 ## Requirements
 
 * [Islandora Repository Reports](https://github.com/mjordan/islandora_repository_reports)
+* [Islandora Bagger Integration](https://github.com/mjordan/islandora_bagger_integration)
 
 ## Overview
 
-This module renders the Islandora Bagger queue in a list.
+This module renders the Islandora Bagger queue in a list. The other report, which provides a breakdown by creating user, IP address, etc., is a pie chart.
 
 ## Installation
 

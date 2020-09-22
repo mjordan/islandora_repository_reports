@@ -20,7 +20,7 @@ class Bags implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return t('Bags');
+    return t('Bags registered with Islandora Bagger Integration');
   }
 
   /**
@@ -41,7 +41,7 @@ class Bags implements IslandoraRepositoryReportsDataSourceInterface {
    * {@inheritdoc}
    */
   public function getChartTitle($total) {
-    return t('@total Bags.', ['@total' => $total]);
+    return t('@total Bags registered with Islandora Bagger Integration.', ['@total' => $total]);
   }
 
   /**
@@ -56,12 +56,12 @@ class Bags implements IslandoraRepositoryReportsDataSourceInterface {
 
     $counts = [];
     foreach ($result as $bag) {
-      $counts[$bag->{$bag_report_type}] = $bag_report_type->count;
+      $counts[$bag->{$bag_report_type}] = $bag->count;
     }
 
     $this->csvData = [[$bag_report_type, 'Occurances']];
     foreach ($counts as $type => $count) {
-      $this->csvData[] = [$type, $count. ' Bags'];
+      $this->csvData[] = [$type, $count . ' Bags'];
     }
 
     return $counts;
