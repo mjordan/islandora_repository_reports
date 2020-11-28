@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Install file for the islandora_repository_reports_search module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function islandora_repository_reports_searches_schema() {
+  $schema = [];
+
+  $schema['islandora_repository_reports_searches'] = [
+    'description' => 'Stores the request URLs and hit count for searches.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary key.',
+      ],
+      'ip_address' => [
+        'description' => 'The IP address of the client.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+      ],
+      'hostname' => [
+        'description' => 'The hostname of the client, if available.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'created' => [
+        'description' => 'A timestamp indicating when the record was created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'search_request' => [
+        'description' => 'The request URL.',
+        'type' => 'text',
+        'not null' => TRUE,
+      ],
+      'hits' => [
+        'description' => 'The number of items in the result set for the search.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  return $schema;
+}
