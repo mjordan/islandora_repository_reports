@@ -59,11 +59,6 @@ function _islandora_repository_reports_searches_form_islandora_repository_report
  * Implements hook_search_api_results_alter().
  */
 function islandora_repository_reports_searches_search_api_results_alter(ResultSetInterface &$results) {
-  $current_uri = \Drupal::request()->getRequestUri();
-
-  $items = $results->getResultItems();
-  $num_results = count($items); // <- This is not the total number of results, it's the number in the current page of results.
-
   $ip_address = \Drupal::request()->getClientIp();
   // Get client's hostname when there is one, otherwise use IP address.
   $hostname = gethostbyaddr($ip_address);
@@ -75,8 +70,8 @@ function islandora_repository_reports_searches_search_api_results_alter(ResultSe
       'ip_address' => $ip_address,
       'hostname' => $hostname,
       'created' => \Drupal::time()->getRequestTime(),
-      'search_request' => $current_uri,
-      'hits' => $num_results,
+      'search_request' => \Drupal::request()->getRequestUri(),
+      'hits' => $results->getResultCount(),
     ])
     ->execute();
 }
