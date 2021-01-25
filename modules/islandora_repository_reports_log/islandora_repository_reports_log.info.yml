@@ -1,5 +1,5 @@
 name: 'Islandora Repository Reports plugin for the Drupal System Log'
-description: "Provides a plugin for the Islandora Repository Reporst module that visualizes the Drupal system log."
+description: "Provides a plugin for the Islandora Repository Reports module that visualizes the Drupal system log."
 type: module
 package: Islandora
 core: 8.x
