@@ -1,5 +1,5 @@
 name: 'Islandora Repository Reports Examples'
-description: "Provides example data source plugins for the Islandora Repository Reporst module."
+description: "Provides example data source plugins for the Islandora Repository Reports module."
 type: module
 package: Islandora
 core: 8.x
