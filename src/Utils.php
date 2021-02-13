@@ -79,7 +79,7 @@ class Utils {
    *   The default value of the element.
    */
   public function getFormElementDefault($form_element, $default_value) {
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($tempstore = \Drupal::service('tempstore.private')->get('islandora_repository_reports')) {
       if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
         $default_value = $form_state->getValue($form_element);
       }
@@ -100,7 +100,7 @@ class Utils {
    */
   public function tempstoreIsStale($key = 'islandora_repository_reports_report_type', $bb = 60) {
     $tempstore_age = 0;
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($tempstore = \Drupal::service('tempstore.private')->get('islandora_repository_reports')) {
       if (is_null($tempstore->getMetadata($key))) {
         return TRUE;
       }
@@ -142,7 +142,7 @@ class Utils {
    */
   public function getSelectedContentTypes() {
     $content_types = [];
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($tempstore = \Drupal::service('tempstore.private')->get('islandora_repository_reports')) {
       if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
         $content_types = $form_state->getValue('islandora_repository_reports_content_types');
       }
@@ -542,7 +542,7 @@ class Utils {
    *   An array of arrays corresponding to CSV records.
    */
   public function writeCsvFile($report_type, $csv_data) {
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($tempstore = \Drupal::service('tempstore.private')->get('islandora_repository_reports')) {
       if ($tempstore->get('islandora_repository_reports_generate_csv')) {
         $default_schema = \Drupal::config('system.file')->get('default_scheme');
         $files_path = \Drupal::service('file_system')->realpath($default_schema . "://");

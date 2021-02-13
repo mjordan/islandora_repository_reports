@@ -55,7 +55,7 @@ class Vocab implements IslandoraRepositoryReportsDataSourceInterface {
 
     $selected_content_type = '';
     $selected_vocabulary = '';
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($tempstore = \Drupal::service('tempstore.private')->get('islandora_repository_reports')) {
       if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
         // Even though the content type form widget is checkboxes, we can
         // only use one value in the query below, so we take the first one
