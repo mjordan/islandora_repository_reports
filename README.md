@@ -48,12 +48,9 @@ Islandora Repository Reports is ready for for Drupal 9.
 
 ## Installation
 
-1. Clone this repo into your Islandora's `drupal/web/modules/contrib` directory.
-1. Enable the module either under the "Admin > Extend" menu or by running `drush en -y islandora_repository_reports`.
-
-Or using Composer:
-
+1. Clone this repo into your Islandora's `drupal/web/modules/contrib` directory or via Composer: 
 `composer require mjordan/islandora_repository_reports`
+1. Enable the module either under the "Admin > Extend" menu or by running `drush en -y islandora_repository_reports`.
 
 ## Configuration
 
