@@ -76,9 +76,16 @@ class Vocab implements IslandoraRepositoryReportsDataSourceInterface {
     $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', $selected_content_type_id);
     foreach ($field_definitions as $field_name => $field_definition) {
       $settings = $field_definition->getSettings();
+      // For 'default:taxonomy_term' taxonomy reference fields.
       if (array_key_exists('handler', $settings) && $settings['handler'] == 'default:taxonomy_term') {
         // Target_bundles is an array, so get the first vocabulary listed.
         $linked_vocab = array_shift($settings['handler_settings']['target_bundles']);
+        $field_vocab_pairs[$linked_vocab] = $field_name;
+      }
+      // For 'views' taxonomy reference fields.
+      if (array_key_exists('handler', $settings) && $settings['handler'] == 'views') {
+        $linked_vocab = $form_state->getValue('islandora_repository_reports_vocabulary');
+	// We can't get $linked_vocab from the $settings, so we'll need to get it from the form.
         $field_vocab_pairs[$linked_vocab] = $field_name;
       }
     }
