@@ -23,7 +23,7 @@ class UtilsTest extends KernelTestBase {
    *
    * @var array
    */
-  public static $modules = ['islandora_repository_reports'];
+  protected static $modules = ['islandora_repository_reports'];
 
   /**
    * Tests generating random colors.
