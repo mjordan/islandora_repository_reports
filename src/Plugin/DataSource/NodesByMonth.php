@@ -48,8 +48,10 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
   public function getData() {
     $utilities = \Drupal::service('islandora_repository_reports.utilities');
     $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_start', '');
+    $start_of_range = strlen($start_of_range) ? $start_of_range : $utilities->defaultStartDate;
     $start_of_range = trim($start_of_range);
     $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_end', '');
+    $end_of_range = strlen($end_of_range) ? $end_of_range : $utilities->defaultEndDate;
     $end_of_range = trim($end_of_range);
 
     $database = \Drupal::database();
@@ -66,7 +68,7 @@ class NodesByMonth implements IslandoraRepositoryReportsDataSourceInterface {
     $created_counts = [];
     foreach ($result as $row) {
       $label = date("Y-m", $row->created);
-      if ($label >= $start_of_range) {
+      if ($label >= $start_of_range && $label <= $end_of_range) {
         if (array_key_exists($label, $created_counts)) {
           $created_counts[$label]++;
         }

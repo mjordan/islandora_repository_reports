@@ -1,0 +1,3 @@
+services:
+  islandora_repository_reports.datasource.collection_usage:
+    class: Drupal\islandora_repository_reports_collection_usage\Plugin\DataSource\CollectionUsage

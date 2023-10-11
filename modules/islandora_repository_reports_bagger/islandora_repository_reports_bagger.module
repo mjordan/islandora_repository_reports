@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * @file
+ * Module file for the Islandora Repository Reports Bagger Report module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function islandora_repository_reports_bagger_form_islandora_repository_reports_admin_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $config = \Drupal::config('islandora_repository_reports_bagger.settings');
+
+  $form['bagger_settings'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Islandora Bagger report settings'),
+  ];
+  $form['bagger_settings']['islandora_repository_reports_bagger_queue_endpoint'] = [
+    '#type' => 'textfield',
+    '#size' => 50,
+    '#title' => t('Islandora Bagger queue REST endpoint'),
+    '#description' => t('URL to the Islandora Bagger queue REST endpoint. Used only when running Bagger in remote mode.'),
+    '#default_value' => $config->get('islandora_repository_reports_bagger_queue_endpoint'),
+  ];
+  $form['bagger_settings']['islandora_repository_reports_bagger_queue_local_path'] = [
+    '#type' => 'textfield',
+    '#size' => 100,
+    '#title' => t("Path to queue file"),
+    '#description' => t("Absolute path to Islandora Bagger's queue file. Used only when running Bagger in local mode."),
+    '#default_value' => $config->get('islandora_repository_reports_bagger_queue_local_path'),
+  ];
+
+  $form['#submit'][] = 'islandora_repository_reports_bagger_settings_submit';
+}
+
+/**
+ * Submit callback.
+ *
+ * Saves the values of fields defined in the form alter hook above.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function islandora_repository_reports_bagger_settings_submit(array &$form, FormStateInterface $form_state) {
+  $config_factory = \Drupal::configFactory();
+  $config_factory->getEditable('islandora_repository_reports_bagger.settings')
+    ->set('islandora_repository_reports_bagger_queue_endpoint', trim($form_state->getValue('islandora_repository_reports_bagger_queue_endpoint')))
+    ->set('islandora_repository_reports_bagger_queue_local_path', trim($form_state->getValue('islandora_repository_reports_bagger_queue_local_path')))
+    ->save();
+}
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function islandora_repository_reports_bagger_form_islandora_repository_reports_report_selector_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#attached']['library'][] = 'islandora_repository_reports/islandora_repository_reports_loading_message';
+  $utilities = \Drupal::service('islandora_repository_reports.utilities');
+
+  $bag_report_type = $utilities->getFormElementDefault('islandora_repository_reports_bagger_report_type', 'hash_algorithm,');
+
+  $form['islandora_repository_reports_bagger_report_type'] = [
+    '#type' => 'select',
+    '#weight' => 0,
+    '#title' => t('Group Bags by'),
+    '#default_value' => $bag_report_type,
+    '#options' => [
+      'user' => t('User'),
+      'ip_address' => t('IP address'),
+      'hash_algorithm' => t('Hash algorithm'),
+      'bagit_version' => t('Bagit version'),
+    ],
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'bagger_bags'],
+      ],
+    ],
+  ];
+}

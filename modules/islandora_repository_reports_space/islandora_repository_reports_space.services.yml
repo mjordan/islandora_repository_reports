@@ -1,3 +1,0 @@
-services:
-  islandora_repository_reports.datasource.space:
-    class: Drupal\islandora_repository_reports_space\Plugin\DataSource\PeopleInSpace

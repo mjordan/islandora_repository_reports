@@ -69,7 +69,7 @@ function template_preprocess_islandora_repository_reports_chart(&$variables) {
 
   if ($variables['show_csv_link']) {
     $default_schema = \Drupal::config('system.file')->get('default_scheme');
-    $files_path = \Drupal::service('file_system')->realpath(default_schema . "://");
+    $files_path = \Drupal::service('file_system')->realpath($default_schema . "://");
     $filename = 'islandora_repository_reports_' . $report_type . '.csv';
     $report_url = \Drupal::service('file_url_generator')->generateAbsoluteString($default_schema . '://' . $filename);
     $variables['csv_url'] = $report_url;
@@ -163,7 +163,43 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
     ],
   ];
 
-  // Date range widgets for some reports.
+  // Date (month) range elements for the Disk Usage By Month report.
+  $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_disk_usage_by_month_range_start', '');
+  $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_disk_usage_by_month_range_end', '');
+
+  $form['islandora_repository_reports_disk_usage_by_month_range_start'] = [
+    '#type' => 'textfield',
+    '#weight' => 0,
+    '#size' => 10,
+    '#title' => t('Start date'),
+    '#default_value' => $start_of_range,
+    '#placeholder' => 'yyyy-mm',
+    '#description' => t('Limit report to media created in or after the specified month. Leave empty to include all months up to end date.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'disk_usage_by_month'],
+      ],
+    ],
+  ];
+
+  $form['islandora_repository_reports_disk_usage_by_month_range_end'] = [
+    '#type' => 'textfield',
+    '#weight' => 0,
+    '#size' => 10,
+    '#title' => t('End date'),
+    '#placeholder' => 'yyyy-mm',
+    '#default_value' => $end_of_range,
+    '#description' => t('Limit report to media created up to and including the specified month. Leave empty to include all months after start date.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'disk_usage_by_month'],
+      ],
+    ],
+  ];
+
+  // Date range widgets for some reports. Can be reused by other modules if
+  // their report describes nodes; otherwise (like the OAI usage report)
+  // they need to supply their own date range form elements.
   $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_start', '');
   $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_end', '');
 
@@ -181,6 +217,7 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
           ['value' => 'nodes_by_month'],
           ['value' => 'genre'],
           ['value' => 'vocab'],
+          ['value' => 'field_value'],
         ],
       ],
     ],
@@ -200,7 +237,24 @@ function islandora_repository_reports_form_islandora_repository_reports_report_s
           ['value' => 'nodes_by_month'],
           ['value' => 'genre'],
           ['value' => 'vocab'],
+          ['value' => 'field_value'],
         ],
+      ],
+    ],
+  ];
+
+  $field_values_field_name = $utilities->getFormElementDefault('islandora_repository_reports_field_values_field_name', '');
+  $form['islandora_repository_reports_field_values_field_name'] = [
+    '#type' => 'textfield',
+    '#weight' => -1,
+    '#size' => 60,
+    '#title' => t('Field machine name'),
+    '#autocomplete_route_name' => 'islandora_repository_reports.field_list_autcomplete',
+    '#default_value' => $field_values_field_name,
+    '#description' => t("Enter the field's label to find its machine name. Note that only string/text fields are available."),
+    '#states' => [
+      'visible' => [
+        ':input[name="islandora_repository_reports_report_type"]' => ['value' => 'field_value'],
       ],
     ],
   ];

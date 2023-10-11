@@ -1,0 +1,9 @@
+name: 'Islandora Repository Reports OAI-PMH Usage'
+description: "Provides a report on OAI-PMH harvesting for the Islandora Repository Reports module."
+type: module
+package: Islandora
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - islandora_repository_reports
+  - rest_oai_pmh

@@ -18,7 +18,7 @@ class IslandoraRepositoryReportsController extends ControllerBase {
    *   Markup used by the chart.
    */
   public function main() {
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($tempstore = \Drupal::service('tempstore.private')->get('islandora_repository_reports')) {
       $show_csv_link = $tempstore->get('islandora_repository_reports_generate_csv');
     }
     $form = \Drupal::formBuilder()->getForm('Drupal\islandora_repository_reports\Plugin\Form\IslandoraRepositoryReportsReportSelectorForm');

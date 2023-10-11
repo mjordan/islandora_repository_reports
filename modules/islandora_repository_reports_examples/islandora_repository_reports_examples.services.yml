@@ -1,0 +1,14 @@
+services:
+  # Service IDs must start with "islandora_repository_reports.datasource."
+  # for the plugin to show up in the report selection form.
+  islandora_repository_reports.datasource.flavors:
+    class: Drupal\islandora_repository_reports_examples\Plugin\DataSource\Flavors
+  islandora_repository_reports.datasource.space:
+    class: Drupal\islandora_repository_reports_examples\Plugin\DataSource\PeopleInSpace
+  islandora_repository_reports.datasource.sample_table:
+    class: Drupal\islandora_repository_reports_examples\Plugin\DataSource\SampleTable
+  islandora_repository_reports.datasource.random:
+    class: Drupal\islandora_repository_reports_examples\Plugin\DataSource\Random
+  islandora_repository_reports.datasource.random_bar:
+    class: Drupal\islandora_repository_reports_examples\Plugin\DataSource\RandomBar
+

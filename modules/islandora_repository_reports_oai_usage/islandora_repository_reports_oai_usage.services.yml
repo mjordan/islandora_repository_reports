@@ -1,0 +1,8 @@
+services:
+  islandora_repository_reports.datasource.oai_usage:
+    class: Drupal\islandora_repository_reports_oai_usage\Plugin\DataSource\OaiUsage
+  islandora_repository_reports.middleware.oai_usage:
+    class: Drupal\islandora_repository_reports_oai_usage\OaiUsageTrackerMiddleware
+    arguments: ['@kernel']
+    tags:
+      - { name: http_middleware, priority: 400 }

@@ -2,7 +2,7 @@
 
 A variety of basic reports are bundled with this module, but developers can add additional reports by writing submodules that provide data source plugins. Submodule can add functionality such as custom input form as well. In addition, submodules can package reports that are specific to a site (or shared!), and mangage dependencies on third-part Drupal modules.
 
-The most typical source for report data is Drupal's database, but although source plugins can get their data from Solr, Blazegraph, or log files on disk (for example). Sample submodules are available in the 'modules' subdirectory:
+The most typical source for report data is Drupal's database, but although source plugins can get their data from Solr, Blazegraph, or log files on disk (for example). The examples submodule provides several sample plugins:
 
 * "Flavors", a very simple example module for developers
 * "People currently in space", which demonstrates how a report can get data from a remote API
@@ -113,6 +113,6 @@ Any submodule that adds its own form elements, or removes an existing form eleme
 
 Submodules can add their own configuration settings to the form at `admin/config/islandora/islandora_repository_reports` by implementing `hook_form_form_id_alter()`. The same hook implementation that adds fields to the config settings form should define its own configuration using `\Drupal::config('mysubmodule.settings')` and add a custom submit handler; in that hanlder, an instance of `\Drupal::configFactory('mysubmodule.settings')` can then be used to save the form values. See `islandora_repository_reports_activemq.module` for a working example.
 
-### Pregenerating your data
+## Pregenerating your data
 
 The Drush command provided with this module will automatically detect your data source plugin (another useful benefit of implementing plugins as Drupal services). You do not need to do anything for this to happen.

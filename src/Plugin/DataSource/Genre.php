@@ -52,8 +52,10 @@ class Genre implements IslandoraRepositoryReportsDataSourceInterface {
     }
 
     $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_start', '');
+    $start_of_range = strlen($start_of_range) ? $start_of_range : $utilities->defaultStartDate;
     $start_of_range = trim($start_of_range);
     $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_end', '');
+    $end_of_range = strlen($end_of_range) ? $end_of_range : $utilities->defaultEndDate;
     $end_of_range = trim($end_of_range);
 
     $entity_type_manager = \Drupal::service('entity_type.manager');

@@ -1,5 +1,0 @@
-services:
-  # Service IDs must start with "islandora_repository_reports.datasource."
-  # for the plugin to show up in the report selection form.
-  islandora_repository_reports.datasource.flavors:
-    class: Drupal\islandora_repository_reports_datasource_sample\Plugin\DataSource\Flavors

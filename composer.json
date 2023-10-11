@@ -1,0 +1,18 @@
+{
+  "name": "mjordan/islandora_repository_reports",
+  "description": "Drupal 8/9 module that provides a collection of reports on various aspects of an Islandora repository.",
+  "type": "drupal-module",
+  "keywords": ["Drupal", "Islandora"],
+  "homepage": "https://github.com/mjordan/islandora_repository_reports",
+  "license": "GPL-2.0+",
+  "support": {
+    "issues": "https://github.com/mjordan/islandora_repository_reports/issues"
+  },
+  "authors": [
+    {
+      "name": "Mark Jordan",
+      "email": "mjordan@sfu.ca",
+      "role": "Maintainer"
+    }
+  ]
+}

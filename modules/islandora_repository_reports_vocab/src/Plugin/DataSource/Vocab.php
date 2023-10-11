@@ -55,7 +55,7 @@ class Vocab implements IslandoraRepositoryReportsDataSourceInterface {
 
     $selected_content_type = '';
     $selected_vocabulary = '';
-    if ($tempstore = \Drupal::service('user.private_tempstore')->get('islandora_repository_reports')) {
+    if ($tempstore = \Drupal::service('tempstore.private')->get('islandora_repository_reports')) {
       if ($form_state = $tempstore->get('islandora_repository_reports_report_form_values')) {
         // Even though the content type form widget is checkboxes, we can
         // only use one value in the query below, so we take the first one
@@ -66,17 +66,26 @@ class Vocab implements IslandoraRepositoryReportsDataSourceInterface {
     }
 
     $start_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_start', '');
+    $start_of_range = strlen($start_of_range) ? $start_of_range : $utilities->defaultStartDate;
     $start_of_range = trim($start_of_range);
     $end_of_range = $utilities->getFormElementDefault('islandora_repository_reports_nodes_by_month_range_end', '');
+    $end_of_range = strlen($end_of_range) ? $end_of_range : $utilities->defaultEndDate;
     $end_of_range = trim($end_of_range);
 
     $field_vocab_pairs = [];
     $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', $selected_content_type_id);
     foreach ($field_definitions as $field_name => $field_definition) {
       $settings = $field_definition->getSettings();
+      // For 'default:taxonomy_term' taxonomy reference fields.
       if (array_key_exists('handler', $settings) && $settings['handler'] == 'default:taxonomy_term') {
         // Target_bundles is an array, so get the first vocabulary listed.
         $linked_vocab = array_shift($settings['handler_settings']['target_bundles']);
+        $field_vocab_pairs[$linked_vocab] = $field_name;
+      }
+      // For 'views' taxonomy reference fields.
+      if (array_key_exists('handler', $settings) && $settings['handler'] == 'views') {
+        $linked_vocab = $form_state->getValue('islandora_repository_reports_vocabulary');
+	// We can't get $linked_vocab from the $settings, so we'll need to get it from the form.
         $field_vocab_pairs[$linked_vocab] = $field_name;
       }
     }
