@@ -56,6 +56,7 @@ class CollectionUsage implements IslandoraRepositoryReportsDataSourceInterface {
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $node_storage = $entity_type_manager->getStorage('node');
     $result = $node_storage->getAggregateQuery()
+      ->accessCheck(TRUE)
       ->groupBy('field_member_of')
       ->aggregate('field_member_of', 'COUNT')
       ->condition('type', $utilities->getSelectedContentTypes(), 'IN')
@@ -68,13 +69,16 @@ class CollectionUsage implements IslandoraRepositoryReportsDataSourceInterface {
             // Get all nodes that have the current collection node ID as
             // a value in field_member_of.
             $node_ids_query = \Drupal::entityQuery('node')
+              ->accessCheck(TRUE)
               ->condition('field_member_of', $collection['field_member_of_target_id']);
             $node_ids_result = $node_ids_query->execute();
             $nids = array_values($node_ids_result);
             $collection_views = 0;
             foreach ($nids as $nid) {
               if ($nid) {
-                $node_views = \Drupal::service('islandora_matomo.default')->getViewsForNode(['nid' => $nid, 'end_date' => date('Y-m-d')]);
+                $node_views = \Drupal::service('islandora_matomo.default')->getViewsForNode(
+                  ['nid' => $nid, 'end_date' => date('Y-m-d')]
+                );
                 $collection_views = $collection_views + $node_views;
               }
             }

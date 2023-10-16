@@ -14,6 +14,11 @@ class ReportsTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'islandora_repository_reports',
     'islandora_repository_reports_datasource_random_bar',

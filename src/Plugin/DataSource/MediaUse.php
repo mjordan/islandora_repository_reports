@@ -51,6 +51,7 @@ class MediaUse implements IslandoraRepositoryReportsDataSourceInterface {
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $media_storage = $entity_type_manager->getStorage('media');
     $result = $media_storage->getAggregateQuery()
+      ->accessCheck(TRUE)
       ->groupBy('field_media_use')
       ->aggregate('field_media_use', 'COUNT')
       ->execute();
