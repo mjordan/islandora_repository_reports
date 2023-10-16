@@ -2,8 +2,7 @@ name: 'Islandora Repository Reports Bagger'
 description: "Provides a report on the Islandora Bagger queue using the Islandora Repository Reports module."
 type: module
 package: Islandora
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 dependencies:
   - islandora_repository_reports
   - islandora_bagger_integration

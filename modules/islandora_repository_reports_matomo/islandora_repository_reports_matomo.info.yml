@@ -2,8 +2,7 @@ name: 'Islandora Repository Reports Matomo'
 description: "Provides Matomo reports."
 type: module
 package: Islandora
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 dependencies:
   - matomo
   - islandora_repository_reports
