@@ -54,6 +54,7 @@ class Collection implements IslandoraRepositoryReportsDataSourceInterface {
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $node_storage = $entity_type_manager->getStorage('node');
     $result = $node_storage->getAggregateQuery()
+      ->accessCheck(TRUE)
       ->groupBy('field_member_of')
       ->aggregate('field_member_of', 'COUNT')
       ->condition('type', $utilities->getSelectedContentTypes(), 'IN')

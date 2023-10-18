@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A Drupal 9 module that provides a collection of reports on various aspects of an Islandora repository. This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration. It is not a replacment for Views.
+A Drupal 9/10 module that provides a collection of reports on various aspects of an Islandora repository. This module's goal is to provide Islandora repository administrators with a set of visual reports that work with little, or no, configuration. It is not a replacment for Views.
 
 Reports included in this module are:
 

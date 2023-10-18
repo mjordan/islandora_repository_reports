@@ -10,7 +10,7 @@ islandora_repository_reports_loading_message:
     js/islandora_repository_reports_loading_message.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
 
 islandora_repository_reports_chart:
   version: 1.x
@@ -19,5 +19,5 @@ islandora_repository_reports_chart:
     js/islandora_repository_reports_chart.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupalSettings

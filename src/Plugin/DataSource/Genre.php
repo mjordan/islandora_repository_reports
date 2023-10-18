@@ -61,6 +61,7 @@ class Genre implements IslandoraRepositoryReportsDataSourceInterface {
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $node_storage = $entity_type_manager->getStorage('node');
     $result = $node_storage->getAggregateQuery()
+      ->accessCheck(TRUE)
       ->groupBy('field_genre')
       ->aggregate('field_genre', 'COUNT')
       ->condition('type', $utilities->getSelectedContentTypes(), 'IN')

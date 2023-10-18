@@ -56,6 +56,7 @@ class MimeType implements IslandoraRepositoryReportsDataSourceInterface {
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $media_storage = $entity_type_manager->getStorage('media');
     $result = $media_storage->getAggregateQuery()
+      ->accessCheck(TRUE)
       ->groupBy('field_mime_type')
       ->aggregate('field_mime_type', 'COUNT')
       ->condition('field_media_use', $media_use_term_ids, 'IN')

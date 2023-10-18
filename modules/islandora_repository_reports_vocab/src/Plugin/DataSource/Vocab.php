@@ -85,7 +85,8 @@ class Vocab implements IslandoraRepositoryReportsDataSourceInterface {
       // For 'views' taxonomy reference fields.
       if (array_key_exists('handler', $settings) && $settings['handler'] == 'views') {
         $linked_vocab = $form_state->getValue('islandora_repository_reports_vocabulary');
-	// We can't get $linked_vocab from the $settings, so we'll need to get it from the form.
+        // We can't get $linked_vocab from the $settings, so we'll need
+        // to get it from the form.
         $field_vocab_pairs[$linked_vocab] = $field_name;
       }
     }
@@ -99,6 +100,7 @@ class Vocab implements IslandoraRepositoryReportsDataSourceInterface {
     $entity_type_manager = \Drupal::service('entity_type.manager');
     $node_storage = $entity_type_manager->getStorage('node');
     $result = $node_storage->getAggregateQuery()
+      ->accessCheck(TRUE)
       ->groupBy($target_field)
       ->aggregate($target_field, 'COUNT')
       ->condition('type', $utilities->getSelectedContentTypes(), 'IN')

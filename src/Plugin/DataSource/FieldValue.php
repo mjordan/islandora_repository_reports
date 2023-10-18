@@ -64,6 +64,7 @@ class FieldValue implements IslandoraRepositoryReportsDataSourceInterface {
 
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
     $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE)
       ->condition('type', $utilities->getSelectedContentTypes(), 'IN')
       ->condition('changed', $changed_date_range, 'BETWEEN');
     $nids = $query->execute();

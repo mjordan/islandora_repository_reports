@@ -14,7 +14,12 @@ class ReportsTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static $modules = [
     'islandora_repository_reports',
     'islandora_repository_reports_datasource_random_bar',
   ];
@@ -22,7 +27,7 @@ class ReportsTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Create a user with permissions to manage.
