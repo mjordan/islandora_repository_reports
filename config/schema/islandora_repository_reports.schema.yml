@@ -4,11 +4,11 @@ islandora_repository_reports.settings:
   label: 'Islandora Repository Reports admin settings'
   mapping:
     islandora_repository_reports_randomize_pie_chart_colors:
-      type: integer
-      label: 'Cache report data'
-    islandora_repository_reports_cache_report_data:
-      type: integer
+      type: boolean
       label: 'Randomize colors in pie charts'
+    islandora_repository_reports_cache_report_data:
+      type: boolean
+      label: 'Cache report data'
     islandora_repository_reports_bar_chart_color:
       type: string
       label: 'Bar color'
