@@ -34,7 +34,7 @@ class IslandoraRepositoryReportsSettingsForm extends ConfigFormBase {
     $form['islandora_repository_reports_cache_report_data'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Cache report data'),
-      '#default_value' => $config->get('islandora_repository_reports_cache_report_data'),
+      '#default_value' => (bool) $config->get('islandora_repository_reports_cache_report_data'),
       '#description' => $this->t('Generating data to populate charts can take a long time. Check this if you want to cache the data, or if you pregenerate your data using Drush.'),
     ];
     $form['islandora_repository_reports_pie_or_doughnut'] = [
@@ -46,7 +46,7 @@ class IslandoraRepositoryReportsSettingsForm extends ConfigFormBase {
     $form['islandora_repository_reports_randomize_pie_chart_colors'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Randomize colors in pie/doughnut charts'),
-      '#default_value' => $config->get('islandora_repository_reports_randomize_pie_chart_colors'),
+      '#default_value' => (bool) $config->get('islandora_repository_reports_randomize_pie_chart_colors'),
       '#description' => $this->t('Check to randomize colors used in pie charts. Amusing to look at, but does not guarantee large differences in colors. Uncheck to use default colors.'),
     ];
     $form['islandora_repository_reports_bar_chart_color'] = [
