@@ -4,6 +4,7 @@ namespace Drupal\islandora_repository_reports_oai_usage;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Drupal\Core\Database\Database;
 
 /**
@@ -30,7 +31,7 @@ class OaiUsageTrackerMiddleware implements HttpKernelInterface {
   /**
    * {@inheritDoc}
    */
-  public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
+  public function handle(Request $request, $type = self::MAIN_REQUEST, bool $catch = TRUE): Response {
     $current_uri = $request->getRequestUri();
     // @todo: Use the REST OAI-PMH module's repository_path config value.
     // \Drupal::config('rest_oai_pmh.settings')->get('repository_path')
